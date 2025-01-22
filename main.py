@@ -1,6 +1,9 @@
 import os
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
+from typing import List, Tuple
+from experts import PROMPTS
+from pydantic import BaseModel, Field
 
 load_dotenv()
 
@@ -9,11 +12,22 @@ llm = ChatOpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
 
-message = [
-    ("system", "You are a chatbot."),
-    ("human", "What is your name?"),
+test = "Dữ liệu là 1 file csv gồm các cột: 'doanh số', 'lợi nhuận', 'chi phí'."
+
+message: List[Tuple[str, str]] = [
+    ("system", PROMPTS["preprocess"]["extractor"]),
+    ("human", test)
 ]
 
-response = llm.invoke(message)
+class Cleaner(BaseModel):
+    explanation: str = Field(..., title="Explanation", description="The explanation of the cleaning process.")
+    code: str = Field(..., title="Code", description="The code for cleaning the data.")
 
-print(response.content)
+bot = llm.with_structured_output(Cleaner, strict=True)
+
+response = bot.invoke(message)
+
+print(response.explanation)
+print(response.code)
+
+
