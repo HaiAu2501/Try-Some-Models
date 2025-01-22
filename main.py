@@ -15,7 +15,7 @@ llm = ChatOpenAI(
 test = "Dữ liệu là 1 file csv gồm các cột: 'doanh số', 'lợi nhuận', 'chi phí'."
 
 message: List[Tuple[str, str]] = [
-    ("system", PROMPTS["preprocess"]["extractor"]),
+    ("system", PROMPTS["preprocess"]["cleaner"]),
     ("human", test)
 ]
 
@@ -29,5 +29,3 @@ response = bot.invoke(message)
 
 print(response.explanation)
 print(response.code)
-
-
