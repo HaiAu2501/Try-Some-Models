@@ -44,3 +44,11 @@ source env/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+
+## 4. Sử dụng
+
+Trong môi trường ảo, chạy lệnh sau:
+
+```bash
+python main.py
+```
