@@ -2,7 +2,8 @@ langchain==0.3.15
 langchain-openai==0.3.1
 langgraph==0.2.65
 langsmith==0.2.11
-langchain_community==0.3.15
+langchain-community==0.3.15
+langchain-experimental==0.3.4
 openai==1.58.1
 pandas==2.2.1
 python-dotenv==1.0.1
