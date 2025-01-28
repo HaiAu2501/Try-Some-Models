@@ -6,7 +6,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PREPROCESS_PROMPTS: Dict[str, str] = {
     "cleaner": open(os.path.join(BASE_DIR, "preprocess/cleaner.txt"), "r", encoding="utf-8").read(),
     "transformer": open(os.path.join(BASE_DIR, "preprocess/transformer.txt"), "r", encoding="utf-8").read(),
-    "extractor": open(os.path.join(BASE_DIR, "preprocess/extractor.txt"), "r", encoding="utf-8").read()
+    "extractor": open(os.path.join(BASE_DIR, "preprocess/extractor.txt"), "r", encoding="utf-8").read(),
+    "reviewer": open(os.path.join(BASE_DIR, "preprocess/reviewer.txt"), "r", encoding="utf-8").read(),
 }
 
 ANALYZE_PROMPTS: Dict[str, str] = { 
