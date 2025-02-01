@@ -87,6 +87,7 @@ def transformer(state: State) -> State:
             python_repl.run(code)
             transformed_data = python_repl.globals["df"]
             state["processed_data"]["transformed"] = transformed_data.copy()
+
             state["cache"]["transformed"] = transformed_data
             state["review"]["transformer"] = response.explanation
             return state

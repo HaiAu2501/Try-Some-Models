@@ -1,15 +1,33 @@
 # DataFlow-2025
 
-## Mục lục
+## 📖 Mục lục
 
 - [1. Giới thiệu](#1-giới-thiệu)
+  - [1.1. Thành viên nhóm](#11-thành-viên-nhóm)
+  - [1.2. Tổng quan dự án](#12-tổng-quan-dự-án)
 - [2. Mô tả dự án](#2-mô-tả-dự-án)
+  - [2.1. Các công nghệ sử dụng](#21-các-công-nghệ-sử-dụng)
 - [3. Cài đặt](#3-cài-đặt)
 - [4. Sử dụng](#4-sử-dụng)
 
 ## 1. Giới thiệu
 
+### 1.1. Thành viên nhóm
+
+- Nguyễn Viết Tuấn Kiệt[^1] [^2]: Trưởng nhóm
+- Nguyễn Công Hùng[^1] [^3]: Thành viên
+- Tăng Trần Mạnh Hưng[^1] [^2]: Thành viên
+- Mai Lê Phú Quang[^1] [^2]: Thành viên
+
+[^1]: Trường Công nghệ Thông tin và Truyền thông - Đại học Bách Khoa Hà Nội
+[^2]: Chương trình tài năng - Khoa học máy tính
+[^3]: Khoa học máy tính
+
+### 1.2. Tổng quan dự án
+
 ## 2. Mô tả dự án
+
+### 2.1. Các công nghệ sử dụng
 
 ## 3. Cài đặt
 
