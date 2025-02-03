@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 import warnings
-from typing import TypedDict, List, Dict, Literal
+from typing import TypedDict, List, Dict, Literal, NotRequired
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
@@ -47,14 +47,39 @@ class State(TypedDict):
         max_attempts: Số lần thử tối đa.
     """
     data_description: str                                
-    goal: str                                            
-    explanations: Dict[Literal["cleaner", "extractor"], str]                  
-    messages: Dict[Literal["cleaner", "extractor", "reviewer"], List[BaseMessage]]
-    cache: str           
-    should_continue: bool            
-    current_step: Literal["cleaner", "extractor", "END"] 
-    attempt: int                                       
-    max_attempts: int
+    goal: str
+    messages: NotRequired[Dict[Literal["cleaner", "extractor", "reviewer"], List[BaseMessage]]]
+    should_continue: NotRequired[bool]
+    current_step: NotRequired[Literal["cleaner", "extractor", "END"]]
+    attempt: NotRequired[int]
+    max_attempts: NotRequired[int]                                                          
+
+def initiator(state: State) -> Dict:
+    """
+    Tác tử initiator chịu trách nhiệm khởi tạo workflow.
+    """
+    messages: Dict[Literal["cleaner", "extractor", "reviewer"], List[BaseMessage]] = {
+        "cleaner": [
+            SystemMessage(content=PROMPTS["preprocess"]["cleaner"]),
+        ],
+        "extractor": [
+            SystemMessage(content=PROMPTS["preprocess"]["extractor"])
+        ],
+        "reviewer": [
+            SystemMessage(content=PROMPTS["preprocess"]["reviewer"])
+        ],
+    }     
+    should_continue: bool = True            
+    current_step: Literal["cleaner", "extractor", "END"] = "cleaner"
+    attempt: int = 0    
+    max_attempts: int = 3
+    return {
+        "messages": messages,
+        "should_continue": should_continue,
+        "current_step": current_step,
+        "attempt": attempt,
+        "max_attempts": max_attempts
+    }
 
 def cleaner(state: State) -> Dict:
     """
@@ -72,11 +97,11 @@ def cleaner(state: State) -> Dict:
 
     response = coder_llm.invoke(messages)
     messages.append(AIMessage(content=response.json()))
+    state["messages"]["cleaner"] = messages
     return {
-        "messages": {"cleaner": messages},
-        "cache": response.code,
         "attempt": state["attempt"] + 1,
         "should_continue": True,
+        "current_step": "cleaner",
     }
 
 def extractor(state: State) -> Dict:
@@ -95,11 +120,11 @@ def extractor(state: State) -> Dict:
 
     response = coder_llm.invoke(messages)
     messages.append(AIMessage(content=response.json()))
+    state["messages"]["extractor"] = messages
     return {
-        "messages": {"extractor": messages},
-        "cache": response.code,
         "attempt": state["attempt"] + 1,
         "should_continue": True,
+        "current_step": "extractor",
     }
 
 def reviewer(state: State) -> Dict:
@@ -124,9 +149,8 @@ def reviewer(state: State) -> Dict:
 
     response = reviewer_llm.invoke(messages)
     messages.append(AIMessage(content=response.json()))
-
+    state["messages"]["reviewer"] = messages
     return {
-        "messages": {"reviewer": messages},
         "should_continue": response.should_continue,
     }
 
@@ -141,20 +165,22 @@ def router(state: State) -> Literal["cleaner", "extractor", "END"]:
     if state["should_continue"]:
         return state["current_step"]
     if not state["should_continue"]:
-        return {
-            "cleaner": "extractor",
-            "extractor": "END"
-        }[state["current_step"]]
+        if state["current_step"] == "cleaner":
+            return "extractor"
+        if state["current_step"] == "extractor":
+            return "END"
 
 workflow: StateGraph = StateGraph(State)
 
 # Add nodes
+workflow.add_node("initiator", initiator)
 workflow.add_node("cleaner", cleaner)
 workflow.add_node("extractor", extractor)
 workflow.add_node("reviewer", reviewer)
 
 # Add edges
-workflow.add_edge(START, "cleaner")
+workflow.add_edge(START, "initiator")
+workflow.add_edge("initiator", "cleaner")
 workflow.add_edge("cleaner", "reviewer")
 workflow.add_edge("extractor", "reviewer")
 workflow.add_conditional_edges("reviewer", router, {"cleaner": "cleaner", "extractor": "extractor", "END": END})
@@ -171,20 +197,6 @@ flow: CompiledStateGraph = workflow.compile()
 #         "- Consumer Price Index (CPI): Chỉ số giá tiêu dùng, dạng số thực (float)."
 #     ),
 #     goal="Phân tích dữ liệu để dự đoán tình hình kinh tế của các quốc gia.",
-#     explanations={},
-#     messages={
-#         "cleaner": [
-#             SystemMessage(content=PROMPTS["preprocess"]["cleaner"]),
-#         ],
-#         "extractor": [
-#             SystemMessage(content=PROMPTS["preprocess"]["extractor"])
-#         ],
-#         "reviewer": [
-#             SystemMessage(content=PROMPTS["preprocess"]["reviewer"])
-#         ],
-#     },
-#     should_continue=True,
-#     current_step="cleaner",
-#     attempt=0,
-#     max_attempts=3
 # )
+
+# final_state: State = flow.invoke(initial_state)
