@@ -31,34 +31,49 @@ llm = ChatOpenAI(model = "gpt-4o-mini", api_key = os.getenv("OPENAI_API_KEY"))
 coder_llm = llm.with_structured_output(Code, strict=True)
 reviewer_llm = llm.with_structured_output(Review, strict=True)
 
-class State(TypedDict):
+class InputState(TypedDict):
     """
-    Lưu trữ trạng thái của workflow.
+    Đầu vào của quy trình.
 
     Args:
         data_description: Mô tả về dữ liệu.
-        goal: Mục tiêu của workflow.
-        explanations: Giải thích về cách tiếp cận của cleaner và extractor.
+        goal: Mục tiêu của quy trình.
+    """
+    data_description: str
+    goal: str
+
+class OutputState(TypedDict):
+    """
+    Đầu ra của quy trình.
+
+    Args:
+        answers: Đoạn mã Python và giải thích của cleaner và extractor.
+    """
+    answers: Dict[Literal["cleaner", "extractor"], Code]
+
+class OverallState(InputState, OutputState):
+    """
+    Lưu trữ trạng thái trung gian của quy trình.
+
+    Args:
         messages: Danh sách các tin nhắn giữa hệ thống và người dùng.
-        cache: Dữ liệu cache.
         should_continue: True nếu muốn tiếp tục cải thiện phương pháp, ngược lại False.
         current_step: Bước hiện tại của workflow.
         attempt: Số lần thử.
         max_attempts: Số lần thử tối đa.
     """
-    data_description: str                                
-    goal: str
-    messages: NotRequired[Dict[Literal["cleaner", "extractor", "reviewer"], List[BaseMessage]]]
-    should_continue: NotRequired[bool]
-    current_step: NotRequired[Literal["cleaner", "extractor", "END"]]
-    attempt: NotRequired[int]
-    max_attempts: NotRequired[int]                                                          
+    # Process
+    messages: Dict[Literal["cleaner", "extractor", "reviewer"], List[BaseMessage]]
+    should_continue: bool
+    current_step: Literal["cleaner", "extractor", "END"]
+    attempt: int
+    max_attempts: int                               
 
-def initiator(state: State) -> Dict:
+def initiator(state: OverallState) -> Dict:
     """
     Tác tử initiator chịu trách nhiệm khởi tạo workflow.
     """
-    messages: Dict[Literal["cleaner", "extractor", "reviewer"], List[BaseMessage]] = {
+    state["messages"] = {
         "cleaner": [
             SystemMessage(content=PROMPTS["preprocess"]["cleaner"]),
         ],
@@ -69,19 +84,14 @@ def initiator(state: State) -> Dict:
             SystemMessage(content=PROMPTS["preprocess"]["reviewer"])
         ],
     }     
-    should_continue: bool = True            
-    current_step: Literal["cleaner", "extractor", "END"] = "cleaner"
-    attempt: int = 0    
-    max_attempts: int = 3
-    return {
-        "messages": messages,
-        "should_continue": should_continue,
-        "current_step": current_step,
-        "attempt": attempt,
-        "max_attempts": max_attempts
-    }
+    state["should_continue"] = True          
+    state["current_step"] = "cleaner"
+    state["attempt"] = 0
+    state["max_attempts"] = 3
+    state["answers"] = {}
+    return state
 
-def cleaner(state: State) -> Dict:
+def cleaner(state: OverallState) -> Dict:
     """
     Tác tử cleaner chịu trách nhiệm sinh code tiền xử lý dữ liệu thô.
     """
@@ -97,6 +107,7 @@ def cleaner(state: State) -> Dict:
 
     response = coder_llm.invoke(messages)
     messages.append(AIMessage(content=response.json()))
+    state["answers"]["cleaner"] = response
     state["messages"]["cleaner"] = messages
     return {
         "attempt": state["attempt"] + 1,
@@ -104,7 +115,7 @@ def cleaner(state: State) -> Dict:
         "current_step": "cleaner",
     }
 
-def extractor(state: State) -> Dict:
+def extractor(state: OverallState) -> Dict:
     """
     Tác tử extractor chịu trách nhiệm sinh code trích xuất thông tin từ dữ liệu đã được làm sạch.
     """
@@ -120,6 +131,7 @@ def extractor(state: State) -> Dict:
 
     response = coder_llm.invoke(messages)
     messages.append(AIMessage(content=response.json()))
+    state["answers"]["extractor"] = response
     state["messages"]["extractor"] = messages
     return {
         "attempt": state["attempt"] + 1,
@@ -127,7 +139,7 @@ def extractor(state: State) -> Dict:
         "current_step": "extractor",
     }
 
-def reviewer(state: State) -> Dict:
+def reviewer(state: OverallState) -> Dict:
     """
     Tác tử reviewer chịu trách nhiệm đánh giá và đưa ra phản hồi về code và phương pháp.
     """
@@ -154,7 +166,7 @@ def reviewer(state: State) -> Dict:
         "should_continue": response.should_continue,
     }
 
-def router(state: State) -> Literal["cleaner", "extractor", "END"]:
+def router(state: OverallState) -> Literal["cleaner", "extractor", "END"]:
     """
     Xác định node tiếp theo dựa trên đánh giá từ reviewer.
     Args:
@@ -170,7 +182,7 @@ def router(state: State) -> Literal["cleaner", "extractor", "END"]:
         if state["current_step"] == "extractor":
             return "END"
 
-workflow: StateGraph = StateGraph(State)
+workflow: StateGraph = StateGraph(OverallState, input=InputState, output=OutputState)
 
 # Add nodes
 workflow.add_node("initiator", initiator)
@@ -185,9 +197,9 @@ workflow.add_edge("cleaner", "reviewer")
 workflow.add_edge("extractor", "reviewer")
 workflow.add_conditional_edges("reviewer", router, {"cleaner": "cleaner", "extractor": "extractor", "END": END})
 
-flow: CompiledStateGraph = workflow.compile()
+graph: CompiledStateGraph = workflow.compile()
 
-# initial_state: State = State(
+# initial_state: InputState = InputState(
 #     data_description=(
 #         "Dữ liệu gồm 5 cột:\n"
 #         "- Country: Tên quốc gia, dạng chuỗi (string).\n"
@@ -199,4 +211,4 @@ flow: CompiledStateGraph = workflow.compile()
 #     goal="Phân tích dữ liệu để dự đoán tình hình kinh tế của các quốc gia.",
 # )
 
-# final_state: State = flow.invoke(initial_state)
+# final_state: OutputState = graph.invoke(initial_state)

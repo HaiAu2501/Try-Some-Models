@@ -3,7 +3,7 @@
         "."
     ],
     "graphs": {
-        "preprocessor": "./1.py:flow"
+        "preprocessor": "./1.py:graph"
     },
     "env": "./.env"
 }
