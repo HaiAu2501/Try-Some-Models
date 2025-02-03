@@ -1,0 +1,9 @@
+{
+    "dependencies": [
+        "."
+    ],
+    "graphs": {
+        "preprocessor": "./1.py:flow"
+    },
+    "env": "./.env"
+}

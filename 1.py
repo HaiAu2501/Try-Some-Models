@@ -16,7 +16,7 @@ from experts import PROMPTS
 load_dotenv()
 warnings.filterwarnings("ignore")
 
-class Preprocess(BaseModel):
+class Code(BaseModel):
     code: str = Field(..., title = "Code", description = "Đoạn mã Python.")
     explanation: str = Field(..., title = "Explanation", description = "Giải thích về cách tiếp cận.")
 
@@ -28,8 +28,8 @@ llm = ChatOpenAI(model = "gpt-4o-mini", api_key = os.getenv("OPENAI_API_KEY"))
 # llm = ChatOpenAI(model="gemini-2.0-flash-exp", api_key=os.getenv("GEMINI_API_KEY"), base_url=os.getenv("GEMINI_BASE_URL"))
 # llm = ChatOpenAI(model="gemini-exp-1206", api_key=os.getenv("GEMINI_API_KEY"), base_url=os.getenv("GEMINI_BASE_URL"))
 
-preprocessor = llm.with_structured_output(Preprocess, strict=True)
-critic = llm.with_structured_output(Review, strict=True)
+coder_llm = llm.with_structured_output(Code, strict=True)
+reviewer_llm = llm.with_structured_output(Review, strict=True)
 
 class State(TypedDict):
     """
@@ -40,6 +40,7 @@ class State(TypedDict):
         goal: Mục tiêu của workflow.
         explanations: Giải thích về cách tiếp cận của cleaner và extractor.
         messages: Danh sách các tin nhắn giữa hệ thống và người dùng.
+        cache: Dữ liệu cache.
         should_continue: True nếu muốn tiếp tục cải thiện phương pháp, ngược lại False.
         current_step: Bước hiện tại của workflow.
         attempt: Số lần thử.
@@ -48,28 +49,94 @@ class State(TypedDict):
     data_description: str                                
     goal: str                                            
     explanations: Dict[Literal["cleaner", "extractor"], str]                  
-    messages: Dict[Literal["cleaner", "extractor", "reviewer"], List[BaseMessage]]             
+    messages: Dict[Literal["cleaner", "extractor", "reviewer"], List[BaseMessage]]
+    cache: str           
     should_continue: bool            
     current_step: Literal["cleaner", "extractor", "END"] 
     attempt: int                                       
     max_attempts: int
 
 def cleaner(state: State) -> Dict:
-    return {}
+    """
+    Tác tử cleaner chịu trách nhiệm sinh code tiền xử lý dữ liệu thô.
+    """
+    messages = state["messages"]["cleaner"]
+    messages.append(
+        HumanMessage(
+            content = (
+                f"Mô tả dữ liệu: {state['data_description']}\n"
+                f"Mục tiêu: {state['goal']}"
+            )
+        )
+    )
+
+    response = coder_llm.invoke(messages)
+    messages.append(AIMessage(content=response.json()))
+    return {
+        "messages": {"cleaner": messages},
+        "cache": response.code,
+        "attempt": state["attempt"] + 1,
+        "should_continue": True,
+    }
 
 def extractor(state: State) -> Dict:
-    return {}
+    """
+    Tác tử extractor chịu trách nhiệm sinh code trích xuất thông tin từ dữ liệu đã được làm sạch.
+    """
+    messages = state["messages"]["extractor"]
+    messages.append(
+        HumanMessage(
+            content = (
+                f"Mô tả dữ liệu: {state['data_description']}\n"
+                f"Mục tiêu: {state['goal']}"
+            )
+        )
+    )
+
+    response = coder_llm.invoke(messages)
+    messages.append(AIMessage(content=response.json()))
+    return {
+        "messages": {"extractor": messages},
+        "cache": response.code,
+        "attempt": state["attempt"] + 1,
+        "should_continue": True,
+    }
 
 def reviewer(state: State) -> Dict:
-    return {}
+    """
+    Tác tử reviewer chịu trách nhiệm đánh giá và đưa ra phản hồi về code và phương pháp.
+    """
+    if state["attempt"] >= state["max_attempts"]:
+        return {
+            "attempt": 0,
+            "should_continue": False,
+        }
 
-def router(state: State) -> str:
+    messages = state["messages"]["reviewer"]
+    current_step = state["current_step"]
+    coder_messages = state["messages"][current_step][-1]
+    messages.append(coder_messages)
+    messages.append(
+        HumanMessage(
+            content="Đưa ra chỉ thị cải tiến cho đoạn code trên."
+        )
+    )
+
+    response = reviewer_llm.invoke(messages)
+    messages.append(AIMessage(content=response.json()))
+
+    return {
+        "messages": {"reviewer": messages},
+        "should_continue": response.should_continue,
+    }
+
+def router(state: State) -> Literal["cleaner", "extractor", "END"]:
     """
     Xác định node tiếp theo dựa trên đánh giá từ reviewer.
     Args:
         state (State): Trạng thái hiện tại.
     Returns:
-        str: Tên node tiếp theo ("cleaner", "transformer", "extractor" or "END").
+        str: Tên node tiếp theo ("cleaner", "extractor" or "END").
     """
     if state["should_continue"]:
         return state["current_step"]
@@ -90,37 +157,34 @@ workflow.add_node("reviewer", reviewer)
 workflow.add_edge(START, "cleaner")
 workflow.add_edge("cleaner", "reviewer")
 workflow.add_edge("extractor", "reviewer")
-workflow.add_conditional_edges(
-    "reviewer",
-    router,
-    {
-        "cleaner": "cleaner",
-        "extractor": "extractor",
-        "END": END
-    }
-)
+workflow.add_conditional_edges("reviewer", router, {"cleaner": "cleaner", "extractor": "extractor", "END": END})
 
 flow: CompiledStateGraph = workflow.compile()
 
-initial_state: State = State(
-    data_description="Dữ liệu là một bảng dữ liệu với các cột và hàng.",
-    goal="Tách dữ liệu thành các cột và hàng.",
-    explanations={},
-    messages={
-        "cleaner": [
-            SystemMessage(content=PROMPTS["preprocess"]["cleaner"])
-        ],
-        "extractor": [
-            SystemMessage(content=PROMPTS["preprocess"]["extractor"])
-        ],
-        "reviewer": [
-            SystemMessage(content=PROMPTS["preprocess"]["reviewer"])
-        ],
-    },
-    should_continue=True,
-    current_step="cleaner",
-    attempt=0,
-    max_attempts=3
-)
-
-final_state = flow.invoke(initial_state)
+# initial_state: State = State(
+#     data_description=(
+#         "Dữ liệu gồm 5 cột:\n"
+#         "- Country: Tên quốc gia, dạng chuỗi (string).\n"
+#         "- GDP Growth Rate: Tỷ lệ tăng trưởng GDP, dạng số thực (float).\n"
+#         "- Inflation Rate: Tỷ lệ lạm phát, dạng số thực (float).\n"
+#         "- Unemployment Rate: Tỷ lệ thất nghiệp, dạng số thực (float).\n"
+#         "- Consumer Price Index (CPI): Chỉ số giá tiêu dùng, dạng số thực (float)."
+#     ),
+#     goal="Phân tích dữ liệu để dự đoán tình hình kinh tế của các quốc gia.",
+#     explanations={},
+#     messages={
+#         "cleaner": [
+#             SystemMessage(content=PROMPTS["preprocess"]["cleaner"]),
+#         ],
+#         "extractor": [
+#             SystemMessage(content=PROMPTS["preprocess"]["extractor"])
+#         ],
+#         "reviewer": [
+#             SystemMessage(content=PROMPTS["preprocess"]["reviewer"])
+#         ],
+#     },
+#     should_continue=True,
+#     current_step="cleaner",
+#     attempt=0,
+#     max_attempts=3
+# )

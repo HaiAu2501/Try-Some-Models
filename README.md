@@ -7,6 +7,7 @@
   - [1.2. Tổng quan dự án](#12-tổng-quan-dự-án)
 - [2. Mô tả dự án](#2-mô-tả-dự-án)
   - [2.1. Các công nghệ sử dụng](#21-các-công-nghệ-sử-dụng)
+  - [2.2. Luồng thuật toán](#22-luồng-thuật-toán)
 - [3. Cài đặt](#3-cài-đặt)
 - [4. Sử dụng](#4-sử-dụng)
 
@@ -30,6 +31,8 @@
 ## 2. Mô tả dự án
 
 ### 2.1. Các công nghệ sử dụng
+
+### 2.2. Luồng thuật toán
 
 ## 3. Cài đặt
 

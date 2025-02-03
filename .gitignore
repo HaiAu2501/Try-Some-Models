@@ -4,3 +4,4 @@ graph/
 __pycache__/
 env/
 data/
+.langgraph_api/
