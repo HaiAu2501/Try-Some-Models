@@ -10,8 +10,13 @@ from sklearn.preprocessing import StandardScaler
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Load dữ liệu với đường dẫn đầy đủ
-df_train = pd.read_csv(os.path.join(BASE_DIR, '../data/train.csv'), parse_dates=['Date'])
-df_test = pd.read_csv(os.path.join(BASE_DIR, '../data/test.csv'), parse_dates=['Date'])
+df_train_origin = pd.read_csv(os.path.join(BASE_DIR, '../data/train.csv'), parse_dates=['Date'])
+df_test_origin = pd.read_csv(os.path.join(BASE_DIR, '../data/test.csv'), parse_dates=['Date'])
+df_geography_origin = pd.read_csv(os.path.join(BASE_DIR, '../data/geography.csv'))
+df_product_origin = pd.read_csv(os.path.join(BASE_DIR, '../data/product.csv'))
+
+df_train = df_train_origin.copy()
+df_test = df_test_origin.copy()
 
 df_train['Date'] = pd.to_datetime(df_train['Date'])
 df_test['Date'] = pd.to_datetime(df_test['Date'])
