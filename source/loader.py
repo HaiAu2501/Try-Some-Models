@@ -18,38 +18,18 @@ df_product_origin = pd.read_csv(os.path.join(BASE_DIR, '../data/product.csv'))
 df_train = df_train_origin.copy()
 df_test = df_test_origin.copy()
 
-df_train['Date'] = pd.to_datetime(df_train['Date'])
-df_test['Date'] = pd.to_datetime(df_test['Date'])
-
-# Lấy các cột cần thiết cho mô hình
-df_model = df_train[['Date', 'Units', 'Revenue']]
-df_test = df_test[['Date', 'Units', 'Revenue']]
-
-# Nhóm theo ngày và tính tổng số lượng bán (Units) và doanh thu (Revenue) mỗi ngày
-df_train = df_model.groupby('Date').agg({'Units': 'sum', 'Revenue': 'sum'}).reset_index()
-df_test = df_test.groupby('Date').agg({'Units': 'sum', 'Revenue': 'sum'}).reset_index()
-
-### XỬ LÝ DỮ LIỆU THIẾU ###
-# Tạo dãy ngày đầy đủ từ ngày nhỏ nhất đến ngày lớn nhất trong dữ liệu
-full_date_range = pd.date_range(start=df_train['Date'].min(), end=df_train['Date'].max(), freq='D')
-
-# Đặt cột Date làm index để dễ thao tác
-df_train.set_index('Date', inplace=True)
-
-# Reindex DataFrame với dãy ngày đầy đủ. Các ngày thiếu sẽ có giá trị NaN
-df_train = df_train.reindex(full_date_range)
-df_train.index.name = 'Date'
-
-# Sử dụng nội suy tuyến tính dựa trên thời gian để điền các giá trị thiếu
-df_train['Units'] = df_train['Units'].interpolate(method='time')
-df_train['Revenue'] = df_train['Revenue'].interpolate(method='time')
-
-# Trong trường hợp giá trị tại đầu hoặc cuối chuỗi vẫn là NaN, sử dụng forward/backward fill
-df_train['Units'] = df_train['Units'].ffill().bfill()
-df_train['Revenue'] = df_train['Revenue'].ffill().bfill()
-
-# Reset index để đưa Date trở lại làm cột thông thường
-df_train = df_train.reset_index()
+# XỬ LÝ DỮ LIỆU THIẾU (CHỈ ÁP DỤNG CHO TẬP TRAIN)
+def preprocess_missing_data(df):
+    df_copy = df.copy()
+    df_copy['Date'] = pd.to_datetime(df_copy['Date'])
+    full_date_range = pd.date_range(start=df_copy['Date'].min(), end=df_copy['Date'].max(), freq='D')
+    df_copy.set_index('Date', inplace=True)
+    df_copy = df_copy.reindex(full_date_range)
+    df_copy.index.name = 'Date'
+    df_copy['Units'] = df_copy['Units'].interpolate(method='time').ffill().bfill()
+    df_copy['Revenue'] = df_copy['Revenue'].interpolate(method='time').ffill().bfill()
+    df_copy = df_copy.reset_index()
+    return df_copy
 
 def add_time_features(df):
     """
@@ -76,7 +56,6 @@ def add_time_features(df):
     df['is_month_end'] = df['Date'].dt.is_month_end.astype(int)
     return df
 
-# Hàm bổ sung các đặc trưng lag và rolling statistics cho df
 def add_lag_features(df):
     # Giả sử df đã được sắp xếp theo Date và các cột 'Units', 'Revenue' đã được nội suy và chuẩn hóa
     df = df.sort_values('Date').reset_index(drop=True)
@@ -92,17 +71,6 @@ def add_lag_features(df):
     df['Revenue_mean_30'] = df['Revenue'].rolling(window=30, min_periods=1).mean()
     df['Revenue_std_30']  = df['Revenue'].rolling(window=30, min_periods=1).std().fillna(0)
     return df
-
-scaler = StandardScaler()
-
-df_train = add_time_features(df_train)
-df_test = add_time_features(df_test)
-
-df_train[['Units', 'Revenue']] = scaler.fit_transform(df_train[['Units', 'Revenue']]) 
-df_test[['Units', 'Revenue']] = scaler.transform(df_test[['Units', 'Revenue']])
-
-df_train = add_lag_features(df_train)
-df_test = add_lag_features(df_test)
 
 class TimeSeriesDataset(Dataset):
     def __init__(self, df, window_size=30):
@@ -127,18 +95,39 @@ class TimeSeriesDataset(Dataset):
         y = self.df.loc[idx+self.window_size, ['Units', 'Revenue']].values.astype(np.float32)
         return x_seq, x_cal, y
 
-# Tạo dataset và DataLoader cho train (với validation tách ngẫu nhiên) và test
-full_dataset = TimeSeriesDataset(df_train, window_size=30)
-test_dataset = TimeSeriesDataset(df_test, window_size=30)
+def preprocess_train(df_train, window_size=30, batch_size=64, val_ratio=0.2, seed=42):
+    torch.manual_seed(seed)
+    df_train['Date'] = pd.to_datetime(df_train['Date'])
+    df_train = df_train[['Date', 'Units', 'Revenue']].groupby('Date').agg({'Units': 'sum', 'Revenue': 'sum'}).reset_index()
+    df_train = preprocess_missing_data(df_train)
+    df_train = add_time_features(df_train)
+    scaler = StandardScaler()
+    df_train[['Units', 'Revenue']] = scaler.fit_transform(df_train[['Units', 'Revenue']])
+    df_train = add_lag_features(df_train)
 
-# Tách tập train và validation (20% validation)
-seed = 42
-torch.manual_seed(seed)
-dataset_length = len(full_dataset)
-val_size = int(0.2 * dataset_length)
-train_size = dataset_length - val_size
-train_dataset, val_dataset = random_split(full_dataset, [train_size, val_size], generator=torch.Generator().manual_seed(seed))
+    full_dataset = TimeSeriesDataset(df_train, window_size=window_size)
+    dataset_length = len(full_dataset)
+    val_size = int(val_ratio * dataset_length)
+    train_size = dataset_length - val_size
+    train_dataset, val_dataset = random_split(full_dataset, [train_size, val_size], generator=torch.Generator().manual_seed(seed))
 
-train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
-test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+
+    return train_loader, val_loader, scaler
+
+def preprocess_test(df_test, scaler, window_size=30, batch_size=64):
+    df_test['Date'] = pd.to_datetime(df_test['Date'])
+    df_test = df_test[['Date', 'Units', 'Revenue']].groupby('Date').agg({'Units': 'sum', 'Revenue': 'sum'}).reset_index()
+    # Không xử lý dữ liệu thiếu ở tập test
+    df_test = add_time_features(df_test)
+    df_test[['Units', 'Revenue']] = scaler.transform(df_test[['Units', 'Revenue']])
+    df_test = add_lag_features(df_test)
+
+    test_dataset = TimeSeriesDataset(df_test, window_size=window_size)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+
+    return test_loader
+
+train_loader, val_loader, scaler = preprocess_train(df_train, window_size=30, batch_size=64, val_ratio=0.2, seed=42)
+test_loader = preprocess_test(df_test, scaler, window_size=30, batch_size=64)
