@@ -38,7 +38,6 @@
 
 **Bước 1. Tạo bản sao của dự án từ GitHub**
 
-
 ```bash
 git clone https://github.com/HaiAu2501/DataFlow-2025.git
 ```
@@ -71,8 +70,8 @@ pip install -r requirements.txt
 
 ## 4. Sử dụng
 
-Trong môi trường ảo, chạy lệnh sau:
+- Đối với các file `.ipynb`, bạn cần sử dụng Jupyter Notebook để chạy chúng bằng việc chọn đúng môi trường ảo đã tạo ở trên; hoặc sử dụng Google Colab.
+- Đối với các mô hình, bạn có thể sử dụng các checkpoint với đuôi `.pth` trong thư mục `source/checkpoints` để tải mô hình đã được huấn luyện. Các mô hình có sẵn bao gồm: `TFT`, `TCN`, `HFM`, `VAE`, `DCF`, `PDCF_Central`, `PDCF_East`, `PDCF_West`.
 
-```bash
-python main.py
-```
+> [!NOTE]  
+> Việc huấn luyện lại các mô hình là không cần thiết và có thể tốn kém. Yêu cầu CUDA để huấn luyện được nhanh chóng.
