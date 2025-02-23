@@ -1,15 +1,12 @@
 # DataFlow-2025
 
-## 📖 Mục lục
+## Mục lục
 
 - [1. Giới thiệu](#1-giới-thiệu)
   - [1.1. Thành viên nhóm](#11-thành-viên-nhóm)
   - [1.2. Tổng quan dự án](#12-tổng-quan-dự-án)
-- [2. Mô tả dự án](#2-mô-tả-dự-án)
-  - [2.1. Các công nghệ sử dụng](#21-các-công-nghệ-sử-dụng)
-  - [2.2. Luồng thuật toán](#22-luồng-thuật-toán)
-- [3. Cài đặt](#3-cài-đặt)
-- [4. Sử dụng](#4-sử-dụng)
+- [2. Cài đặt](#2-cài-đặt)
+- [3. Sử dụng](#3-sử-dụng)
 
 ## 1. Giới thiệu
 
@@ -28,13 +25,14 @@
 
 ### 1.2. Tổng quan dự án
 
-## 2. Mô tả dự án
+Dự án này trình bày hệ thống các mô hình học sâu tiên tiến cho xử lý dữ liệu chuỗi thời gian trong cuộc thi Data Flow 2025. Sau đó, tiến hành chiến lược học tập tập thể (ensemble learning) để kết hợp các mô hình đã xây dựng và tạo ra một mô hình vượt trội cuối cùng.
 
-### 2.1. Các công nghệ sử dụng
+## 2. Cài đặt
 
-### 2.2. Luồng thuật toán
+**Điều kiện tiên quyết**
 
-## 3. Cài đặt
+- Python 3.11 hoặc mới hơn.
+- Bạn cần tạo một thư mục `data` cùng cấp với các thư mục `source`, `tasks` của dự án. Thư mục này chứa các file dữ liệu do BTC cuộc thi Data Flow 2025 cung cấp, bao gồm: `train.csv`, `test.csv`, `product.csv`, `geography.csv`.
 
 **Bước 1. Tạo bản sao của dự án từ GitHub**
 
@@ -68,7 +66,7 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-## 4. Sử dụng
+## 3. Sử dụng
 
 - Đối với các file `.ipynb`, bạn cần sử dụng Jupyter Notebook để chạy chúng bằng việc chọn đúng môi trường ảo đã tạo ở trên; hoặc sử dụng Google Colab.
 - Đối với các mô hình, bạn có thể sử dụng các checkpoint với đuôi `.pth` trong thư mục `source/checkpoints` để tải mô hình đã được huấn luyện. Các mô hình có sẵn bao gồm: `TFT`, `TCN`, `HFM`, `VAE`, `DCF`, `PDCF_Central`, `PDCF_East`, `PDCF_West`.
