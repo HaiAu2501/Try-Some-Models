@@ -34,28 +34,40 @@ Dự án này trình bày hệ thống các mô hình học sâu tiên tiến ch
 
 ### 2.1. Mô hình cơ sở
 
-- `TFT` (Temporal Fusion Transformer):
+- **`TFT` (Temporal Fusion Transformer):**
+
   - Tận dụng sự độc đáo của cơ chế Positional Encoding trong kiến trúc tân tiến Transformer.
   - Bổ sung lớp Multiscale Feature Extractor nhằm trích xuất thông tin chuỗi thời gian ở quy mô khác nhau.
   - Sử dụng Variable Selection Network để chọn ra các biến quan trọng.
-- `TCN` (Temporal Convolutional Network):
+
+- **`TCN` (Temporal Convolutional Network)**
+
   - Sử dụng kiến trúc mạng CNN 1D để trích xuất thông tin chuỗi thời gian.
   - Tận dụng Residual Connection để tăng tính ổn định và tốc độ học của mô hình.
   - Kết hợp nhánh dựa trên Neural ODE để tăng cường khả năng mô hình hóa thông tin liên tục.
-- `HFM` (Hybrid Forecasting Model):
+
+- **`HFM` (Hybrid Forecasting Model)**
+
   - Tổ hợp thông tin từ các nhánh mang kiến trúc khác nhau: N-HiTS, iTransformer, LSTM.
   - Kết hợp khả năng học của nhiều mô hình tiên tiến, để hiểu dữ liệu trên nhiều khía cạnh.
-- `VAE` (Conditional Variational AutoEncoder):
+
+- **`VAE` (Conditional Variational AutoEncoder)**
+
   - Ánh xạ dữ liệu vào không gian tiềm ẩn, sau đó tái tạo lại dữ liệu từ không gian này.
   - Cho phép mô hình học được phân phối của dữ liệu, và lấy mẫu từ phân phối này để tạo ra dữ liệu mới.
-- `DCF` (Distributional Conditional Forecast):
+
+- **`DCF` (Distributional Conditional Forecast)**
+
   - Cải tiến của VAE.
   - Cho phép trả về tham số của một phân phối xác suất, thay vì dự đoán giá trị cụ thể.
-- `PFT` (Probabilistic Forecasting Transformer):
+
+- **`PFT` (Probabilistic Forecasting Transformer)**
+
   - Cải tiến của VAE.
   - Sử dụng cơ chế Positional Encoding trong kiến trúc Transformer.
   - Cho phép trả về tham số của một phân phối xác suất, thay vì dự đoán giá trị cụ thể.
-- `CQV` (Conditional Quantile VAE):
+
+- **`CQV` (Conditional Quantile VAE)**
   - Cải tiến của VAE.
   - Cho phép trả về các phân vị của phân phối xác suất.
 
@@ -68,7 +80,7 @@ Dự án này trình bày hệ thống các mô hình học sâu tiên tiến ch
   - Đặc trưng của dữ liệu.
 - `META 3`: Cải tiến của META 2, có sử dụng thêm `PFT`.
 - `META 4`: Cải tiến từ META 3, có sử dụng thêm `CQV`.
-- `META 5` (best): Tổ hợp tuyến tính theo phương pháp Lasso, thực hiện Grid Search trên các siêu tham số của mô hình.
+- `META 5` **(best)**: Tổ hợp tuyến tính theo phương pháp Lasso, thực hiện Grid Search trên các siêu tham số.
 
 ## 3. Cài đặt
 
