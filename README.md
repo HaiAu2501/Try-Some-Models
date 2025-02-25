@@ -73,14 +73,14 @@ Dự án này trình bày hệ thống các mô hình học sâu tiên tiến ch
 
 ### 2.2. Mô hình kết hợp
 
-- `META 1`: Tổ hợp tuyến tính từ kết quả trả về của `TFT`, `TCN`, `HFM`, `DCF` theo phương pháp OLS.
-- `META 2`: Tổ hợp tuyến tính theo phương pháp Ridge từ:
+- `META1`: Tổ hợp tuyến tính từ kết quả trả về của `TFT`, `TCN`, `HFM`, `DCF` theo phương pháp OLS.
+- `META2`: Tổ hợp tuyến tính theo phương pháp Ridge từ:
   - Kết quả trả về của `TFT`, `TCN`, `HFM`.
   - Cận trên và cận dưới trong khoảng tin cậy 95% từ phân phối do `DCF` trả về.
   - Đặc trưng của dữ liệu.
-- `META 3`: Cải tiến của META 2, có sử dụng thêm `PFT`.
-- `META 4`: Cải tiến từ META 3, có sử dụng thêm `CQV`.
-- `META 5` **(best)**: Tổ hợp tuyến tính theo phương pháp Lasso, thực hiện Grid Search trên các siêu tham số.
+- `META3`: Cải tiến của `META2`, có sử dụng thêm `PFT`.
+- `META4`: Cải tiến từ `META3`, có sử dụng thêm `CQV`.
+- `META5` **(best)**: Tổ hợp tuyến tính theo phương pháp Lasso, thực hiện Grid Search trên các siêu tham số.
 
 ## 3. Cài đặt
 
