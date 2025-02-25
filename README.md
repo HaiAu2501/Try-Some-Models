@@ -1,6 +1,10 @@
 # DataFlow-2025
 
+<div align="center">
+
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=25&duration=1000&pause=1000&color=21B0FF&background=FFFA8359&center=true&vCenter=true&multiline=true&repeat=false&width=435&height=85&lines=PYCONOMICS;DataFlow+2025)](https://git.io/typing-svg)
+
+</div>
 
 ## Mục lục
 
