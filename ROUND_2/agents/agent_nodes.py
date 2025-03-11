@@ -14,10 +14,10 @@ from langchain.agents import AgentExecutor, create_react_agent
 from langchain_core.tools import ToolException
 from langchain.prompts import PromptTemplate
 
-# Add parent directory to path
+# Thêm thư mục cha vào đường dẫn
 sys.path.append(str(Path(__file__).parent.parent))
 
-# Now import with relative paths
+# Bây giờ nhập với đường dẫn tương đối
 from search_tools import get_search_tools
 from experts.group_1 import (
     MARKET_ANALYST, TECHNICAL_ANALYST, FUNDAMENTAL_ANALYST, 
@@ -40,58 +40,58 @@ from experts.group_5 import (
     ASSET_ALLOCATION_STRATEGIST, INVESTMENT_PSYCHOLOGY_EXPERT
 )
 
-# Load environment variables
+# Tải biến môi trường
 load_dotenv()
 
-# Get search tools
+# Lấy công cụ tìm kiếm
 search_tools = get_search_tools()
 
-# Define state structures
+# Định nghĩa cấu trúc trạng thái
 class InputState(TypedDict):
-    input_data: str                  # Data to be analyzed as string
-    file_name: str                   # Name of the file being analyzed
+    input_data: str                  # Dữ liệu cần phân tích dưới dạng chuỗi
+    file_name: str                   # Tên tập tin đang được phân tích
 
 class OutputState(TypedDict):
-    analyses: Annotated[Dict[str, str], "merge"]  # Analyses from different agents - merge each agent's analysis
-    group_summaries: Annotated[Dict[str, str], "merge"]  # Summaries from each group - merge each group's summary
-    final_report: str                # Final combined report
-    search_results: Annotated[Dict[str, Dict[str, Any]], "merge"]  # Search results from different queries - merge results
+    analyses: Annotated[Dict[str, str], "merge"]  # Phân tích từ các tác tử khác nhau - gộp phân tích của từng tác tử
+    group_summaries: Annotated[Dict[str, str], "merge"]  # Tổng hợp từ mỗi nhóm - gộp tổng hợp của từng nhóm
+    final_report: str                # Báo cáo tổng hợp cuối cùng
+    search_results: Annotated[Dict[str, Dict[str, Any]], "merge"]  # Kết quả tìm kiếm từ các truy vấn khác nhau - gộp kết quả
 
 class AgentState(InputState, OutputState):
-    """Combined state for the agent system, inheriting both input and output states."""
+    """Trạng thái kết hợp cho hệ thống tác tử, kế thừa cả trạng thái đầu vào và đầu ra."""
     pass
 
-# Function to create a model based on environment configuration
+# Hàm để tạo mô hình dựa trên cấu hình môi trường
 def get_model():
     """
-    Get the appropriate LLM model based on environment configuration.
-    Returns OpenAI model by default.
+    Lấy mô hình LLM phù hợp dựa trên cấu hình môi trường.
+    Trả về mô hình OpenAI theo mặc định.
     """
     if os.getenv("OPENAI_API_KEY"):
         return ChatOpenAI(temperature=0, api_key=os.getenv("OPENAI_API_KEY"))
     else:
-        raise ValueError("No API key found for OpenAI")
+        raise ValueError("Không tìm thấy API key cho OpenAI")
 
-# Extract relevant keywords based on expert type and input data
+# Trích xuất các từ khóa liên quan dựa trên loại chuyên gia và dữ liệu đầu vào
 def extract_relevant_terms(text: str, agent_type: str) -> List[str]:
     """
-    Extract relevant terms from input data based on agent type to guide search.
+    Trích xuất các thuật ngữ liên quan từ dữ liệu đầu vào dựa trên loại tác tử để hướng dẫn tìm kiếm.
     
-    Args:
-        text: Input text data
-        agent_type: Type of agent/expert
+    Tham số:
+        text: Văn bản đầu vào
+        agent_type: Loại tác tử/chuyên gia
         
-    Returns:
-        List of relevant terms to focus search
+    Trả về:
+        Danh sách các thuật ngữ liên quan để tập trung tìm kiếm
     """
     terms = []
     
-    # Extract potential tickers (usually 3-4 uppercase letters)
+    # Trích xuất các mã cổ phiếu tiềm năng (thường là 3-4 chữ cái viết hoa)
     import re
     potential_tickers = re.findall(r'\b[A-Z]{3,4}\b', text)
-    terms.extend(potential_tickers[:3])  # Limit to first 3 tickers
+    terms.extend(potential_tickers[:3])  # Giới hạn ở 3 mã cổ phiếu đầu tiên
     
-    # Extract sector/industry terms based on agent type
+    # Trích xuất các thuật ngữ ngành/lĩnh vực dựa trên loại tác tử
     if "market" in agent_type:
         sectors = ["market index", "VN-Index", "HNX-Index", "UPCOM", "market trend"]
     elif "technical" in agent_type:
@@ -114,46 +114,46 @@ def extract_relevant_terms(text: str, agent_type: str) -> List[str]:
     terms.extend(sectors)
     return terms
 
-# Generic expert agent creation function with tools integration
+# Hàm tạo tác tử chuyên gia tổng quát với tích hợp công cụ
 def create_expert_agent(system_prompt: str, agent_name: str):
-    """Create an expert agent with the given system prompt and name, with tools integration."""
-    # Define a specific prompt template for agent with tools
+    """Tạo một tác tử chuyên gia với prompt hệ thống và tên đã cho, với tích hợp công cụ."""
+    # Định nghĩa một mẫu prompt cụ thể cho tác tử với công cụ
     llm = get_model()
     
-    # Custom prompt template integrating system prompt with React agent format
+    # Mẫu prompt tùy chỉnh tích hợp prompt hệ thống với định dạng tác tử React
     agent_prompt = PromptTemplate.from_template(
         """
 {system_prompt}
 
-You have access to the following tools to help with your analysis:
+Bạn có quyền truy cập vào các công cụ sau để hỗ trợ phân tích của mình:
 
 {tools}
 
-Use these tools to research current information about the stock market, companies, 
-sectors, and economic indicators to provide an up-to-date analysis.
+Sử dụng các công cụ này để nghiên cứu thông tin hiện tại về thị trường chứng khoán, 
+các công ty, ngành nghề và chỉ số kinh tế để cung cấp phân tích cập nhật.
 
-Follow this format:
+Tuân theo định dạng này:
 
-Question: the input question you must answer
-Thought: you should always think about what to do
-Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat N times)
-Thought: I now know the final answer
-Final Answer: the final answer to the original input question
+Question: câu hỏi đầu vào bạn phải trả lời
+Thought: bạn nên luôn suy nghĩ về việc phải làm gì
+Action: hành động cần thực hiện, nên là một trong [{tool_names}]
+Action Input: đầu vào cho hành động
+Observation: kết quả của hành động
+... (quy trình Thought/Action/Action Input/Observation có thể lặp lại nhiều lần)
+Thought: Bây giờ tôi đã biết câu trả lời cuối cùng
+Final Answer: câu trả lời cuối cùng cho câu hỏi đầu vào ban đầu
 
-Begin!
+Bắt đầu!
 
 Question: {input}
 {agent_scratchpad}
 """
     )
     
-    # Create the React agent with tools
+    # Tạo tác tử React với công cụ
     agent = create_react_agent(llm, search_tools, agent_prompt)
     
-    # Create an agent executor
+    # Tạo trình thực thi tác tử
     agent_executor = AgentExecutor(
         agent=agent,
         tools=search_tools,
@@ -163,47 +163,47 @@ Question: {input}
         max_iterations=5
     )
     
-    # Wrap the agent execution in the expert analysis function
+    # Bọc việc thực thi tác tử trong hàm phân tích chuyên gia
     def expert_analysis(state: AgentState) -> AgentState:
-        """Run expert analysis with tools on input data and store in state."""
+        """Chạy phân tích chuyên gia với công cụ trên dữ liệu đầu vào và lưu trữ trong trạng thái."""
         try:
-            # Extract values from state
+            # Trích xuất giá trị từ trạng thái
             input_data = state.get("input_data", "")
-            file_name = state.get("file_name", "Unknown file")
+            file_name = state.get("file_name", "Tệp không xác định")
             
-            print(f"\n[DEBUG] Running {agent_name} on file: {file_name}")
+            print(f"\n[DEBUG] Đang chạy {agent_name} trên tệp: {file_name}")
             
-            # Extract relevant terms for search guidance
+            # Trích xuất các thuật ngữ liên quan để hướng dẫn tìm kiếm
             relevant_terms = extract_relevant_terms(input_data, agent_name)
             relevant_terms_text = ", ".join(relevant_terms)
             
-            # Create the input for the agent
+            # Tạo đầu vào cho tác tử
             agent_input = f"""
-            Analyze the following data as a {agent_name} for Vietnam stock market investment strategy:
+            Phân tích dữ liệu sau đây với tư cách là {agent_name} cho chiến lược đầu tư thị trường chứng khoán Việt Nam:
             
-            DATA:
+            DỮ LIỆU:
             {input_data}
             
-            File: {file_name}
+            Tệp: {file_name}
             
-            Focus on these key areas: {relevant_terms_text}
+            Tập trung vào các lĩnh vực chính này: {relevant_terms_text}
             
-            Provide a detailed analysis from your expert perspective, with specific investment 
-            recommendations based on both the provided data and the latest information you can find.
-            Cite your sources for any external information.
+            Cung cấp phân tích chi tiết từ góc nhìn chuyên gia của bạn, với các khuyến nghị đầu tư cụ thể 
+            dựa trên cả dữ liệu được cung cấp và thông tin mới nhất bạn có thể tìm thấy.
+            Trích dẫn nguồn cho mọi thông tin bên ngoài.
             """
             
-            # Execute the agent with tools
+            # Thực thi tác tử với công cụ
             agent_result = agent_executor.invoke({
                 "system_prompt": system_prompt,
                 "input": agent_input,
                 "tools": search_tools
             })
             
-            # Extract the final analysis from the agent
-            analysis = agent_result.get("output", "No analysis provided")
+            # Trích xuất phân tích cuối cùng từ tác tử
+            analysis = agent_result.get("output", "Không có phân tích được cung cấp")
             
-            # Store search results in state
+            # Lưu trữ kết quả tìm kiếm trong trạng thái
             intermediate_steps = agent_result.get("intermediate_steps", [])
             search_results_for_state = {
                 f"{agent_name}_search": {
@@ -218,15 +218,15 @@ Question: {input}
             }
             
         except Exception as e:
-            print(f"[ERROR] Error in {agent_name}: {str(e)}")
-            analysis = f"Error analyzing with {agent_name}: {str(e)}"
+            print(f"[LỖI] Lỗi trong {agent_name}: {str(e)}")
+            analysis = f"Lỗi phân tích với {agent_name}: {str(e)}"
             search_results_for_state = {
                 f"{agent_name}_search": {
                     "error": str(e)
                 }
             }
         
-        # Create a new state with the analysis and search results
+        # Tạo trạng thái mới với phân tích và kết quả tìm kiếm
         new_state = cast(AgentState, {})
         new_state["analyses"] = {agent_name: analysis}
         new_state["search_results"] = search_results_for_state
@@ -235,93 +235,93 @@ Question: {input}
     
     return expert_analysis
 
-# Create expert agent nodes for each group
+# Tạo các node tác tử chuyên gia cho mỗi nhóm
 
-# Group 1: Market Analysis
+# Nhóm 1: Phân tích Thị trường
 market_analyst_node = create_expert_agent(MARKET_ANALYST, "market_analyst")
 technical_analyst_node = create_expert_agent(TECHNICAL_ANALYST, "technical_analyst")
 fundamental_analyst_node = create_expert_agent(FUNDAMENTAL_ANALYST, "fundamental_analyst")
 sentiment_analyst_node = create_expert_agent(SENTIMENT_ANALYST, "sentiment_analyst")
 economic_indicators_node = create_expert_agent(ECONOMIC_INDICATORS_EXPERT, "economic_indicators_expert")
 
-# Group 2: Financial Analysis
+# Nhóm 2: Phân tích Tài chính
 financial_statement_node = create_expert_agent(FINANCIAL_STATEMENT_ANALYST, "financial_statement_analyst")
 financial_ratio_node = create_expert_agent(FINANCIAL_RATIO_EXPERT, "financial_ratio_expert")
 valuation_node = create_expert_agent(VALUATION_EXPERT, "valuation_expert")
 cash_flow_node = create_expert_agent(CASH_FLOW_ANALYST, "cash_flow_analyst")
 capital_structure_node = create_expert_agent(CAPITAL_STRUCTURE_EXPERT, "capital_structure_expert")
 
-# Group 3: Sectoral Analysis
+# Nhóm 3: Phân tích Ngành
 banking_finance_node = create_expert_agent(BANKING_FINANCE_EXPERT, "banking_finance_expert")
 real_estate_node = create_expert_agent(REAL_ESTATE_EXPERT, "real_estate_expert")
 consumer_goods_node = create_expert_agent(CONSUMER_GOODS_EXPERT, "consumer_goods_expert")
 industrial_node = create_expert_agent(INDUSTRIAL_EXPERT, "industrial_expert")
 technology_node = create_expert_agent(TECHNOLOGY_EXPERT, "technology_expert")
 
-# Group 4: External Factors
+# Nhóm 4: Yếu tố Bên ngoài
 global_markets_node = create_expert_agent(GLOBAL_MARKETS_EXPERT, "global_markets_expert")
 geopolitical_risk_node = create_expert_agent(GEOPOLITICAL_RISK_ANALYST, "geopolitical_risk_analyst")
 regulatory_framework_node = create_expert_agent(REGULATORY_FRAMEWORK_EXPERT, "regulatory_framework_expert")
 monetary_policy_node = create_expert_agent(MONETARY_POLICY_EXPERT, "monetary_policy_expert")
 demographic_trends_node = create_expert_agent(DEMOGRAPHIC_TRENDS_EXPERT, "demographic_trends_expert")
 
-# Group 5: Strategy
+# Nhóm 5: Chiến lược
 game_theory_node = create_expert_agent(GAME_THEORY_STRATEGIST, "game_theory_strategist")
 risk_management_node = create_expert_agent(RISK_MANAGEMENT_EXPERT, "risk_management_expert")
 portfolio_optimization_node = create_expert_agent(PORTFOLIO_OPTIMIZATION_EXPERT, "portfolio_optimization_expert")
 asset_allocation_node = create_expert_agent(ASSET_ALLOCATION_STRATEGIST, "asset_allocation_strategist")
 investment_psychology_node = create_expert_agent(INVESTMENT_PSYCHOLOGY_EXPERT, "investment_psychology_expert")
 
-# Create group summarizer nodes with search results integration
+# Tạo các node tổng hợp nhóm với tích hợp kết quả tìm kiếm
 def create_group_summarizer(group_name: str, expert_names: List[str]):
-    """Create a summarizer for a group of experts with integration of search results."""
+    """Tạo một trình tổng hợp cho một nhóm chuyên gia với tích hợp kết quả tìm kiếm."""
     llm = get_model()
     
-    # Create a React agent for the group summarizer
+    # Tạo một tác tử React cho trình tổng hợp nhóm
     summarizer_system_prompt = f"""
-    You are an expert summarizer for the {group_name} group.
-    Your task is to synthesize analyses from multiple experts in this group and create
-    a comprehensive summary that highlights key insights, areas of agreement, and important differences.
+    Bạn là một chuyên gia tổng hợp cho nhóm {group_name}.
+    Nhiệm vụ của bạn là tổng hợp các phân tích từ nhiều chuyên gia trong nhóm này và tạo ra
+    một bản tổng hợp toàn diện nêu bật những hiểu biết chính, các lĩnh vực đồng thuận và những khác biệt quan trọng.
     
-    Focus on providing actionable investment recommendations based on the group's collective expertise.
-    Incorporate information from both the expert analyses and the latest market data you can find.
+    Tập trung vào việc cung cấp các khuyến nghị đầu tư khả thi dựa trên chuyên môn tập thể của nhóm.
+    Kết hợp thông tin từ cả phân tích của chuyên gia và dữ liệu thị trường mới nhất bạn có thể tìm thấy.
     
-    Clearly cite your sources for any external information.
+    Trích dẫn rõ ràng nguồn thông tin bên ngoài.
     """
     
-    # Create agent prompt template
+    # Tạo mẫu prompt tác tử
     summarizer_prompt = PromptTemplate.from_template(
         """
 {system_prompt}
 
-You have access to the following tools to help with your analysis:
+Bạn có quyền truy cập vào các công cụ sau để hỗ trợ phân tích của mình:
 
 {tools}
 
-Use these tools to research current information relevant to your summary.
+Sử dụng các công cụ này để nghiên cứu thông tin hiện tại liên quan đến bản tổng hợp của bạn.
 
-Follow this format:
+Tuân theo định dạng này:
 
-Question: the input question you must answer
-Thought: you should always think about what to do
-Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat N times)
-Thought: I now know the final answer
-Final Answer: the final answer to the original input question
+Question: câu hỏi đầu vào bạn phải trả lời
+Thought: bạn nên luôn suy nghĩ về việc phải làm gì
+Action: hành động cần thực hiện, nên là một trong [{tool_names}]
+Action Input: đầu vào cho hành động
+Observation: kết quả của hành động
+... (quy trình Thought/Action/Action Input/Observation có thể lặp lại nhiều lần)
+Thought: Bây giờ tôi đã biết câu trả lời cuối cùng
+Final Answer: câu trả lời cuối cùng cho câu hỏi đầu vào ban đầu
 
-Begin!
+Bắt đầu!
 
 Question: {input}
 {agent_scratchpad}
 """
     )
     
-    # Create the React agent with tools
+    # Tạo tác tử React với công cụ
     summarizer_agent = create_react_agent(llm, search_tools, summarizer_prompt)
     
-    # Create an agent executor
+    # Tạo trình thực thi tác tử
     summarizer_executor = AgentExecutor(
         agent=summarizer_agent,
         tools=search_tools,
@@ -332,15 +332,15 @@ Question: {input}
     )
     
     def summarize_group(state: AgentState) -> AgentState:
-        """Summarize analyses from experts in this group."""
+        """Tổng hợp phân tích từ các chuyên gia trong nhóm này."""
         try:
-            # Extract analyses from this group's experts
+            # Trích xuất phân tích từ các chuyên gia của nhóm này
             expert_analyses = ""
             for expert in expert_names:
                 if expert in state.get("analyses", {}):
-                    expert_analyses += f"### Analysis from {expert}:\n{state['analyses'][expert]}\n\n"
+                    expert_analyses += f"### Phân tích từ {expert}:\n{state['analyses'][expert]}\n\n"
             
-            # Extract search results from experts in this group
+            # Trích xuất kết quả tìm kiếm từ các chuyên gia trong nhóm này
             search_insights = ""
             for expert in expert_names:
                 search_key = f"{expert}_search"
@@ -348,46 +348,46 @@ Question: {input}
                     search_data = state["search_results"][search_key]
                     
                     if "intermediate_steps" in search_data:
-                        search_insights += f"\n### Search steps by {expert}:\n"
+                        search_insights += f"\n### Các bước tìm kiếm của {expert}:\n"
                         
                         for step in search_data["intermediate_steps"]:
                             if "tool" in step and "input" in step:
-                                search_insights += f"- Used {step['tool']} to search for: {step['input']}\n"
+                                search_insights += f"- Đã sử dụng {step['tool']} để tìm kiếm: {step['input']}\n"
             
-            file_name = state.get("file_name", "Unknown file")
+            file_name = state.get("file_name", "Tệp không xác định")
             
-            print(f"\n[DEBUG] Running summarizer for {group_name} on file: {file_name}")
+            print(f"\n[DEBUG] Đang chạy trình tổng hợp cho {group_name} trên tệp: {file_name}")
             
-            # Create the input for the agent
+            # Tạo đầu vào cho tác tử
             summarizer_input = f"""
-            Create a comprehensive summary of the following expert analyses from the {group_name} group:
+            Tạo một bản tổng hợp toàn diện của các phân tích chuyên gia sau đây từ nhóm {group_name}:
             
             {expert_analyses}
             
-            File being analyzed: {file_name}
+            Tệp đang được phân tích: {file_name}
             
-            The experts have already searched for the following information:
+            Các chuyên gia đã tìm kiếm những thông tin sau:
             {search_insights}
             
-            Provide a thorough synthesis of these analyses, highlighting key insights, areas of agreement, 
-            and important differences. Use search tools to verify important claims or find additional
-            information where needed.
+            Cung cấp một tổng hợp kỹ lưỡng về các phân tích này, nêu bật những hiểu biết chính, 
+            các lĩnh vực đồng thuận và những khác biệt quan trọng. Sử dụng công cụ tìm kiếm để xác minh 
+            các tuyên bố quan trọng hoặc tìm thêm thông tin khi cần thiết.
             
-            Your summary should focus on actionable investment recommendations for the Vietnam stock market,
-            based on both the expert analyses and the latest market data.
+            Bản tổng hợp của bạn nên tập trung vào các khuyến nghị đầu tư khả thi cho thị trường chứng khoán Việt Nam,
+            dựa trên cả phân tích chuyên gia và dữ liệu thị trường mới nhất.
             """
             
-            # Execute the agent with tools
+            # Thực thi tác tử với công cụ
             summarizer_result = summarizer_executor.invoke({
                 "system_prompt": summarizer_system_prompt,
                 "input": summarizer_input,
                 "tools": search_tools
             })
             
-            # Extract the final summary from the agent
-            summary = summarizer_result.get("output", "No summary provided")
+            # Trích xuất bản tổng hợp cuối cùng từ tác tử
+            summary = summarizer_result.get("output", "Không có tổng hợp được cung cấp")
             
-            # Store search results in state
+            # Lưu trữ kết quả tìm kiếm trong trạng thái
             intermediate_steps = summarizer_result.get("intermediate_steps", [])
             search_results_for_state = {
                 f"{group_name}_summarizer_search": {
@@ -402,15 +402,15 @@ Question: {input}
             }
             
         except Exception as e:
-            print(f"[ERROR] Error in {group_name} summarizer: {str(e)}")
-            summary = f"Error summarizing {group_name}: {str(e)}"
+            print(f"[LỖI] Lỗi trong trình tổng hợp {group_name}: {str(e)}")
+            summary = f"Lỗi tổng hợp {group_name}: {str(e)}"
             search_results_for_state = {
                 f"{group_name}_summarizer_search": {
                     "error": str(e)
                 }
             }
         
-        # Create a new state with the group summary and search results
+        # Tạo trạng thái mới với bản tổng hợp nhóm và kết quả tìm kiếm
         new_state = cast(AgentState, {})
         new_state["group_summaries"] = {group_name: summary}
         new_state["search_results"] = search_results_for_state
@@ -419,63 +419,63 @@ Question: {input}
     
     return summarize_group
 
-# Create the final report synthesizer with tools integration
+# Tạo trình tổng hợp báo cáo cuối cùng với tích hợp công cụ
 def create_final_synthesizer():
-    """Create the final synthesizing node that combines all group summaries with search tools."""
+    """Tạo node tổng hợp cuối cùng kết hợp tất cả các bản tổng hợp nhóm với công cụ tìm kiếm."""
     llm = get_model()
     
-    # Define system prompt for the final synthesizer
+    # Định nghĩa prompt hệ thống cho trình tổng hợp cuối cùng
     synthesizer_system_prompt = """
-    You are an expert investment strategist specialized in the Vietnam stock market.
-    Your task is to synthesize analyses from multiple expert groups and create a comprehensive
-    investment strategy report.
+    Bạn là một chuyên gia chiến lược đầu tư chuyên về thị trường chứng khoán Việt Nam.
+    Nhiệm vụ của bạn là tổng hợp phân tích từ nhiều nhóm chuyên gia và tạo ra một báo cáo
+    chiến lược đầu tư toàn diện.
     
-    Your report should provide clear, actionable investment recommendations including:
-    1. Strategic asset allocation
-    2. Sector and stock recommendations
-    3. Market timing advice
-    4. Risk management strategies
+    Báo cáo của bạn nên cung cấp các khuyến nghị đầu tư rõ ràng, khả thi bao gồm:
+    1. Phân bổ tài sản chiến lược
+    2. Khuyến nghị về ngành và cổ phiếu
+    3. Tư vấn về thời điểm tham gia thị trường
+    4. Chiến lược quản lý rủi ro
     
-    Use the tools available to verify important information and ensure your recommendations
-    are based on the latest market data and economic indicators.
+    Sử dụng các công cụ có sẵn để xác minh thông tin quan trọng và đảm bảo khuyến nghị của bạn
+    dựa trên dữ liệu thị trường và chỉ số kinh tế mới nhất.
     
-    Provide a well-structured report with specific, actionable insights that investors
-    can immediately implement.
+    Cung cấp một báo cáo có cấu trúc tốt với những hiểu biết cụ thể, khả thi mà nhà đầu tư
+    có thể triển khai ngay lập tức.
     """
     
-    # Create agent prompt template
+    # Tạo mẫu prompt tác tử
     synthesizer_prompt = PromptTemplate.from_template(
         """
 {system_prompt}
 
-You have access to the following tools to help with your analysis:
+Bạn có quyền truy cập vào các công cụ sau để hỗ trợ phân tích của mình:
 
 {tools}
 
-Use these tools to research current information relevant to your investment strategy report.
+Sử dụng các công cụ này để nghiên cứu thông tin hiện tại liên quan đến báo cáo chiến lược đầu tư của bạn.
 
-Follow this format:
+Tuân theo định dạng này:
 
-Question: the input question you must answer
-Thought: you should always think about what to do
-Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat N times)
-Thought: I now know the final answer
-Final Answer: the final answer to the original input question
+Question: câu hỏi đầu vào bạn phải trả lời
+Thought: bạn nên luôn suy nghĩ về việc phải làm gì
+Action: hành động cần thực hiện, nên là một trong [{tool_names}]
+Action Input: đầu vào cho hành động
+Observation: kết quả của hành động
+... (quy trình Thought/Action/Action Input/Observation có thể lặp lại nhiều lần)
+Thought: Bây giờ tôi đã biết câu trả lời cuối cùng
+Final Answer: câu trả lời cuối cùng cho câu hỏi đầu vào ban đầu
 
-Begin!
+Bắt đầu!
 
 Question: {input}
 {agent_scratchpad}
 """
     )
     
-    # Create the React agent with tools
+    # Tạo tác tử React với công cụ
     synthesizer_agent = create_react_agent(llm, search_tools, synthesizer_prompt)
     
-    # Create an agent executor
+    # Tạo trình thực thi tác tử
     synthesizer_executor = AgentExecutor(
         agent=synthesizer_agent,
         tools=search_tools,
@@ -486,66 +486,66 @@ Question: {input}
     )
     
     def synthesize_final_report(state: AgentState) -> AgentState:
-        """Create the final synthesized report from all group summaries."""
+        """Tạo báo cáo tổng hợp cuối cùng từ tất cả các bản tổng hợp nhóm."""
         try:
-            # Format all group summaries
+            # Định dạng tất cả các bản tổng hợp nhóm
             group_summaries_text = ""
             for group_name, summary in state.get("group_summaries", {}).items():
-                group_summaries_text += f"### Summary from {group_name}:\n{summary}\n\n"
+                group_summaries_text += f"### Tổng hợp từ {group_name}:\n{summary}\n\n"
             
-            # Summarize search usage across all experts and summarizers
+            # Tóm tắt việc sử dụng tìm kiếm trên tất cả các chuyên gia và trình tổng hợp
             search_usage = ""
             if "search_results" in state:
-                # Count the total number of searches
+                # Đếm tổng số lượng tìm kiếm
                 total_searches = 0
                 for search_key, search_data in state.get("search_results", {}).items():
                     if "intermediate_steps" in search_data:
                         total_searches += len(search_data["intermediate_steps"])
                 
-                search_usage = f"Note: The analysis is based on {total_searches} searches for the latest market information."
+                search_usage = f"Lưu ý: Phân tích này dựa trên {total_searches} lần tìm kiếm thông tin thị trường mới nhất."
             
-            file_name = state.get("file_name", "Unknown file")
+            file_name = state.get("file_name", "Tệp không xác định")
             
-            print(f"\n[DEBUG] Running final synthesizer on file: {file_name}")
+            print(f"\n[DEBUG] Đang chạy trình tổng hợp cuối cùng trên tệp: {file_name}")
             
-            # Create the input for the agent
+            # Tạo đầu vào cho tác tử
             synthesizer_input = f"""
-            Create a comprehensive investment strategy report for the Vietnam stock market based on 
-            the following group summaries:
+            Tạo một báo cáo chiến lược đầu tư toàn diện cho thị trường chứng khoán Việt Nam dựa trên 
+            các bản tổng hợp nhóm sau đây:
             
             {group_summaries_text}
             
-            File being analyzed: {file_name}
+            Tệp đang được phân tích: {file_name}
             
             {search_usage}
             
-            Your report should include:
+            Báo cáo của bạn nên bao gồm:
             
-            1. Executive Summary - Key findings and recommendations
-            2. Market Analysis - Current state and trends
-            3. Investment Strategy:
-               a. Strategic Asset Allocation
-               b. Recommended Sectors and Stocks
-               c. Market Timing Recommendations
-               d. Position Sizing and Portfolio Construction
-            4. Risk Management Plan
-            5. Specific Action Items for Investors
+            1. Tóm tắt Điều hành - Phát hiện và khuyến nghị chính
+            2. Phân tích Thị trường - Tình trạng và xu hướng hiện tại
+            3. Chiến lược Đầu tư:
+               a. Phân bổ Tài sản Chiến lược
+               b. Ngành và Cổ phiếu Khuyến nghị
+               c. Khuyến nghị về Thời điểm Tham gia Thị trường
+               d. Quy mô Vị thế và Xây dựng Danh mục
+            4. Kế hoạch Quản lý Rủi ro
+            5. Các Hành động Cụ thể cho Nhà đầu tư
             
-            Use search tools to verify important information and ensure your recommendations
-            are based on the latest market data. Cite your sources for external information.
+            Sử dụng công cụ tìm kiếm để xác minh thông tin quan trọng và đảm bảo khuyến nghị của bạn
+            dựa trên dữ liệu thị trường mới nhất. Trích dẫn nguồn cho thông tin bên ngoài.
             """
             
-            # Execute the agent with tools
+            # Thực thi tác tử với công cụ
             synthesizer_result = synthesizer_executor.invoke({
                 "system_prompt": synthesizer_system_prompt,
                 "input": synthesizer_input,
                 "tools": search_tools
             })
             
-            # Extract the final report from the agent
-            final_report = synthesizer_result.get("output", "No report provided")
+            # Trích xuất báo cáo cuối cùng từ tác tử
+            final_report = synthesizer_result.get("output", "Không có báo cáo được cung cấp")
             
-            # Store search results in state
+            # Lưu trữ kết quả tìm kiếm trong trạng thái
             intermediate_steps = synthesizer_result.get("intermediate_steps", [])
             search_results_for_state = {
                 "final_synthesizer_search": {
@@ -560,15 +560,15 @@ Question: {input}
             }
             
         except Exception as e:
-            print(f"[ERROR] Error in final synthesizer: {str(e)}")
-            final_report = f"Error generating final report: {str(e)}"
+            print(f"[LỖI] Lỗi trong trình tổng hợp cuối cùng: {str(e)}")
+            final_report = f"Lỗi tạo báo cáo cuối cùng: {str(e)}"
             search_results_for_state = {
                 "final_synthesizer_search": {
                     "error": str(e)
                 }
             }
         
-        # Create a new state with the final report and search results
+        # Tạo trạng thái mới với báo cáo cuối cùng và kết quả tìm kiếm
         new_state = cast(AgentState, {})
         new_state["final_report"] = final_report
         new_state["search_results"] = search_results_for_state
@@ -577,7 +577,7 @@ Question: {input}
     
     return synthesize_final_report
 
-# Create the group summarizers
+# Tạo các trình tổng hợp nhóm
 market_analysis_group_summarizer = create_group_summarizer(
     "Phân tích Thị trường (Market Analysis)",
     ["market_analyst", "technical_analyst", "fundamental_analyst", 
@@ -608,5 +608,5 @@ strategy_group_summarizer = create_group_summarizer(
      "asset_allocation_strategist", "investment_psychology_expert"]
 )
 
-# Create the final synthesizer node
+# Tạo node tổng hợp cuối cùng
 final_synthesizer = create_final_synthesizer()

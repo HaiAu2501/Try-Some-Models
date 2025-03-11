@@ -9,25 +9,25 @@ from pydantic import BaseModel, Field
 
 # Các model để xác định schema cho các công cụ
 class SearchQuery(BaseModel):
-    """Input schema for general search query."""
-    query: str = Field(..., description="The search query to look up information")
+    """Schema đầu vào cho truy vấn tìm kiếm tổng quát."""
+    query: str = Field(..., description="Truy vấn tìm kiếm để tra cứu thông tin")
 
 class CompanyQuery(BaseModel):
-    """Input schema for company financial data search."""
-    company_or_ticker: str = Field(..., description="Company name or stock ticker symbol")
+    """Schema đầu vào cho tìm kiếm dữ liệu tài chính công ty."""
+    company_or_ticker: str = Field(..., description="Tên công ty hoặc mã cổ phiếu")
     
 class SectorQuery(BaseModel):
-    """Input schema for sector performance search."""
-    sector: str = Field(..., description="Economic sector (e.g., banking, real estate)")
-    market: str = Field(default="Vietnam", description="Market to search in (default: Vietnam)")
+    """Schema đầu vào cho tìm kiếm hiệu suất ngành."""
+    sector: str = Field(..., description="Ngành kinh tế (ví dụ: ngân hàng, bất động sản)")
+    market: str = Field(default="Vietnam", description="Thị trường cần tìm kiếm (mặc định: Việt Nam)")
 
 class MarketQuery(BaseModel):
-    """Input schema for market trends search."""
-    market: str = Field(default="Vietnam", description="Market to search for trends (default: Vietnam)")
+    """Schema đầu vào cho tìm kiếm xu hướng thị trường."""
+    market: str = Field(default="Vietnam", description="Thị trường cần tìm kiếm xu hướng (mặc định: Việt Nam)")
 
 class EconomicQuery(BaseModel):
-    """Input schema for economic indicators search."""
-    country: str = Field(default="Vietnam", description="Country to search for economic indicators (default: Vietnam)")
+    """Schema đầu vào cho tìm kiếm chỉ số kinh tế."""
+    country: str = Field(default="Vietnam", description="Quốc gia cần tìm kiếm chỉ số kinh tế (mặc định: Việt Nam)")
 
 # Khởi tạo DuckDuckGo search utility
 search_api = DuckDuckGoSearchAPIWrapper()
@@ -37,13 +37,13 @@ DEFAULT_MAX_RESULTS = 5
 @tool("general_search", args_schema=SearchQuery, return_direct=False)
 def general_search(query: str) -> List[Dict[str, str]]:
     """
-    Searches for general information on any topic.
+    Tìm kiếm thông tin tổng quát về bất kỳ chủ đề nào.
     
-    Args:
-        query: The search query to look up information
+    Tham số:
+        query: Truy vấn tìm kiếm để tra cứu thông tin
         
-    Returns:
-        List of search results with title, link, and snippet
+    Trả về:
+        Danh sách kết quả tìm kiếm với tiêu đề, liên kết và đoạn trích
     """
     try:
         # Truyền max_results trực tiếp vào phương thức results()
@@ -60,21 +60,21 @@ def general_search(query: str) -> List[Dict[str, str]]:
         
         return formatted_results
     except Exception as e:
-        raise ToolException(f"Error during search: {str(e)}")
+        raise ToolException(f"Lỗi trong quá trình tìm kiếm: {str(e)}")
 
 @tool("search_financial_data", args_schema=CompanyQuery, return_direct=False)
 def search_financial_data(company_or_ticker: str) -> Dict[str, Any]:
     """
-    Searches for financial data about a specific company or ticker on Vietnam stock market.
+    Tìm kiếm dữ liệu tài chính về một công ty hoặc mã cổ phiếu cụ thể trên thị trường chứng khoán Việt Nam.
     
-    Args:
-        company_or_ticker: Company name or stock ticker
+    Tham số:
+        company_or_ticker: Tên công ty hoặc mã cổ phiếu
         
-    Returns:
-        Dictionary with financial information
+    Trả về:
+        Dictionary với thông tin tài chính
     """
     # Add "financial data" and "Vietnam stock market" to get more relevant results
-    base_query = f"{company_or_ticker} financial data Vietnam stock market"
+    base_query = f"{company_or_ticker} dữ liệu tài chính thị trường chứng khoán Việt Nam"
     
     try:
         # Truyền max_results trực tiếp vào phương thức results()
@@ -89,21 +89,21 @@ def search_financial_data(company_or_ticker: str) -> Dict[str, Any]:
         
         return financial_data
     except Exception as e:
-        raise ToolException(f"Error searching for financial data: {str(e)}")
+        raise ToolException(f"Lỗi tìm kiếm dữ liệu tài chính: {str(e)}")
 
 @tool("search_market_trends", args_schema=MarketQuery, return_direct=False)
 def search_market_trends(market: str = "Vietnam") -> Dict[str, Any]:
     """
-    Searches for current market trends in a specific market (default: Vietnam).
+    Tìm kiếm xu hướng thị trường hiện tại trong một thị trường cụ thể (mặc định: Việt Nam).
     
-    Args:
-        market: Market to search for (default: Vietnam)
+    Tham số:
+        market: Thị trường cần tìm kiếm (mặc định: Việt Nam)
         
-    Returns:
-        Dictionary with market trend information
+    Trả về:
+        Dictionary với thông tin xu hướng thị trường
     """
     # Craft query specific to market trends
-    query = f"{market} stock market trends current analysis"
+    query = f"{market} xu hướng thị trường chứng khoán phân tích hiện tại"
     
     try:
         # Truyền max_results trực tiếp vào phương thức results()
@@ -118,21 +118,21 @@ def search_market_trends(market: str = "Vietnam") -> Dict[str, Any]:
         
         return market_data
     except Exception as e:
-        raise ToolException(f"Error searching for market trends: {str(e)}")
+        raise ToolException(f"Lỗi tìm kiếm xu hướng thị trường: {str(e)}")
 
 @tool("search_economic_indicators", args_schema=EconomicQuery, return_direct=False)
 def search_economic_indicators(country: str = "Vietnam") -> Dict[str, Any]:
     """
-    Searches for current economic indicators for a specific country (default: Vietnam).
+    Tìm kiếm chỉ số kinh tế hiện tại cho một quốc gia cụ thể (mặc định: Việt Nam).
     
-    Args:
-        country: Country to search for economic indicators (default: Vietnam)
+    Tham số:
+        country: Quốc gia cần tìm kiếm chỉ số kinh tế (mặc định: Việt Nam)
         
-    Returns:
-        Dictionary with economic indicators information
+    Trả về:
+        Dictionary với thông tin chỉ số kinh tế
     """
     # Craft query specific to economic indicators
-    query = f"{country} economic indicators GDP inflation interest rate current"
+    query = f"{country} chỉ số kinh tế GDP lạm phát lãi suất hiện tại"
     
     try:
         # Truyền max_results trực tiếp vào phương thức results()
@@ -147,22 +147,22 @@ def search_economic_indicators(country: str = "Vietnam") -> Dict[str, Any]:
         
         return economic_data
     except Exception as e:
-        raise ToolException(f"Error searching for economic indicators: {str(e)}")
+        raise ToolException(f"Lỗi tìm kiếm chỉ số kinh tế: {str(e)}")
 
 @tool("search_sector_performance", args_schema=SectorQuery, return_direct=False)
 def search_sector_performance(sector: str, market: str = "Vietnam") -> Dict[str, Any]:
     """
-    Searches for performance data about a specific sector in a given market (default: Vietnam).
+    Tìm kiếm dữ liệu hiệu suất về một ngành cụ thể trong một thị trường nhất định (mặc định: Việt Nam).
     
-    Args:
-        sector: Economic sector (e.g., banking, real estate)
-        market: Market to search in (default: Vietnam)
+    Tham số:
+        sector: Ngành kinh tế (ví dụ: ngân hàng, bất động sản)
+        market: Thị trường cần tìm kiếm (mặc định: Việt Nam)
         
-    Returns:
-        Dictionary with sector performance information
+    Trả về:
+        Dictionary với thông tin hiệu suất ngành
     """
     # Craft query specific to sector performance
-    query = f"{sector} sector performance {market} stock market current"
+    query = f"hiệu suất ngành {sector} thị trường chứng khoán {market} hiện tại"
     
     try:
         # Truyền max_results trực tiếp vào phương thức results()
@@ -178,7 +178,7 @@ def search_sector_performance(sector: str, market: str = "Vietnam") -> Dict[str,
         
         return sector_data
     except Exception as e:
-        raise ToolException(f"Error searching for sector performance: {str(e)}")
+        raise ToolException(f"Lỗi tìm kiếm hiệu suất ngành: {str(e)}")
 
 # Tạo danh sách các công cụ tìm kiếm
 search_tools = [
@@ -191,9 +191,9 @@ search_tools = [
 
 def get_search_tools() -> List[Tool]:
     """
-    Get the list of search tools.
+    Lấy danh sách các công cụ tìm kiếm.
     
-    Returns:
-        List of search tools
+    Trả về:
+        Danh sách các công cụ tìm kiếm
     """
     return search_tools

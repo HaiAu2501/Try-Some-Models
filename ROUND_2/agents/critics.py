@@ -13,7 +13,7 @@ from langchain.prompts import PromptTemplate
 
 from search_tools import get_search_tools
 
-# Get search tools
+# Lấy công cụ tìm kiếm
 search_tools = get_search_tools()
 
 # Định nghĩa các prompt cho Critic Agent
@@ -71,61 +71,61 @@ Hãy tập trung đánh giá:
 # Hàm để lấy model LLM
 def get_model():
     """
-    Get the appropriate LLM model based on environment configuration.
-    Returns OpenAI model by default.
+    Lấy mô hình LLM phù hợp dựa trên cấu hình môi trường.
+    Trả về mô hình OpenAI theo mặc định.
     """
     if os.getenv("OPENAI_API_KEY"):
         return ChatOpenAI(temperature=0, api_key=os.getenv("OPENAI_API_KEY"))
     else:
-        raise ValueError("No API key found for OpenAI")
+        raise ValueError("Không tìm thấy API key cho OpenAI")
 
 # Tạo tác tử phê bình cho nhóm với tích hợp tìm kiếm
 def create_group_critic(group_name: str):
     """
     Tạo tác tử phê bình (critic) cho một nhóm chuyên gia với tích hợp tìm kiếm trực tuyến.
     
-    Args:
+    Tham số:
         group_name: Tên của nhóm chuyên gia
         
-    Returns:
+    Trả về:
         Hàm critic thực hiện đánh giá phân tích của nhóm
     """
     llm = get_model()
     critic_system_prompt = GROUP_CRITIC_PROMPT.format(group_name=group_name)
     
-    # Create agent prompt template
+    # Tạo mẫu prompt tác tử
     critic_prompt = PromptTemplate.from_template(
         """
 {system_prompt}
 
-You have access to the following tools to help with your evaluation:
+Bạn có quyền truy cập vào các công cụ sau để hỗ trợ đánh giá của mình:
 
 {tools}
 
-Use these tools to research current information to fact-check and evaluate the expert analyses.
+Sử dụng các công cụ này để nghiên cứu thông tin hiện tại để kiểm tra sự thật và đánh giá các phân tích của chuyên gia.
 
-Follow this format:
+Tuân theo định dạng này:
 
-Question: the input question you must answer
-Thought: you should always think about what to do
-Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat N times)
-Thought: I now know the final answer
-Final Answer: the final answer to the original input question
+Question: câu hỏi đầu vào bạn phải trả lời
+Thought: bạn nên luôn suy nghĩ về việc phải làm gì
+Action: hành động cần thực hiện, nên là một trong [{tool_names}]
+Action Input: đầu vào cho hành động
+Observation: kết quả của hành động
+... (quy trình Thought/Action/Action Input/Observation có thể lặp lại nhiều lần)
+Thought: Bây giờ tôi đã biết câu trả lời cuối cùng
+Final Answer: câu trả lời cuối cùng cho câu hỏi đầu vào ban đầu
 
-Begin!
+Bắt đầu!
 
 Question: {input}
 {agent_scratchpad}
 """
     )
     
-    # Create the React agent with tools
+    # Tạo tác tử React với công cụ
     critic_agent = create_react_agent(llm, search_tools, critic_prompt)
     
-    # Create an agent executor
+    # Tạo trình thực thi tác tử
     critic_executor = AgentExecutor(
         agent=critic_agent,
         tools=search_tools,
@@ -139,10 +139,10 @@ Question: {input}
         """
         Đánh giá phân tích từ các chuyên gia và tổng hợp của nhóm.
         
-        Args:
+        Tham số:
             state: Trạng thái hiện tại của hệ thống
             
-        Returns:
+        Trả về:
             Trạng thái mới với phản hồi của critic
         """
         try:
@@ -187,7 +187,7 @@ Question: {input}
             
             print(f"\n[DEBUG] Running critic for {group_name} on file: {file_name}")
             
-            # Create the input for the agent
+            # Tạo đầu vào cho tác tử
             critic_input = f"""
             Hãy đánh giá phê bình (critique) các phân tích sau đây từ nhóm chuyên gia {group_name}:
             
@@ -213,17 +213,17 @@ Question: {input}
             Phân loại vấn đề theo mức độ nghiêm trọng và đưa ra đề xuất cải thiện cụ thể.
             """
             
-            # Execute the agent with tools
+            # Thực thi tác tử với công cụ
             critic_result = critic_executor.invoke({
                 "system_prompt": critic_system_prompt,
                 "input": critic_input,
                 "tools": search_tools
             })
             
-            # Extract the critique from the agent
+            # Trích xuất phê bình từ tác tử
             critique = critic_result.get("output", "No critique provided")
             
-            # Store search results in state
+            # Lưu trữ kết quả tìm kiếm trong trạng thái
             intermediate_steps = critic_result.get("intermediate_steps", [])
             search_results_for_state = {
                 f"{group_name}_critic_search": {
@@ -263,44 +263,44 @@ def create_meta_critic():
     """
     Tạo tác tử phê bình tổng hợp (meta-critic) đánh giá chiến lược đầu tư cuối cùng.
     
-    Returns:
+    Trả về:
         Hàm meta-critic thực hiện đánh giá tổng thể
     """
     llm = get_model()
     
-    # Create agent prompt template
+    # Tạo mẫu prompt tác tử
     meta_critic_prompt = PromptTemplate.from_template(
         """
 {system_prompt}
 
-You have access to the following tools to help with your evaluation:
+Bạn có quyền truy cập vào các công cụ sau để hỗ trợ đánh giá của mình:
 
 {tools}
 
-Use these tools to research current information to evaluate the investment strategy.
+Sử dụng các công cụ này để nghiên cứu thông tin hiện tại để đánh giá chiến lược đầu tư.
 
-Follow this format:
+Tuân theo định dạng này:
 
-Question: the input question you must answer
-Thought: you should always think about what to do
-Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat N times)
-Thought: I now know the final answer
-Final Answer: the final answer to the original input question
+Question: câu hỏi đầu vào bạn phải trả lời
+Thought: bạn nên luôn suy nghĩ về việc phải làm gì
+Action: hành động cần thực hiện, nên là một trong [{tool_names}]
+Action Input: đầu vào cho hành động
+Observation: kết quả của hành động
+... (quy trình Thought/Action/Action Input/Observation có thể lặp lại nhiều lần)
+Thought: Bây giờ tôi đã biết câu trả lời cuối cùng
+Final Answer: câu trả lời cuối cùng cho câu hỏi đầu vào ban đầu
 
-Begin!
+Bắt đầu!
 
 Question: {input}
 {agent_scratchpad}
 """
     )
     
-    # Create the React agent with tools
+    # Tạo tác tử React với công cụ
     meta_critic_agent = create_react_agent(llm, search_tools, meta_critic_prompt)
     
-    # Create an agent executor
+    # Tạo trình thực thi tác tử
     meta_critic_executor = AgentExecutor(
         agent=meta_critic_agent,
         tools=search_tools,
@@ -314,10 +314,10 @@ Question: {input}
         """
         Đánh giá chiến lược đầu tư tổng hợp cuối cùng.
         
-        Args:
+        Tham số:
             state: Trạng thái hiện tại của hệ thống
             
-        Returns:
+        Trả về:
             Trạng thái mới với phản hồi của meta-critic
         """
         try:
@@ -343,7 +343,7 @@ Question: {input}
             
             print(f"\n[DEBUG] Running meta-critic on file: {file_name}")
             
-            # Create the input for the agent
+            # Tạo đầu vào cho tác tử
             meta_critic_input = f"""
             Hãy đánh giá phê bình (critique) chiến lược đầu tư tổng hợp sau đây:
             
@@ -372,17 +372,17 @@ Question: {input}
             với thị trường Việt Nam hiện tại.
             """
             
-            # Execute the agent with tools
+            # Thực thi tác tử với công cụ
             meta_critic_result = meta_critic_executor.invoke({
                 "system_prompt": META_CRITIC_PROMPT,
                 "input": meta_critic_input,
                 "tools": search_tools
             })
             
-            # Extract the meta critique from the agent
+            # Trích xuất phê bình tổng thể từ tác tử
             meta_critique = meta_critic_result.get("output", "No meta critique provided")
             
-            # Store search results in state
+            # Lưu trữ kết quả tìm kiếm trong trạng thái
             intermediate_steps = meta_critic_result.get("intermediate_steps", [])
             search_results_for_state = {
                 "meta_critic_search": {
@@ -419,48 +419,48 @@ def create_refinement_agent(expert_name: str, expert_system_prompt: str):
     """
     Tạo tác tử tinh chỉnh phân tích dựa trên phê bình với tích hợp tìm kiếm.
     
-    Args:
+    Tham số:
         expert_name: Tên của chuyên gia
         expert_system_prompt: System prompt gốc của chuyên gia
         
-    Returns:
+    Trả về:
         Hàm refinement agent thực hiện tinh chỉnh phân tích
     """
     llm = get_model()
     
-    # Create agent prompt template
+    # Tạo mẫu prompt tác tử
     refinement_prompt = PromptTemplate.from_template(
         """
 {system_prompt}
 
-You have access to the following tools to help with your analysis:
+Bạn có quyền truy cập vào các công cụ sau để hỗ trợ phân tích của mình:
 
 {tools}
 
-Use these tools to research current information to improve your analysis based on the critique.
+Sử dụng các công cụ này để nghiên cứu thông tin hiện tại để cải thiện phân tích của bạn dựa trên phê bình.
 
-Follow this format:
+Tuân theo định dạng này:
 
-Question: the input question you must answer
-Thought: you should always think about what to do
-Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat N times)
-Thought: I now know the final answer
-Final Answer: the final answer to the original input question
+Question: câu hỏi đầu vào bạn phải trả lời
+Thought: bạn nên luôn suy nghĩ về việc phải làm gì
+Action: hành động cần thực hiện, nên là một trong [{tool_names}]
+Action Input: đầu vào cho hành động
+Observation: kết quả của hành động
+... (quy trình Thought/Action/Action Input/Observation có thể lặp lại nhiều lần)
+Thought: Bây giờ tôi đã biết câu trả lời cuối cùng
+Final Answer: câu trả lời cuối cùng cho câu hỏi đầu vào ban đầu
 
-Begin!
+Bắt đầu!
 
 Question: {input}
 {agent_scratchpad}
 """
     )
     
-    # Create the React agent with tools
+    # Tạo tác tử React với công cụ
     refinement_agent = create_react_agent(llm, search_tools, refinement_prompt)
     
-    # Create an agent executor
+    # Tạo trình thực thi tác tử
     refinement_executor = AgentExecutor(
         agent=refinement_agent,
         tools=search_tools,
@@ -474,10 +474,10 @@ Question: {input}
         """
         Tinh chỉnh phân tích dựa trên phê bình.
         
-        Args:
+        Tham số:
             state: Trạng thái hiện tại của hệ thống
             
-        Returns:
+        Trả về:
             Trạng thái mới với phân tích đã tinh chỉnh
         """
         try:
@@ -516,7 +516,7 @@ Question: {input}
             if not critiques:
                 return {"analyses": {expert_name: current_analysis}}
             
-            # Create the system prompt for refinement
+            # Tạo system prompt cho tinh chỉnh
             refinement_system_prompt = f"""
             {expert_system_prompt}
             
@@ -526,7 +526,7 @@ Question: {input}
             Khi sử dụng thông tin mới, hãy trích dẫn nguồn và đánh giá độ tin cậy của thông tin.
             """
             
-            # Create the input for the agent
+            # Tạo đầu vào cho tác tử
             refinement_input = f"""
             Hãy tinh chỉnh phân tích sau đây dựa trên các phê bình nhận được:
             
@@ -555,17 +555,17 @@ Question: {input}
             Đưa ra phân tích hoàn chỉnh đã được cải thiện.
             """
             
-            # Execute the agent with tools
+            # Thực thi tác tử với công cụ
             refinement_result = refinement_executor.invoke({
                 "system_prompt": refinement_system_prompt,
                 "input": refinement_input,
                 "tools": search_tools
             })
             
-            # Extract the refined analysis from the agent
+            # Trích xuất phân tích đã tinh chỉnh từ tác tử
             refined_analysis = refinement_result.get("output", "No analysis provided")
             
-            # Store search results in state
+            # Lưu trữ kết quả tìm kiếm trong trạng thái
             intermediate_steps = refinement_result.get("intermediate_steps", [])
             search_results_for_state = {
                 f"{expert_name}_refinement_search": {
@@ -602,47 +602,47 @@ def create_group_summary_refinement(group_name: str):
     """
     Tạo tác tử tinh chỉnh tổng hợp nhóm dựa trên phê bình với tích hợp tìm kiếm.
     
-    Args:
+    Tham số:
         group_name: Tên của nhóm
         
-    Returns:
+    Trả về:
         Hàm refinement agent thực hiện tinh chỉnh tổng hợp nhóm
     """
     llm = get_model()
     
-    # Create agent prompt template
+    # Tạo mẫu prompt tác tử
     summary_refinement_prompt = PromptTemplate.from_template(
         """
 {system_prompt}
 
-You have access to the following tools to help with your synthesis:
+Bạn có quyền truy cập vào các công cụ sau để hỗ trợ tổng hợp của mình:
 
 {tools}
 
-Use these tools to research current information to improve your group summary based on the critique.
+Sử dụng các công cụ này để nghiên cứu thông tin hiện tại để cải thiện bản tổng hợp nhóm của bạn dựa trên phê bình.
 
-Follow this format:
+Tuân theo định dạng này:
 
-Question: the input question you must answer
-Thought: you should always think about what to do
-Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat N times)
-Thought: I now know the final answer
-Final Answer: the final answer to the original input question
+Question: câu hỏi đầu vào bạn phải trả lời
+Thought: bạn nên luôn suy nghĩ về việc phải làm gì
+Action: hành động cần thực hiện, nên là một trong [{tool_names}]
+Action Input: đầu vào cho hành động
+Observation: kết quả của hành động
+... (quy trình Thought/Action/Action Input/Observation có thể lặp lại nhiều lần)
+Thought: Bây giờ tôi đã biết câu trả lời cuối cùng
+Final Answer: câu trả lời cuối cùng cho câu hỏi đầu vào ban đầu
 
-Begin!
+Bắt đầu!
 
 Question: {input}
 {agent_scratchpad}
 """
     )
     
-    # Create the React agent with tools
+    # Tạo tác tử React với công cụ
     summary_refinement_agent = create_react_agent(llm, search_tools, summary_refinement_prompt)
     
-    # Create an agent executor
+    # Tạo trình thực thi tác tử
     summary_refinement_executor = AgentExecutor(
         agent=summary_refinement_agent,
         tools=search_tools,
@@ -656,10 +656,10 @@ Question: {input}
         """
         Tinh chỉnh tổng hợp nhóm dựa trên phê bình.
         
-        Args:
+        Tham số:
             state: Trạng thái hiện tại của hệ thống
             
-        Returns:
+        Trả về:
             Trạng thái mới với tổng hợp nhóm đã tinh chỉnh
         """
         try:
@@ -692,7 +692,7 @@ Question: {input}
             
             print(f"\n[DEBUG] Refining summary for group {group_name} on file: {file_name}")
             
-            # Create the system prompt for refinement
+            # Tạo system prompt cho tinh chỉnh
             summary_system_prompt = f"""
             Bạn là người tổng hợp ý kiến cho nhóm chuyên gia {group_name}.
             Nhiệm vụ của bạn là tinh chỉnh tổng hợp trước đó dựa trên phê bình nhận được và thông tin cập nhật.
@@ -701,7 +701,7 @@ Question: {input}
             Khi sử dụng thông tin mới, hãy trích dẫn nguồn và đánh giá độ tin cậy của thông tin.
             """
             
-            # Create the input for the agent
+            # Tạo đầu vào cho tác tử
             summary_input = f"""
             Hãy tinh chỉnh tổng hợp nhóm sau đây dựa trên phê bình nhận được:
             
@@ -731,17 +731,17 @@ Question: {input}
             Đưa ra tổng hợp hoàn chỉnh đã được cải thiện.
             """
             
-            # Execute the agent with tools
+            # Thực thi tác tử với công cụ
             summary_result = summary_refinement_executor.invoke({
                 "system_prompt": summary_system_prompt,
                 "input": summary_input,
                 "tools": search_tools
             })
             
-            # Extract the refined summary from the agent
+            # Trích xuất tổng hợp đã tinh chỉnh từ tác tử
             refined_summary = summary_result.get("output", "No summary provided")
             
-            # Store search results in state
+            # Lưu trữ kết quả tìm kiếm trong trạng thái
             intermediate_steps = summary_result.get("intermediate_steps", [])
             search_results_for_state = {
                 f"{group_name}_summary_refinement_search": {
@@ -778,44 +778,44 @@ def create_final_report_refinement():
     """
     Tạo tác tử tinh chỉnh chiến lược đầu tư cuối cùng dựa trên phê bình tổng thể với tích hợp tìm kiếm.
     
-    Returns:
+    Trả về:
         Hàm refinement agent thực hiện tinh chỉnh báo cáo cuối cùng
     """
     llm = get_model()
     
-    # Create agent prompt template
+    # Tạo mẫu prompt tác tử
     report_refinement_prompt = PromptTemplate.from_template(
         """
 {system_prompt}
 
-You have access to the following tools to help with your refinement:
+Bạn có quyền truy cập vào các công cụ sau để hỗ trợ tinh chỉnh của mình:
 
 {tools}
 
-Use these tools to research current information to improve the final investment strategy based on the critique.
+Sử dụng các công cụ này để nghiên cứu thông tin hiện tại để cải thiện chiến lược đầu tư cuối cùng dựa trên phê bình.
 
-Follow this format:
+Tuân theo định dạng này:
 
-Question: the input question you must answer
-Thought: you should always think about what to do
-Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat N times)
-Thought: I now know the final answer
-Final Answer: the final answer to the original input question
+Question: câu hỏi đầu vào bạn phải trả lời
+Thought: bạn nên luôn suy nghĩ về việc phải làm gì
+Action: hành động cần thực hiện, nên là một trong [{tool_names}]
+Action Input: đầu vào cho hành động
+Observation: kết quả của hành động
+... (quy trình Thought/Action/Action Input/Observation có thể lặp lại nhiều lần)
+Thought: Bây giờ tôi đã biết câu trả lời cuối cùng
+Final Answer: câu trả lời cuối cùng cho câu hỏi đầu vào ban đầu
 
-Begin!
+Bắt đầu!
 
 Question: {input}
 {agent_scratchpad}
 """
     )
     
-    # Create the React agent with tools
+    # Tạo tác tử React với công cụ
     report_refinement_agent = create_react_agent(llm, search_tools, report_refinement_prompt)
     
-    # Create an agent executor
+    # Tạo trình thực thi tác tử
     report_refinement_executor = AgentExecutor(
         agent=report_refinement_agent,
         tools=search_tools,
@@ -829,10 +829,10 @@ Question: {input}
         """
         Tinh chỉnh chiến lược đầu tư cuối cùng dựa trên phê bình tổng thể.
         
-        Args:
+        Tham số:
             state: Trạng thái hiện tại của hệ thống
             
-        Returns:
+        Trả về:
             Trạng thái mới với chiến lược đầu tư đã tinh chỉnh
         """
         try:
@@ -872,7 +872,7 @@ Question: {input}
             
             print(f"\n[DEBUG] Refining final investment strategy on file: {file_name}")
             
-            # Create the system prompt for refinement
+            # Tạo system prompt cho tinh chỉnh
             report_system_prompt = """
             Bạn là chuyên gia tổng hợp chiến lược đầu tư cuối cùng.
             Nhiệm vụ của bạn là tinh chỉnh chiến lược đầu tư trước đó dựa trên phê bình tổng thể nhận được và thông tin mới nhất.
@@ -881,7 +881,7 @@ Question: {input}
             Khi sử dụng thông tin mới, hãy trích dẫn nguồn và đánh giá độ tin cậy của thông tin.
             """
             
-            # Create the input for the agent
+            # Tạo đầu vào cho tác tử
             report_input = f"""
             Hãy tinh chỉnh chiến lược đầu tư sau đây dựa trên phê bình tổng thể nhận được:
             
@@ -913,17 +913,17 @@ Question: {input}
             Đưa ra chiến lược đầu tư hoàn chỉnh đã được cải thiện.
             """
             
-            # Execute the agent with tools
+            # Thực thi tác tử với công cụ
             report_result = report_refinement_executor.invoke({
                 "system_prompt": report_system_prompt,
                 "input": report_input,
                 "tools": search_tools
             })
             
-            # Extract the refined report from the agent
+            # Trích xuất báo cáo đã tinh chỉnh từ tác tử
             refined_report = report_result.get("output", "No report provided")
             
-            # Store search results in state
+            # Lưu trữ kết quả tìm kiếm trong trạng thái
             intermediate_steps = report_result.get("intermediate_steps", [])
             search_results_for_state = {
                 "final_report_refinement_search": {
@@ -960,10 +960,10 @@ def should_continue_iteration(state: Dict[str, Any]) -> str:
     """
     Kiểm tra xem có nên tiếp tục vòng lặp phê bình và tinh chỉnh hay không.
     
-    Args:
+    Tham số:
         state: Trạng thái hiện tại của hệ thống
         
-    Returns:
+    Trả về:
         "continue" nếu cần tiếp tục vòng lặp, "stop" nếu đủ điều kiện dừng
     """
     # Lấy số lần lặp hiện tại

@@ -10,23 +10,23 @@ from langgraph.pregel import Pregel
 sys.path.append(str(Path(__file__).parent))
 
 from agent_nodes import (
-    # Expert nodes - Group 1: Market Analysis
+    # Expert nodes - Group 1: Phân tích Thị trường
     market_analyst_node, technical_analyst_node, fundamental_analyst_node,
     sentiment_analyst_node, economic_indicators_node,
     
-    # Expert nodes - Group 2: Financial Analysis
+    # Expert nodes - Group 2: Phân tích Tài chính
     financial_statement_node, financial_ratio_node, valuation_node,
     cash_flow_node, capital_structure_node,
     
-    # Expert nodes - Group 3: Sectoral Analysis
+    # Expert nodes - Group 3: Phân tích Ngành
     banking_finance_node, real_estate_node, consumer_goods_node,
     industrial_node, technology_node,
     
-    # Expert nodes - Group 4: External Factors
+    # Expert nodes - Group 4: Yếu tố Bên ngoài
     global_markets_node, geopolitical_risk_node, regulatory_framework_node,
     monetary_policy_node, demographic_trends_node,
     
-    # Expert nodes - Group 5: Strategy
+    # Expert nodes - Group 5: Lập chiến lược
     game_theory_node, risk_management_node, portfolio_optimization_node,
     asset_allocation_node, investment_psychology_node,
     
@@ -42,7 +42,7 @@ from agent_nodes import (
     InputState, OutputState, AgentState
 )
 
-# Import các tác tử phê bình từ critics.py
+# Nhập các tác tử phê bình từ critics.py
 from critics import (
     create_group_critic,
     create_meta_critic,
@@ -91,13 +91,13 @@ def prepare_iteration_state(state: Dict[str, Any]) -> Dict[str, Any]:
     """
     Chuẩn bị trạng thái cho một vòng lặp phản hồi mới.
     
-    Args:
+    Tham số:
         state: Trạng thái hiện tại
         
-    Returns:
+    Trả về:
         Trạng thái đã cập nhật cho vòng lặp mới
     """
-    # Khởi tạo iteration counter nếu chưa có
+    # Khởi tạo bộ đếm lặp nếu chưa có
     if "iteration" not in state:
         state["iteration"] = 0
     else:
@@ -110,7 +110,7 @@ def prepare_iteration_state(state: Dict[str, Any]) -> Dict[str, Any]:
     if "critiques" not in state:
         state["critiques"] = {}
     
-    print(f"\n[DEBUG] Starting iteration {state['iteration']}")
+    print(f"\n[DEBUG] Bắt đầu lặp lần thứ {state['iteration']}")
     
     return state
 
@@ -121,21 +121,21 @@ def create_enhanced_expert_group_graph(
     critic_node: Callable
 ) -> CompiledGraph:
     """
-    Tạo graph nâng cao cho một nhóm chuyên gia với vòng lặp phản hồi.
+    Tạo đồ thị nâng cao cho một nhóm chuyên gia với vòng lặp phản hồi.
     
-    Args:
+    Tham số:
         group_name: Tên của nhóm chuyên gia
-        expert_nodes: Dict ánh xạ tên chuyên gia đến node function
-        summarizer_node: Node function tổng hợp nhóm
-        critic_node: Node function phê bình nhóm
+        expert_nodes: Dict ánh xạ tên chuyên gia đến hàm node
+        summarizer_node: Hàm node tổng hợp nhóm
+        critic_node: Hàm node phê bình nhóm
         
-    Returns:
+    Trả về:
         CompiledGraph cho nhóm chuyên gia này
     """
     # Tạo workflow cho nhóm
     workflow = StateGraph(AgentState)
     
-    # Node chuẩn bị iteration
+    # Node chuẩn bị lặp
     workflow.add_node("prepare_iteration", prepare_iteration_state)
     
     # Thêm tất cả expert nodes
@@ -182,11 +182,11 @@ def create_enhanced_expert_group_graph(
     # Kết nối summarizer đến critic
     workflow.add_edge(summarizer_name, critic_name)
     
-    # Biên dịch graph
+    # Biên dịch đồ thị
     return workflow.compile()
 
-# Tạo các enhanced group graphs
-# Market Analysis group
+# Tạo các đồ thị nhóm nâng cao
+# Nhóm Phân tích Thị trường
 market_analysis_expert_nodes = {
     "market_analyst": market_analyst_node,
     "technical_analyst": technical_analyst_node,
@@ -201,7 +201,7 @@ market_analysis_group_graph = create_enhanced_expert_group_graph(
     market_analysis_critic
 )
 
-# Financial Analysis group
+# Nhóm Phân tích Tài chính
 financial_analysis_expert_nodes = {
     "financial_statement_analyst": financial_statement_node,
     "financial_ratio_expert": financial_ratio_node,
@@ -216,7 +216,7 @@ financial_analysis_group_graph = create_enhanced_expert_group_graph(
     financial_analysis_critic
 )
 
-# Sectoral Analysis group
+# Nhóm Phân tích Ngành
 sectoral_analysis_expert_nodes = {
     "banking_finance_expert": banking_finance_node,
     "real_estate_expert": real_estate_node,
@@ -231,7 +231,7 @@ sectoral_analysis_group_graph = create_enhanced_expert_group_graph(
     sectoral_analysis_critic
 )
 
-# External Factors group
+# Nhóm Yếu tố Bên ngoài
 external_factors_expert_nodes = {
     "global_markets_expert": global_markets_node,
     "geopolitical_risk_analyst": geopolitical_risk_node,
@@ -246,7 +246,7 @@ external_factors_group_graph = create_enhanced_expert_group_graph(
     external_factors_critic
 )
 
-# Strategy group (new)
+# Nhóm Lập chiến lược (mới)
 strategy_expert_nodes = {
     "game_theory_strategist": game_theory_node,
     "risk_management_expert": risk_management_node,
@@ -263,15 +263,15 @@ strategy_group_graph = create_enhanced_expert_group_graph(
 
 def create_enhanced_main_graph():
     """
-    Tạo main graph nâng cao với vòng lặp phản hồi giữa các nhóm và meta-critic.
+    Tạo đồ thị chính nâng cao với vòng lặp phản hồi giữa các nhóm và meta-critic.
     """
-    # Tạo main workflow
+    # Tạo workflow chính
     main_workflow = StateGraph(AgentState, input=InputState, output=OutputState)
     
-    # Thêm node chuẩn bị iteration
+    # Thêm node chuẩn bị lặp
     main_workflow.add_node("prepare_main_iteration", prepare_iteration_state)
     
-    # Thêm mỗi group graph như một node
+    # Thêm mỗi đồ thị nhóm như một node
     main_workflow.add_node("market_analysis_group", market_analysis_group_graph)
     main_workflow.add_node("financial_analysis_group", financial_analysis_group_graph)
     main_workflow.add_node("sectoral_analysis_group", sectoral_analysis_group_graph)
@@ -304,10 +304,10 @@ def create_enhanced_main_graph():
     main_workflow.add_edge("strategy_group", "final_synthesis")
     main_workflow.add_edge("final_synthesis", "meta_critic")
     
-    # Biên dịch main graph
+    # Biên dịch đồ thị chính
     return main_workflow.compile()
 
-# Tạo main graph
+# Tạo đồ thị chính
 main_graph = create_enhanced_main_graph()
 
 # Hàm tiện ích để chạy phân tích với số lần lặp tối đa
@@ -315,17 +315,17 @@ def run_analysis_with_iterations(initial_state: Dict[str, Any], max_iterations: 
     """
     Chạy phân tích với số lần lặp tối đa
     
-    Args:
+    Tham số:
         initial_state: Trạng thái khởi tạo
         max_iterations: Số lần lặp tối đa
         
-    Returns:
+    Trả về:
         Kết quả phân tích
     """
     # Thêm max_iterations vào state
     initial_state["max_iterations"] = max_iterations
     
-    # Chạy graph
+    # Chạy đồ thị
     result = main_graph.invoke(initial_state)
     
     return result

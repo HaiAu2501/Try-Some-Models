@@ -21,53 +21,53 @@ logging.basicConfig(
 )
 logger = logging.getLogger("investment_analysis")
 
-# Load environment variables
+# Tải biến môi trường
 load_dotenv()
 
 def get_resource_files(resource_dir: str = "../resources") -> List[Path]:
     """
-    Get all text files from the resources directory.
+    Lấy tất cả các tệp văn bản từ thư mục tài nguyên.
     
-    Args:
-        resource_dir: Path to the resources directory
+    Tham số:
+        resource_dir: Đường dẫn đến thư mục tài nguyên
         
-    Returns:
-        List of Path objects to text files
+    Trả về:
+        Danh sách các đối tượng Path đến các tệp văn bản
     """
-    # Get the absolute path to the resources directory
+    # Lấy đường dẫn tuyệt đối đến thư mục tài nguyên
     base_dir = Path(__file__).parent
     full_resource_dir = base_dir / resource_dir
     
-    # Check if the directory exists
+    # Kiểm tra xem thư mục có tồn tại không
     if not full_resource_dir.exists():
-        logger.warning(f"Resource directory not found: {full_resource_dir}")
-        # Create the directory if it doesn't exist
+        logger.warning(f"Không tìm thấy thư mục tài nguyên: {full_resource_dir}")
+        # Tạo thư mục nếu không tồn tại
         full_resource_dir.mkdir(parents=True, exist_ok=True)
-        logger.info(f"Created empty resource directory: {full_resource_dir}")
+        logger.info(f"Đã tạo thư mục tài nguyên trống: {full_resource_dir}")
         return []
     
-    # Get all .txt and .csv files for analysis
+    # Lấy tất cả các tệp .txt và .csv để phân tích
     return list(full_resource_dir.glob("*.txt")) + list(full_resource_dir.glob("*.csv"))
 
 def analyze_document(file_path: Path) -> Dict[str, Any]:
     """
-    Analyze a single document using the multi-agent system.
+    Phân tích một tài liệu duy nhất bằng hệ thống đa tác tử.
     
-    Args:
-        file_path: Path to the document to analyze
+    Tham số:
+        file_path: Đường dẫn đến tài liệu cần phân tích
         
-    Returns:
-        Analysis results for the document
+    Trả về:
+        Kết quả phân tích cho tài liệu
     """
     file_name = file_path.name
-    logger.info(f"Starting analysis of document: {file_name}")
+    logger.info(f"Bắt đầu phân tích tài liệu: {file_name}")
     
     try:
-        # Read the file content
+        # Đọc nội dung tệp
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # Initialize the state for the graph
+        # Khởi tạo trạng thái cho đồ thị
         initial_state: AgentState = {
             "input_data": content,
             "file_name": file_name,
@@ -77,17 +77,17 @@ def analyze_document(file_path: Path) -> Dict[str, Any]:
             "search_results": {}
         }
         
-        # Run the graph with the initial state
-        logger.info(f"Invoking analysis graph for {file_name}")
+        # Chạy đồ thị với trạng thái ban đầu
+        logger.info(f"Đang gọi đồ thị phân tích cho {file_name}")
         start_time = datetime.now()
         result = main_graph.invoke(initial_state)
         end_time = datetime.now()
         
-        # Log execution time
+        # Ghi lại thời gian thực thi
         duration = (end_time - start_time).total_seconds()
-        logger.info(f"Analysis completed in {duration:.2f} seconds")
+        logger.info(f"Phân tích hoàn thành trong {duration:.2f} giây")
         
-        # Log search usage statistics
+        # Ghi lại thống kê sử dụng tìm kiếm
         if "search_results" in result:
             total_searches = 0
             search_by_agent = {}
@@ -98,24 +98,24 @@ def analyze_document(file_path: Path) -> Dict[str, Any]:
                     total_searches += steps
                     search_by_agent[key] = steps
             
-            logger.info(f"Total searches performed: {total_searches}")
-            logger.info(f"Search distribution: {json.dumps(search_by_agent)}")
+            logger.info(f"Tổng số lần tìm kiếm đã thực hiện: {total_searches}")
+            logger.info(f"Phân phối tìm kiếm: {json.dumps(search_by_agent)}")
         
         return result
     
     except Exception as e:
-        logger.error(f"Error analyzing document {file_name}: {str(e)}", exc_info=True)
+        logger.error(f"Lỗi khi phân tích tài liệu {file_name}: {str(e)}", exc_info=True)
         return {
             "input_data": "",
             "file_name": file_name,
             "analyses": {},
             "group_summaries": {},
-            "final_report": f"Error analyzing document: {str(e)}",
+            "final_report": f"Lỗi phân tích tài liệu: {str(e)}",
             "search_results": {}
         }
 
 def main():
-    """Main entry point for the multi-agent investment strategy optimization system."""
+    """Điểm nhập chính cho hệ thống tối ưu hóa chiến lược đầu tư đa tác tử."""
     logger.info("=== HỆ THỐNG PHÂN TÍCH VÀ TỐI ƯU HÓA CHIẾN LƯỢC ĐẦU TƯ ===")
     logger.info("Đang tìm kiếm tệp dữ liệu để phân tích...")
     file_paths = get_resource_files()
@@ -127,15 +127,15 @@ def main():
     
     logger.info(f"Đã tìm thấy {len(file_paths)} tệp dữ liệu để phân tích.")
     
-    # Create output directory
+    # Tạo thư mục đầu ra
     output_dir = Path(__file__).parent / "investment_strategies"
     output_dir.mkdir(exist_ok=True)
     
-    # Create directory for search results
+    # Tạo thư mục cho kết quả tìm kiếm
     search_dir = output_dir / "search_results"
     search_dir.mkdir(exist_ok=True)
     
-    # Process each document
+    # Xử lý từng tài liệu
     all_results = {}
     for file_path in file_paths:
         file_name = file_path.name
@@ -144,10 +144,10 @@ def main():
         print("=" * 50)
         result = analyze_document(file_path)
         
-        # Save individual result (without search results to keep file size manageable)
+        # Lưu kết quả riêng lẻ (không có kết quả tìm kiếm để giữ kích thước tệp ở mức hợp lý)
         output_file = output_dir / f"{file_name}_strategy.json"
         with open(output_file, 'w', encoding='utf-8') as f:
-            # Convert state to JSON-serializable format
+            # Chuyển đổi trạng thái thành định dạng có thể serialize thành JSON
             serializable_result = {
                 "file_name": file_name,
                 "analyses": result["analyses"],
@@ -156,7 +156,7 @@ def main():
             }
             json.dump(serializable_result, f, ensure_ascii=False, indent=2)
         
-        # Save search results separately
+        # Lưu kết quả tìm kiếm riêng biệt
         if "search_results" in result:
             search_file = search_dir / f"{file_name}_search_results.json"
             with open(search_file, 'w', encoding='utf-8') as f:
@@ -164,14 +164,14 @@ def main():
         
         logger.info(f"Chiến lược đầu tư cho {file_name} đã được lưu tại {output_file}")
         
-        # Store result for combined report
+        # Lưu trữ kết quả cho báo cáo tổng hợp
         all_results[file_name] = result["final_report"]
         
-        # Print final investment strategy for this document
+        # In chiến lược đầu tư cuối cùng cho tài liệu này
         print("\n=== CHIẾN LƯỢC ĐẦU TƯ ===\n")
         print(result["final_report"])
     
-    # Save combined results
+    # Lưu kết quả tổng hợp
     combined_output = output_dir / "all_investment_strategies.json"
     with open(combined_output, 'w', encoding='utf-8') as f:
         json.dump(all_results, f, ensure_ascii=False, indent=2)
