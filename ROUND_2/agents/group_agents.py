@@ -10,17 +10,30 @@ from langgraph.pregel import Pregel
 sys.path.append(str(Path(__file__).parent))
 
 from agent_nodes import (
-    # Expert nodes
-    econometrician_node, empirical_economist_node, normative_economist_node,
-    macroeconomist_node, microeconomist_node,
-    behavioral_economist_node, socio_economist_node,
-    corporate_management_node, financial_economist_node, international_economist_node,
-    logistics_node, trade_commerce_node,
-    digital_economy_node, environmental_economist_node, public_policy_node,
+    # Expert nodes - Group 1: Market Analysis
+    market_analyst_node, technical_analyst_node, fundamental_analyst_node,
+    sentiment_analyst_node, economic_indicators_node,
+    
+    # Expert nodes - Group 2: Financial Analysis
+    financial_statement_node, financial_ratio_node, valuation_node,
+    cash_flow_node, capital_structure_node,
+    
+    # Expert nodes - Group 3: Sectoral Analysis
+    banking_finance_node, real_estate_node, consumer_goods_node,
+    industrial_node, technology_node,
+    
+    # Expert nodes - Group 4: External Factors
+    global_markets_node, geopolitical_risk_node, regulatory_framework_node,
+    monetary_policy_node, demographic_trends_node,
+    
+    # Expert nodes - Group 5: Strategy
+    game_theory_node, risk_management_node, portfolio_optimization_node,
+    asset_allocation_node, investment_psychology_node,
     
     # Group summarizer nodes
-    academic_group_summarizer, behavioral_group_summarizer,
-    market_group_summarizer, policy_group_summarizer,
+    market_analysis_group_summarizer, financial_analysis_group_summarizer,
+    sectoral_analysis_group_summarizer, external_factors_group_summarizer,
+    strategy_group_summarizer,
     
     # Final synthesizer
     final_synthesizer,
@@ -41,27 +54,34 @@ from critics import (
 
 # Định nghĩa cấu trúc nhóm chuyên gia
 group_experts = {
-    "academic_quantitative": [
-        "econometrician", "empirical_economist", "normative_economist", 
-        "macroeconomist", "microeconomist"
+    "market_analysis": [
+        "market_analyst", "technical_analyst", "fundamental_analyst", 
+        "sentiment_analyst", "economic_indicators_expert"
     ],
-    "behavioral_social": [
-        "behavioral_economist", "socio_economist"
+    "financial_analysis": [
+        "financial_statement_analyst", "financial_ratio_expert", "valuation_expert", 
+        "cash_flow_analyst", "capital_structure_expert"
     ],
-    "market_business": [
-        "corporate_management", "financial_economist", "international_economist", 
-        "logistics_expert", "trade_commerce_expert"
+    "sectoral_analysis": [
+        "banking_finance_expert", "real_estate_expert", "consumer_goods_expert", 
+        "industrial_expert", "technology_expert"
     ],
-    "policy_innovation": [
-        "digital_economy_expert", "environmental_economist", "public_policy_expert"
+    "external_factors": [
+        "global_markets_expert", "geopolitical_risk_analyst", "regulatory_framework_expert", 
+        "monetary_policy_expert", "demographic_trends_expert"
+    ],
+    "strategy": [
+        "game_theory_strategist", "risk_management_expert", "portfolio_optimization_expert", 
+        "asset_allocation_strategist", "investment_psychology_expert"
     ]
 }
 
 # Tạo các tác tử phê bình cho từng nhóm
-academic_critic = create_group_critic("Học Thuật Định Lượng (Academic Quantitative)")
-behavioral_critic = create_group_critic("Hành Vi Xã Hội (Behavioral Social)")
-market_critic = create_group_critic("Thị Trường Doanh Nghiệp (Market Business)")
-policy_critic = create_group_critic("Chính Sách Đổi Mới (Policy Innovation)")
+market_analysis_critic = create_group_critic("Phân tích Thị trường (Market Analysis)")
+financial_analysis_critic = create_group_critic("Phân tích Tài chính (Financial Analysis)")
+sectoral_analysis_critic = create_group_critic("Phân tích Ngành (Sectoral Analysis)")
+external_factors_critic = create_group_critic("Yếu tố Bên ngoài (External Factors)")
+strategy_critic = create_group_critic("Lập chiến lược (Strategy)")
 
 # Tạo tác tử phê bình tổng hợp
 meta_critic = create_meta_critic()
@@ -166,59 +186,79 @@ def create_enhanced_expert_group_graph(
     return workflow.compile()
 
 # Tạo các enhanced group graphs
-# Academic Quantitative group
-academic_expert_nodes = {
-    "econometrician": econometrician_node,
-    "empirical_economist": empirical_economist_node,
-    "normative_economist": normative_economist_node,
-    "macroeconomist": macroeconomist_node,
-    "microeconomist": microeconomist_node
+# Market Analysis group
+market_analysis_expert_nodes = {
+    "market_analyst": market_analyst_node,
+    "technical_analyst": technical_analyst_node,
+    "fundamental_analyst": fundamental_analyst_node,
+    "sentiment_analyst": sentiment_analyst_node,
+    "economic_indicators_expert": economic_indicators_node
 }
-academic_group_graph = create_enhanced_expert_group_graph(
-    "academic_quantitative", 
-    academic_expert_nodes, 
-    academic_group_summarizer,
-    academic_critic
+market_analysis_group_graph = create_enhanced_expert_group_graph(
+    "market_analysis", 
+    market_analysis_expert_nodes, 
+    market_analysis_group_summarizer,
+    market_analysis_critic
 )
 
-# Behavioral Social group
-behavioral_expert_nodes = {
-    "behavioral_economist": behavioral_economist_node,
-    "socio_economist": socio_economist_node
+# Financial Analysis group
+financial_analysis_expert_nodes = {
+    "financial_statement_analyst": financial_statement_node,
+    "financial_ratio_expert": financial_ratio_node,
+    "valuation_expert": valuation_node,
+    "cash_flow_analyst": cash_flow_node,
+    "capital_structure_expert": capital_structure_node
 }
-behavioral_group_graph = create_enhanced_expert_group_graph(
-    "behavioral_social",
-    behavioral_expert_nodes,
-    behavioral_group_summarizer,
-    behavioral_critic
+financial_analysis_group_graph = create_enhanced_expert_group_graph(
+    "financial_analysis",
+    financial_analysis_expert_nodes,
+    financial_analysis_group_summarizer,
+    financial_analysis_critic
 )
 
-# Market Business group
-market_expert_nodes = {
-    "corporate_management": corporate_management_node,
-    "financial_economist": financial_economist_node,
-    "international_economist": international_economist_node,
-    "logistics_expert": logistics_node,
-    "trade_commerce_expert": trade_commerce_node
+# Sectoral Analysis group
+sectoral_analysis_expert_nodes = {
+    "banking_finance_expert": banking_finance_node,
+    "real_estate_expert": real_estate_node,
+    "consumer_goods_expert": consumer_goods_node,
+    "industrial_expert": industrial_node,
+    "technology_expert": technology_node
 }
-market_group_graph = create_enhanced_expert_group_graph(
-    "market_business",
-    market_expert_nodes,
-    market_group_summarizer,
-    market_critic
+sectoral_analysis_group_graph = create_enhanced_expert_group_graph(
+    "sectoral_analysis",
+    sectoral_analysis_expert_nodes,
+    sectoral_analysis_group_summarizer,
+    sectoral_analysis_critic
 )
 
-# Policy Innovation group
-policy_expert_nodes = {
-    "digital_economy_expert": digital_economy_node,
-    "environmental_economist": environmental_economist_node,
-    "public_policy_expert": public_policy_node
+# External Factors group
+external_factors_expert_nodes = {
+    "global_markets_expert": global_markets_node,
+    "geopolitical_risk_analyst": geopolitical_risk_node,
+    "regulatory_framework_expert": regulatory_framework_node,
+    "monetary_policy_expert": monetary_policy_node,
+    "demographic_trends_expert": demographic_trends_node
 }
-policy_group_graph = create_enhanced_expert_group_graph(
-    "policy_innovation",
-    policy_expert_nodes,
-    policy_group_summarizer,
-    policy_critic
+external_factors_group_graph = create_enhanced_expert_group_graph(
+    "external_factors",
+    external_factors_expert_nodes,
+    external_factors_group_summarizer,
+    external_factors_critic
+)
+
+# Strategy group (new)
+strategy_expert_nodes = {
+    "game_theory_strategist": game_theory_node,
+    "risk_management_expert": risk_management_node,
+    "portfolio_optimization_expert": portfolio_optimization_node,
+    "asset_allocation_strategist": asset_allocation_node,
+    "investment_psychology_expert": investment_psychology_node
+}
+strategy_group_graph = create_enhanced_expert_group_graph(
+    "strategy",
+    strategy_expert_nodes,
+    strategy_group_summarizer,
+    strategy_critic
 )
 
 def create_enhanced_main_graph():
@@ -232,10 +272,11 @@ def create_enhanced_main_graph():
     main_workflow.add_node("prepare_main_iteration", prepare_iteration_state)
     
     # Thêm mỗi group graph như một node
-    main_workflow.add_node("academic_group", academic_group_graph)
-    main_workflow.add_node("behavioral_group", behavioral_group_graph)
-    main_workflow.add_node("market_group", market_group_graph)
-    main_workflow.add_node("policy_group", policy_group_graph)
+    main_workflow.add_node("market_analysis_group", market_analysis_group_graph)
+    main_workflow.add_node("financial_analysis_group", financial_analysis_group_graph)
+    main_workflow.add_node("sectoral_analysis_group", sectoral_analysis_group_graph)
+    main_workflow.add_node("external_factors_group", external_factors_group_graph)
+    main_workflow.add_node("strategy_group", strategy_group_graph)
     
     # Thêm final synthesizer node
     main_workflow.add_node("final_synthesis", final_synthesizer)
@@ -255,11 +296,12 @@ def create_enhanced_main_graph():
     
     # Kết nối các node
     main_workflow.add_edge(START, "prepare_main_iteration")
-    main_workflow.add_edge("prepare_main_iteration", "academic_group")
-    main_workflow.add_edge("academic_group", "behavioral_group")
-    main_workflow.add_edge("behavioral_group", "market_group")
-    main_workflow.add_edge("market_group", "policy_group")
-    main_workflow.add_edge("policy_group", "final_synthesis")
+    main_workflow.add_edge("prepare_main_iteration", "market_analysis_group")
+    main_workflow.add_edge("market_analysis_group", "financial_analysis_group")
+    main_workflow.add_edge("financial_analysis_group", "sectoral_analysis_group")
+    main_workflow.add_edge("sectoral_analysis_group", "external_factors_group")
+    main_workflow.add_edge("external_factors_group", "strategy_group")
+    main_workflow.add_edge("strategy_group", "final_synthesis")
     main_workflow.add_edge("final_synthesis", "meta_critic")
     
     # Biên dịch main graph

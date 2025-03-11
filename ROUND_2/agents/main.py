@@ -33,8 +33,8 @@ def get_resource_files(resource_dir: str = "../resources") -> List[Path]:
         print(f"Created empty resource directory: {full_resource_dir}")
         return []
     
-    # Get all .txt files
-    return list(full_resource_dir.glob("*.txt"))
+    # Get all .txt and .csv files for analysis
+    return list(full_resource_dir.glob("*.txt")) + list(full_resource_dir.glob("*.csv"))
 
 def analyze_document(file_path: Path) -> Dict[str, Any]:
     """
@@ -78,19 +78,20 @@ def analyze_document(file_path: Path) -> Dict[str, Any]:
         }
 
 def main():
-    """Main entry point for the multi-agent analysis system."""
-    print("Getting resource files...")
+    """Main entry point for the multi-agent investment strategy optimization system."""
+    print("=== HỆ THỐNG PHÂN TÍCH VÀ TỐI ƯU HÓA CHIẾN LƯỢC ĐẦU TƯ ===")
+    print("Đang tìm kiếm tệp dữ liệu để phân tích...")
     file_paths = get_resource_files()
     
     if not file_paths:
-        print("No text files found in the resources directory.")
-        print("Please add some .txt files to analyze and run again.")
+        print("Không tìm thấy tệp dữ liệu nào (*.txt, *.csv) trong thư mục resources.")
+        print("Vui lòng thêm các tệp dữ liệu để phân tích và chạy lại.")
         sys.exit(1)
     
-    print(f"Found {len(file_paths)} text files for analysis.")
+    print(f"Đã tìm thấy {len(file_paths)} tệp dữ liệu để phân tích.")
     
     # Create output directory
-    output_dir = Path(__file__).parent / "analysis_results"
+    output_dir = Path(__file__).parent / "investment_strategies"
     output_dir.mkdir(exist_ok=True)
     
     # Process each document
@@ -98,36 +99,37 @@ def main():
     for file_path in file_paths:
         file_name = file_path.name
         
-        print(f"\nProcessing file: {file_name}")
+        print(f"\nĐang phân tích tệp: {file_name}")
+        print("=" * 50)
         result = analyze_document(file_path)
         
         # Save individual result
-        output_file = output_dir / f"{file_name}_analysis.json"
+        output_file = output_dir / f"{file_name}_strategy.json"
         with open(output_file, 'w', encoding='utf-8') as f:
             # Convert state to JSON-serializable format
             serializable_result = {
                 "file_name": file_name,
                 "analyses": result["analyses"],
                 "group_summaries": result["group_summaries"],
-                "final_report": result["final_report"]
+                "investment_strategy": result["final_report"]
             }
             json.dump(serializable_result, f, ensure_ascii=False, indent=2)
         
-        print(f"Analysis for {file_name} saved to {output_file}")
+        print(f"Chiến lược đầu tư cho {file_name} đã được lưu tại {output_file}")
         
         # Store result for combined report
         all_results[file_name] = result["final_report"]
         
-        # Print final report for this document
-        print("\n--- FINAL REPORT ---\n")
+        # Print final investment strategy for this document
+        print("\n=== CHIẾN LƯỢC ĐẦU TƯ ===\n")
         print(result["final_report"])
     
     # Save combined results
-    combined_output = output_dir / "all_analyses.json"
+    combined_output = output_dir / "all_investment_strategies.json"
     with open(combined_output, 'w', encoding='utf-8') as f:
         json.dump(all_results, f, ensure_ascii=False, indent=2)
     
-    print(f"\nAll analyses saved to {output_dir}")
+    print(f"\nTất cả chiến lược đầu tư đã được lưu tại {output_dir}")
 
 if __name__ == "__main__":
     main()

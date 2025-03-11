@@ -21,39 +21,39 @@ Nhiệm vụ của bạn là:
 3. Nhận diện các khía cạnh quan trọng của dữ liệu đã bị bỏ qua
 4. Đề xuất hướng cải thiện cụ thể cho từng chuyên gia
 
-Hãy tập trung vào:
-- Tính nhất quán giữa các phân tích của các chuyên gia
-- Độ sâu và tính toàn diện của phân tích
-- Hiệu quả của việc tích hợp các góc nhìn chuyên môn khác nhau
-- Tính thực tiễn của các khuyến nghị
+Hãy tập trung đánh giá:
+- Tính ứng dụng của phân tích đối với chiến lược đầu tư
+- Tính đầy đủ và chính xác của dữ liệu được sử dụng
+- Mức độ phù hợp của các khuyến nghị với thị trường Việt Nam
+- Tính khả thi của các đề xuất đầu tư
 
 Khi đánh giá, hãy phân loại các vấn đề thành:
-- Mức độ nghiêm trọng cao: Cần phải sửa chữa ngay lập tức
-- Mức độ trung bình: Đòi hỏi sự cải thiện đáng kể
-- Mức độ thấp: Có thể cải thiện thêm nếu có thời gian
+- Mức độ nghiêm trọng cao: Sai lệch lớn ảnh hưởng đến quyết định đầu tư
+- Mức độ trung bình: Thiếu sót đáng kể cần bổ sung
+- Mức độ thấp: Có thể cải thiện để hoàn thiện phân tích
 </task>
 """
 
 META_CRITIC_PROMPT = """
 <role>
-Bạn là Tác tử Phê bình Tổng hợp (Meta-Critic Agent).
+Bạn là Tác tử Phê bình Tổng hợp (Meta-Critic Agent) về chiến lược đầu tư.
 </role>
 
 <task>
 Nhiệm vụ của bạn là:
-1. Đánh giá báo cáo tổng hợp cuối cùng từ tất cả các nhóm chuyên gia
-2. Xác định mâu thuẫn, chồng chéo hoặc thiếu sót giữa các nhóm
-3. Nhận diện các góc nhìn quan trọng đã bị bỏ qua trong phân tích tổng thể
-4. Đánh giá tính hiệu quả của việc tích hợp các quan điểm khác nhau
-5. Chỉ ra các cải tiến cần thiết cho báo cáo cuối cùng
+1. Đánh giá chiến lược đầu tư tổng hợp từ tất cả các nhóm chuyên gia
+2. Xác định mâu thuẫn, chồng chéo hoặc thiếu sót giữa các đề xuất
+3. Kiểm tra tính nhất quán của chiến lược đầu tư đề xuất
+4. Đánh giá hiệu quả của chiến lược quản lý rủi ro
+5. Chỉ ra các cải tiến cần thiết cho chiến lược đầu tư cuối cùng
 
 Hãy tập trung đánh giá:
-- Sự cân bằng giữa các góc nhìn khác nhau
-- Tính nhất quán của toàn bộ phân tích
-- Khả năng áp dụng và tính thực tiễn của các khuyến nghị
-- Mức độ bao phủ các vấn đề then chốt từ dữ liệu nguồn
+- Tính khả thi của chiến lược đầu tư trên thị trường Việt Nam
+- Mức độ tối ưu của phân bổ tài sản đề xuất
+- Tính đầy đủ của các yếu tố vĩ mô và vi mô trong phân tích
+- Mức độ phù hợp của các khuyến nghị đầu tư với các loại nhà đầu tư
 
-Đưa ra phản hồi cụ thể cho những khía cạnh nào cần được phân tích sâu hơn, và những khuyến nghị nào cần được làm rõ hoặc thêm chi tiết.
+Đưa ra phản hồi cụ thể cho những khía cạnh nào cần được phân tích sâu hơn, và những khuyến nghị nào cần được làm rõ hoặc thêm chi tiết để tạo ra chiến lược đầu tư tối ưu.
 </task>
 """
 
@@ -124,6 +124,7 @@ def create_group_critic(group_name: str):
                 Tài liệu đang phân tích có tên: {file_name}
                 
                 Hãy đưa ra phê bình chi tiết về phân tích của nhóm, chỉ ra các điểm yếu và đề xuất cải tiến cụ thể.
+                Tập trung vào khía cạnh ứng dụng của phân tích để tối ưu hóa chiến lược đầu tư trên thị trường Việt Nam.
                 """)
             ]
             
@@ -149,7 +150,7 @@ def create_group_critic(group_name: str):
 # Tạo tác tử phê bình tổng hợp (meta-critic)
 def create_meta_critic():
     """
-    Tạo tác tử phê bình tổng hợp (meta-critic) đánh giá báo cáo cuối cùng.
+    Tạo tác tử phê bình tổng hợp (meta-critic) đánh giá chiến lược đầu tư cuối cùng.
     
     Returns:
         Hàm meta-critic thực hiện đánh giá tổng thể
@@ -158,7 +159,7 @@ def create_meta_critic():
     
     def meta_critic_evaluation(state: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Đánh giá báo cáo tổng hợp cuối cùng.
+        Đánh giá chiến lược đầu tư tổng hợp cuối cùng.
         
         Args:
             state: Trạng thái hiện tại của hệ thống
@@ -183,17 +184,18 @@ def create_meta_critic():
             messages = [
                 SystemMessage(content=META_CRITIC_PROMPT),
                 HumanMessage(content=f"""
-                Hãy đánh giá báo cáo tổng hợp cuối cùng và các tổng kết từ các nhóm:
+                Hãy đánh giá chiến lược đầu tư tổng hợp và các đề xuất từ các nhóm:
                 
                 ## Tổng kết từ các nhóm:
                 {group_summaries_text}
                 
-                ## Báo cáo cuối cùng:
+                ## Chiến lược đầu tư cuối cùng:
                 {final_report}
                 
                 Tài liệu đang phân tích có tên: {file_name}
                 
-                Hãy đưa ra đánh giá toàn diện về báo cáo cuối cùng, chỉ ra các mâu thuẫn, thiếu sót và hướng cải thiện.
+                Hãy đưa ra đánh giá toàn diện về chiến lược đầu tư đề xuất, chỉ ra các mâu thuẫn, thiếu sót và hướng cải thiện
+                để tạo ra chiến lược đầu tư tối ưu cho thị trường Việt Nam.
                 """)
             ]
             
@@ -269,6 +271,7 @@ def create_refinement_agent(expert_name: str, expert_system_prompt: str):
                 
                 Bạn cần tinh chỉnh phân tích trước đó dựa trên phê bình nhận được.
                 Hãy giải quyết các vấn đề được nêu ra trong phê bình và cải thiện chất lượng phân tích.
+                Tập trung vào mục tiêu tối ưu hóa chiến lược đầu tư trên thị trường Việt Nam.
                 """),
                 HumanMessage(content=f"""
                 Dữ liệu cần phân tích:
@@ -284,6 +287,7 @@ def create_refinement_agent(expert_name: str, expert_system_prompt: str):
                 {critiques}
                 
                 Hãy tinh chỉnh phân tích của bạn dựa trên phê bình trên. Đảm bảo giải quyết các điểm yếu và bổ sung các góc nhìn còn thiếu.
+                Tập trung vào các đề xuất có thể áp dụng cho chiến lược đầu tư trên thị trường Việt Nam.
                 """)
             ]
             
@@ -351,6 +355,7 @@ def create_group_summary_refinement(group_name: str):
                 Bạn là người tổng hợp ý kiến cho nhóm chuyên gia {group_name}.
                 Nhiệm vụ của bạn là tinh chỉnh tổng hợp trước đó dựa trên phê bình nhận được.
                 Hãy giải quyết các vấn đề được nêu ra trong phê bình và cải thiện chất lượng tổng hợp.
+                Tập trung vào mục tiêu tối ưu hóa chiến lược đầu tư trên thị trường Việt Nam.
                 """),
                 HumanMessage(content=f"""
                 Các phân tích từ các chuyên gia trong nhóm:
@@ -366,6 +371,7 @@ def create_group_summary_refinement(group_name: str):
                 Tài liệu đang phân tích có tên: {file_name}
                 
                 Hãy tinh chỉnh tổng hợp của nhóm dựa trên phê bình trên. Đảm bảo giải quyết các điểm yếu và bổ sung các góc nhìn còn thiếu.
+                Tập trung vào khuyến nghị cụ thể cho chiến lược đầu tư trên thị trường Việt Nam.
                 """)
             ]
             
@@ -388,7 +394,7 @@ def create_group_summary_refinement(group_name: str):
 # Hàm tinh chỉnh báo cáo cuối cùng dựa trên phê bình tổng thể
 def create_final_report_refinement():
     """
-    Tạo tác tử tinh chỉnh báo cáo cuối cùng dựa trên phê bình tổng thể.
+    Tạo tác tử tinh chỉnh chiến lược đầu tư cuối cùng dựa trên phê bình tổng thể.
     
     Returns:
         Hàm refinement agent thực hiện tinh chỉnh báo cáo cuối cùng
@@ -397,13 +403,13 @@ def create_final_report_refinement():
     
     def refine_final_report(state: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Tinh chỉnh báo cáo cuối cùng dựa trên phê bình tổng thể.
+        Tinh chỉnh chiến lược đầu tư cuối cùng dựa trên phê bình tổng thể.
         
         Args:
             state: Trạng thái hiện tại của hệ thống
             
         Returns:
-            Trạng thái mới với báo cáo cuối cùng đã tinh chỉnh
+            Trạng thái mới với chiến lược đầu tư đã tinh chỉnh
         """
         try:
             # Trích xuất dữ liệu từ state
@@ -421,21 +427,22 @@ def create_final_report_refinement():
             
             file_name = state.get("file_name", "Unknown file")
             
-            print(f"\n[DEBUG] Refining final report on file: {file_name}")
+            print(f"\n[DEBUG] Refining final investment strategy on file: {file_name}")
             
             # Tạo messages cho model
             messages = [
                 SystemMessage(content="""
-                Bạn là chuyên gia tổng hợp báo cáo cuối cùng.
-                Nhiệm vụ của bạn là tinh chỉnh báo cáo trước đó dựa trên phê bình tổng thể nhận được.
-                Hãy giải quyết các vấn đề được nêu ra trong phê bình và cải thiện chất lượng báo cáo.
+                Bạn là chuyên gia tổng hợp chiến lược đầu tư cuối cùng.
+                Nhiệm vụ của bạn là tinh chỉnh chiến lược đầu tư trước đó dựa trên phê bình tổng thể nhận được.
+                Hãy giải quyết các vấn đề được nêu ra trong phê bình và cải thiện chất lượng chiến lược đầu tư.
+                Tập trung vào việc tạo ra chiến lược đầu tư tối ưu, khả thi và phù hợp với thị trường Việt Nam.
                 """),
                 HumanMessage(content=f"""
                 Tổng hợp từ các nhóm chuyên gia:
                 
                 {group_summaries_text}
                 
-                Báo cáo hiện tại:
+                Chiến lược đầu tư hiện tại:
                 {current_report}
                 
                 Phê bình tổng thể:
@@ -443,7 +450,15 @@ def create_final_report_refinement():
                 
                 Tài liệu đang phân tích có tên: {file_name}
                 
-                Hãy tinh chỉnh báo cáo cuối cùng dựa trên phê bình tổng thể. Đảm bảo giải quyết các điểm yếu, mâu thuẫn và bổ sung các góc nhìn còn thiếu.
+                Hãy tinh chỉnh chiến lược đầu tư cuối cùng dựa trên phê bình tổng thể. Đảm bảo giải quyết các điểm yếu,
+                mâu thuẫn và bổ sung các góc nhìn còn thiếu để tạo ra chiến lược đầu tư tối ưu cho thị trường Việt Nam.
+                
+                Chiến lược đầu tư cần cung cấp:
+                1. Phân bổ tài sản chiến lược rõ ràng
+                2. Lựa chọn ngành và cổ phiếu cụ thể
+                3. Thời điểm tham gia thị trường
+                4. Kế hoạch quản lý rủi ro chi tiết
+                5. Các hành động cụ thể cho nhà đầu tư
                 """)
             ]
             

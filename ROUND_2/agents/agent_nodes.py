@@ -15,19 +15,24 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 # Now import with relative paths
 from experts.group_1 import (
-    ECONOMETRICIAN, EMPIRICAL_ECONOMIST, NORMATIVE_ECONOMIST, 
-    MACROECONOMIST, MICROECONOMIST
+    MARKET_ANALYST, TECHNICAL_ANALYST, FUNDAMENTAL_ANALYST, 
+    SENTIMENT_ANALYST, ECONOMIC_INDICATORS_EXPERT
 )
 from experts.group_2 import (
-    BEHAVIORAL_ECONOMIST, SOCIO_ECONOMIST
+    FINANCIAL_STATEMENT_ANALYST, FINANCIAL_RATIO_EXPERT, VALUATION_EXPERT,
+    CASH_FLOW_ANALYST, CAPITAL_STRUCTURE_EXPERT
 )
 from experts.group_3 import (
-    CORPORATE_MANAGEMENT_EXPERT, FINANCIAL_ECONOMIST, INTERNATIONAL_ECONOMIST,
-    LOGISTICS_AND_SUPPLY_CHAIN_EXPERT, TRADE_AND_COMMERCE_EXPERT
+    BANKING_FINANCE_EXPERT, REAL_ESTATE_EXPERT, CONSUMER_GOODS_EXPERT,
+    INDUSTRIAL_EXPERT, TECHNOLOGY_EXPERT
 )
 from experts.group_4 import (
-    DIGITAL_ECONOMY_AND_INNOVATION_EXPERT, ENVIRONMENTAL_ECONOMIST,
-    PUBLIC_POLICY_AND_POLITICAL_ECONOMY_EXPERT
+    GLOBAL_MARKETS_EXPERT, GEOPOLITICAL_RISK_ANALYST, REGULATORY_FRAMEWORK_EXPERT,
+    MONETARY_POLICY_EXPERT, DEMOGRAPHIC_TRENDS_EXPERT
+)
+from experts.group_5 import (
+    GAME_THEORY_STRATEGIST, RISK_MANAGEMENT_EXPERT, PORTFOLIO_OPTIMIZATION_EXPERT,
+    ASSET_ALLOCATION_STRATEGIST, INVESTMENT_PSYCHOLOGY_EXPERT
 )
 
 # Load environment variables
@@ -85,6 +90,7 @@ def create_expert_agent(system_prompt: str, agent_name: str):
                 
                 Hãy đưa ra nhận định, đánh giá và khuyến nghị chi tiết liên quan đến lĩnh vực chuyên môn của bạn.
                 Tập trung vào các yếu tố quan trọng nhất mà bạn phát hiện từ dữ liệu.
+                Đặc biệt, hãy đề cập đến ý nghĩa của các phát hiện đối với chiến lược đầu tư trên thị trường Việt Nam.
                 """)
             ]
             
@@ -103,33 +109,43 @@ def create_expert_agent(system_prompt: str, agent_name: str):
         return new_state
     
     return expert_analysis
-    
-    return expert_analysis
 
 # Create expert agent nodes for each group
 
-# Group 1: Academic Quantitative
-econometrician_node = create_expert_agent(ECONOMETRICIAN, "econometrician")
-empirical_economist_node = create_expert_agent(EMPIRICAL_ECONOMIST, "empirical_economist")
-normative_economist_node = create_expert_agent(NORMATIVE_ECONOMIST, "normative_economist")
-macroeconomist_node = create_expert_agent(MACROECONOMIST, "macroeconomist")
-microeconomist_node = create_expert_agent(MICROECONOMIST, "microeconomist")
+# Group 1: Market Analysis
+market_analyst_node = create_expert_agent(MARKET_ANALYST, "market_analyst")
+technical_analyst_node = create_expert_agent(TECHNICAL_ANALYST, "technical_analyst")
+fundamental_analyst_node = create_expert_agent(FUNDAMENTAL_ANALYST, "fundamental_analyst")
+sentiment_analyst_node = create_expert_agent(SENTIMENT_ANALYST, "sentiment_analyst")
+economic_indicators_node = create_expert_agent(ECONOMIC_INDICATORS_EXPERT, "economic_indicators_expert")
 
-# Group 2: Behavioral Social
-behavioral_economist_node = create_expert_agent(BEHAVIORAL_ECONOMIST, "behavioral_economist")
-socio_economist_node = create_expert_agent(SOCIO_ECONOMIST, "socio_economist")
+# Group 2: Financial Analysis
+financial_statement_node = create_expert_agent(FINANCIAL_STATEMENT_ANALYST, "financial_statement_analyst")
+financial_ratio_node = create_expert_agent(FINANCIAL_RATIO_EXPERT, "financial_ratio_expert")
+valuation_node = create_expert_agent(VALUATION_EXPERT, "valuation_expert")
+cash_flow_node = create_expert_agent(CASH_FLOW_ANALYST, "cash_flow_analyst")
+capital_structure_node = create_expert_agent(CAPITAL_STRUCTURE_EXPERT, "capital_structure_expert")
 
-# Group 3: Market Business
-corporate_management_node = create_expert_agent(CORPORATE_MANAGEMENT_EXPERT, "corporate_management")
-financial_economist_node = create_expert_agent(FINANCIAL_ECONOMIST, "financial_economist")
-international_economist_node = create_expert_agent(INTERNATIONAL_ECONOMIST, "international_economist")
-logistics_node = create_expert_agent(LOGISTICS_AND_SUPPLY_CHAIN_EXPERT, "logistics_expert")
-trade_commerce_node = create_expert_agent(TRADE_AND_COMMERCE_EXPERT, "trade_commerce_expert")
+# Group 3: Sectoral Analysis
+banking_finance_node = create_expert_agent(BANKING_FINANCE_EXPERT, "banking_finance_expert")
+real_estate_node = create_expert_agent(REAL_ESTATE_EXPERT, "real_estate_expert")
+consumer_goods_node = create_expert_agent(CONSUMER_GOODS_EXPERT, "consumer_goods_expert")
+industrial_node = create_expert_agent(INDUSTRIAL_EXPERT, "industrial_expert")
+technology_node = create_expert_agent(TECHNOLOGY_EXPERT, "technology_expert")
 
-# Group 4: Policy Innovation
-digital_economy_node = create_expert_agent(DIGITAL_ECONOMY_AND_INNOVATION_EXPERT, "digital_economy_expert")
-environmental_economist_node = create_expert_agent(ENVIRONMENTAL_ECONOMIST, "environmental_economist")
-public_policy_node = create_expert_agent(PUBLIC_POLICY_AND_POLITICAL_ECONOMY_EXPERT, "public_policy_expert")
+# Group 4: External Factors
+global_markets_node = create_expert_agent(GLOBAL_MARKETS_EXPERT, "global_markets_expert")
+geopolitical_risk_node = create_expert_agent(GEOPOLITICAL_RISK_ANALYST, "geopolitical_risk_analyst")
+regulatory_framework_node = create_expert_agent(REGULATORY_FRAMEWORK_EXPERT, "regulatory_framework_expert")
+monetary_policy_node = create_expert_agent(MONETARY_POLICY_EXPERT, "monetary_policy_expert")
+demographic_trends_node = create_expert_agent(DEMOGRAPHIC_TRENDS_EXPERT, "demographic_trends_expert")
+
+# Group 5: Strategy
+game_theory_node = create_expert_agent(GAME_THEORY_STRATEGIST, "game_theory_strategist")
+risk_management_node = create_expert_agent(RISK_MANAGEMENT_EXPERT, "risk_management_expert")
+portfolio_optimization_node = create_expert_agent(PORTFOLIO_OPTIMIZATION_EXPERT, "portfolio_optimization_expert")
+asset_allocation_node = create_expert_agent(ASSET_ALLOCATION_STRATEGIST, "asset_allocation_strategist")
+investment_psychology_node = create_expert_agent(INVESTMENT_PSYCHOLOGY_EXPERT, "investment_psychology_expert")
 
 # Create group summarizer nodes
 def create_group_summarizer(group_name: str, expert_names: List[str]):
@@ -155,6 +171,7 @@ def create_group_summarizer(group_name: str, expert_names: List[str]):
                 Bạn là người tổng hợp ý kiến cho nhóm chuyên gia {group_name}.
                 Nhiệm vụ của bạn là tổng hợp, kết nối và đúc kết các ý kiến từ các chuyên gia trong nhóm.
                 Hãy tìm ra điểm chung, điểm khác biệt và đưa ra kết luận tổng thể từ góc nhìn của nhóm.
+                Tập trung vào ý nghĩa của các phân tích đối với chiến lược đầu tư trên thị trường Việt Nam.
                 """),
                 HumanMessage(content=f"""
                 Tổng hợp các phân tích sau đây từ các chuyên gia trong nhóm:
@@ -163,7 +180,7 @@ def create_group_summarizer(group_name: str, expert_names: List[str]):
                 
                 Tài liệu đang phân tích có tên: {file_name}
                 
-                Hãy đưa ra tổng kết toàn diện về góc nhìn của nhóm chuyên gia này.
+                Hãy đưa ra tổng kết toàn diện về góc nhìn của nhóm chuyên gia này, tập trung vào các khuyến nghị đầu tư cụ thể.
                 """)
             ]
             
@@ -180,8 +197,6 @@ def create_group_summarizer(group_name: str, expert_names: List[str]):
         new_state["group_summaries"] = {group_name: summary}
         
         return new_state
-    
-    return summarize_group
     
     return summarize_group
 
@@ -205,11 +220,13 @@ def create_final_synthesizer():
             # Tạo messages trực tiếp
             messages = [
                 SystemMessage(content="""
-                Bạn là chuyên gia tổng hợp báo cáo cuối cùng.
+                Bạn là chuyên gia tổng hợp báo cáo cuối cùng về chiến lược đầu tư.
                 Nhiệm vụ của bạn là kết hợp tất cả các tổng kết từ các nhóm chuyên gia khác nhau 
-                thành một báo cáo toàn diện, mạch lạc và có tính ứng dụng cao.
+                thành một báo cáo toàn diện về chiến lược đầu tư tối ưu cho thị trường Việt Nam.
                 
-                Hãy đưa ra các kết luận, khuyến nghị cụ thể và định hướng hành động.
+                Hãy đưa ra các kết luận, chiến lược đầu tư cụ thể và kế hoạch hành động chi tiết.
+                Tập trung vào việc xây dựng chiến lược đầu tư có thể thực hiện được, với các khuyến nghị
+                về phân bổ tài sản, lựa chọn cổ phiếu/ngành, thời điểm mua/bán và quản lý rủi ro.
                 """),
                 HumanMessage(content=f"""
                 Tổng hợp các phân tích từ các nhóm chuyên gia sau:
@@ -218,12 +235,15 @@ def create_final_synthesizer():
                 
                 Tài liệu đang phân tích có tên: {file_name}
                 
-                Hãy tạo báo cáo cuối cùng với cấu trúc:
-                1. Tóm tắt tổng quan
-                2. Phát hiện chính từ mỗi nhóm chuyên gia
-                3. Mối liên hệ và tính nhất quán giữa các phân tích
-                4. Khuyến nghị và hướng đi cụ thể
-                5. Kết luận
+                Hãy tạo báo cáo chiến lược đầu tư cuối cùng với cấu trúc:
+                1. Tóm tắt tổng quan về thị trường
+                2. Phân tích cơ hội và rủi ro đầu tư
+                3. Chiến lược đầu tư tối ưu
+                   a. Phân bổ tài sản chiến lược
+                   b. Lựa chọn ngành và cổ phiếu tiềm năng
+                   c. Thời điểm tham gia thị trường
+                4. Kế hoạch quản lý rủi ro
+                5. Kết luận và khuyến nghị hành động cụ thể
                 """)
             ]
             
@@ -244,25 +264,34 @@ def create_final_synthesizer():
     return synthesize_final_report
 
 # Create the group summarizers
-academic_group_summarizer = create_group_summarizer(
-    "Học Thuật Định Lượng (Academic Quantitative)",
-    ["econometrician", "empirical_economist", "normative_economist", "macroeconomist", "microeconomist"]
+market_analysis_group_summarizer = create_group_summarizer(
+    "Phân tích Thị trường (Market Analysis)",
+    ["market_analyst", "technical_analyst", "fundamental_analyst", 
+     "sentiment_analyst", "economic_indicators_expert"]
 )
 
-behavioral_group_summarizer = create_group_summarizer(
-    "Hành Vi Xã Hội (Behavioral Social)",
-    ["behavioral_economist", "socio_economist"]
+financial_analysis_group_summarizer = create_group_summarizer(
+    "Phân tích Tài chính (Financial Analysis)",
+    ["financial_statement_analyst", "financial_ratio_expert", "valuation_expert", 
+     "cash_flow_analyst", "capital_structure_expert"]
 )
 
-market_group_summarizer = create_group_summarizer(
-    "Thị Trường Doanh Nghiệp (Market Business)",
-    ["corporate_management", "financial_economist", "international_economist", 
-     "logistics_expert", "trade_commerce_expert"]
+sectoral_analysis_group_summarizer = create_group_summarizer(
+    "Phân tích Ngành (Sectoral Analysis)",
+    ["banking_finance_expert", "real_estate_expert", "consumer_goods_expert", 
+     "industrial_expert", "technology_expert"]
 )
 
-policy_group_summarizer = create_group_summarizer(
-    "Chính Sách Đổi Mới (Policy Innovation)",
-    ["digital_economy_expert", "environmental_economist", "public_policy_expert"]
+external_factors_group_summarizer = create_group_summarizer(
+    "Yếu tố Bên ngoài (External Factors)",
+    ["global_markets_expert", "geopolitical_risk_analyst", "regulatory_framework_expert", 
+     "monetary_policy_expert", "demographic_trends_expert"]
+)
+
+strategy_group_summarizer = create_group_summarizer(
+    "Lập chiến lược (Strategy)",
+    ["game_theory_strategist", "risk_management_expert", "portfolio_optimization_expert", 
+     "asset_allocation_strategist", "investment_psychology_expert"]
 )
 
 # Create the final synthesizer node
