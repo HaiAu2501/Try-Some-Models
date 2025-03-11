@@ -242,8 +242,6 @@ def create_final_synthesizer():
         return new_state
     
     return synthesize_final_report
-    
-    return synthesize_final_report
 
 # Create the group summarizers
 academic_group_summarizer = create_group_summarizer(
