@@ -1,0 +1,9 @@
+{
+    "dependencies": [
+        "."
+    ],
+    "graphs": {
+        "preprocessor": "./ROUND_2/agents/group_agents.py:main_graph"
+    },
+    "env": "./ROUND_2/agents/.env"
+}
