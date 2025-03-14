@@ -44,15 +44,15 @@ from agent_nodes import (
 
 def create_expert_group_graph(group_name: str, expert_nodes: List[Callable], summarizer_node: Callable) -> CompiledGraph:
     """
-    Create a graph for a group of experts.
+    Tạo đồ thị cho một nhóm chuyên gia.
     
     Args:
-        group_name: Name of the group
-        expert_nodes: List of expert node functions
-        summarizer_node: Group summarizer function
+        group_name: Tên của nhóm
+        expert_nodes: Danh sách các hàm node chuyên gia
+        summarizer_node: Hàm tổng hợp nhóm
         
     Returns:
-        Compiled graph for the expert group
+        Đồ thị đã biên dịch cho nhóm chuyên gia
     """
     # Create workflow for the group
     workflow = StateGraph(AgentState)
@@ -135,28 +135,13 @@ strategy_group_graph = create_expert_group_graph(
 
 def create_main_graph() -> CompiledGraph:
     """
-    Create the main graph that orchestrates all the expert groups.
+    Tạo đồ thị chính để điều phối tất cả các nhóm chuyên gia theo tuần tự.
     
     Returns:
-        Compiled main graph
+        Đồ thị chính đã biên dịch
     """
     # Create main workflow with specified input and output
     main_workflow = StateGraph(AgentState, input=InputState, output=OutputState)
-    
-    # Create initializer node to copy question into separate keys for each group
-    def initializer(state):
-        # Copy the original question to separate keys for each group
-        original_question = state.get("question", "")
-        return {
-            "question_1": original_question,  # For market analysis group
-            "question_2": original_question,  # For financial analysis group
-            "question_3": original_question,  # For sectoral analysis group
-            "question_4": original_question,  # For external factors group
-            "question_5": original_question,  # For strategy group
-        }
-    
-    # Add the initializer node
-    main_workflow.add_node("initializer", initializer)
     
     # Add each group graph as a node
     main_workflow.add_node("market_analysis_group", market_analysis_group_graph)
@@ -168,33 +153,15 @@ def create_main_graph() -> CompiledGraph:
     # Add final synthesizer node
     main_workflow.add_node("final_synthesis", final_synthesizer)
     
-    # Connect the nodes sequentially but with multiple parallel paths
-    # First, connect START to the initializer
-    main_workflow.add_edge(START, "initializer")
+    # Connect the nodes sequentially, not in parallel
+    # Connect START directly to the first group
+    main_workflow.add_edge(START, "market_analysis_group")
 
-    # Connect cleaner to all analysis groups
-    main_workflow.add_edge("initializer", "market_analysis_group")
-    main_workflow.add_edge("initializer", "financial_analysis_group")
-    main_workflow.add_edge("initializer", "sectoral_analysis_group")
-    main_workflow.add_edge("initializer", "external_factors_group")
-    
-    # Create a join node to wait for all analysis groups to complete
-    def join_node(state):
-        # Return an empty dictionary as we don't need to modify state
-        return {}
-    
-    main_workflow.add_node("join", join_node)
-    
-    # Connect all analysis groups to the join node
-    main_workflow.add_edge("market_analysis_group", "join")
-    main_workflow.add_edge("financial_analysis_group", "join")
-    main_workflow.add_edge("sectoral_analysis_group", "join")
-    main_workflow.add_edge("external_factors_group", "join")
-    
-    # Connect join to strategy group (which runs after all analysis is done)
-    main_workflow.add_edge("join", "strategy_group")
-    
-    # Connect strategy group to final synthesis
+    # Connect in sequence: market -> financial -> sectoral -> external -> strategy -> final_synthesis
+    main_workflow.add_edge("market_analysis_group", "financial_analysis_group")
+    main_workflow.add_edge("financial_analysis_group", "sectoral_analysis_group")
+    main_workflow.add_edge("sectoral_analysis_group", "external_factors_group")
+    main_workflow.add_edge("external_factors_group", "strategy_group")
     main_workflow.add_edge("strategy_group", "final_synthesis")
     main_workflow.add_edge("final_synthesis", END)
     

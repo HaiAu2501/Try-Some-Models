@@ -39,18 +39,12 @@ from search_tools import simple_search
 # Load environment variables
 load_dotenv()
 
-# Define state structure
-# Define state structure
+# Define state structure with output_folder
 class InputState(TypedDict):
     question: Annotated[str, "merge"]  # User question or goal
+    output_folder: Annotated[str, "merge"]  # Output folder name
 
 class OutputState(TypedDict):
-    question_1: Annotated[str, "merge"]  # Copy of question for group 1
-    question_2: Annotated[str, "merge"]  # Copy of question for group 2
-    question_3: Annotated[str, "merge"]  # Copy of question for group 3
-    question_4: Annotated[str, "merge"]  # Copy of question for group 4
-    question_5: Annotated[str, "merge"]  # Copy of question for group 5
-    analyses: Annotated[Dict[str, str], "merge"]  # Analyses from different agents
     group_1: Annotated[Dict[str, str], "merge"]   # Analyses from group 1 - Market Analysis
     group_2: Annotated[Dict[str, str], "merge"]   # Analyses from group 2 - Financial Analysis
     group_3: Annotated[Dict[str, str], "merge"]   # Analyses from group 3 - Sectoral Analysis
@@ -66,41 +60,41 @@ class AgentState(InputState, OutputState):
 
 def get_model():
     """
-    Get the appropriate LLM based on environment config.
-    Returns OpenAI model by default.
+    Lấy mô hình LLM phù hợp dựa trên cấu hình môi trường.
+    Trả về mô hình OpenAI theo mặc định.
     """
     if os.getenv("OPENAI_API_KEY"):
         return ChatOpenAI(model="gpt-4o-mini", temperature=0, api_key=os.getenv("OPENAI_API_KEY"))
     else:
-        raise ValueError("No API key found for OpenAI")
+        raise ValueError("Không tìm thấy khóa API cho OpenAI")
 
 def generate_search_queries(llm, system_prompt, question, expert_name):
-    """Generate search queries based on the expert's domain and the question."""
+    """Tạo các truy vấn tìm kiếm dựa trên lĩnh vực chuyên gia và câu hỏi."""
     query_generation_prompt = f"""
     {system_prompt}
     
-    Your task is to generate 3-5 specific search queries that will help gather information to answer the following question from your expert perspective:
+    Nhiệm vụ của bạn là tạo 3-5 truy vấn tìm kiếm cụ thể sẽ giúp thu thập thông tin để trả lời câu hỏi sau từ góc độ chuyên gia của bạn:
     
-    QUESTION: {question}
+    CÂU HỎI: {question}
     
-    INSTRUCTIONS:
-    1. Consider what information you need as a {expert_name} to properly answer this question
-    2. Create search queries that will find relevant, current information about the Vietnamese market
-    3. Make your queries specific and focused
-    4. Format your response as a JSON list of strings containing only the queries
+    HƯỚNG DẪN:
+    1. Xem xét những thông tin bạn cần với tư cách là một {expert_name} để trả lời câu hỏi này một cách đúng đắn
+    2. Tạo các truy vấn tìm kiếm sẽ tìm thông tin liên quan, hiện tại về thị trường Việt Nam
+    3. Làm cho các truy vấn của bạn cụ thể và tập trung
+    4. Định dạng phản hồi của bạn dưới dạng danh sách JSON các chuỗi chỉ chứa các truy vấn
     
-    Format example:
+    Ví dụ định dạng:
     {{
         "queries": [
-            "query 1",
-            "query 2",
-            "query 3"
+            "truy vấn 1",
+            "truy vấn 2",
+            "truy vấn 3"
         ]
     }}
     """
     
     messages = [
-        SystemMessage(content="You are a helpful assistant that generates search queries."),
+        SystemMessage(content="Bạn là trợ lý hữu ích tạo ra các truy vấn tìm kiếm."),
         HumanMessage(content=query_generation_prompt)
     ]
     
@@ -120,7 +114,7 @@ def generate_search_queries(llm, system_prompt, question, expert_name):
         queries_data = json.loads(json_str)
         return queries_data.get("queries", [])
     except Exception as e:
-        print(f"Error extracting queries: {e}")
+        print(f"Lỗi khi trích xuất truy vấn: {e}")
         # Fallback to basic extraction
         queries = []
         for line in response.content.split("\n"):
@@ -129,88 +123,86 @@ def generate_search_queries(llm, system_prompt, question, expert_name):
         return queries[:5]  # Limit to 5 queries
 
 def perform_searches(queries, expert_name):
-    """Perform searches with the generated queries."""
+    """Thực hiện tìm kiếm với các truy vấn được tạo."""
     all_results = []
     
     for i, query in enumerate(queries):
-        print(f"[{expert_name}] Searching ({i+1}/{len(queries)}): {query}")
+        print(f"[{expert_name}] Đang tìm kiếm ({i+1}/{len(queries)}): {query}")
         try:
             results = simple_search(query)
             all_results.extend(results)
-            print(f"  Found {len(results)} results")
+            print(f"  Tìm thấy {len(results)} kết quả")
         except Exception as e:
-            print(f"  Search error: {e}")
+            print(f"  Lỗi tìm kiếm: {e}")
     
     return all_results
 
 def compile_search_results(results):
-    """Compile search results into a formatted text."""
-    compiled = "SEARCH RESULTS:\n\n"
+    """Biên soạn kết quả tìm kiếm thành văn bản định dạng."""
+    compiled = "KẾT QUẢ TÌM KIẾM:\n\n"
     
     for i, result in enumerate(results):
-        compiled += f"Result {i+1}:\n"
-        compiled += f"Title: {result.get('title', 'No title')}\n"
-        compiled += f"Link: {result.get('link', 'No link')}\n"
-        compiled += f"Snippet: {result.get('snippet', 'No snippet')}\n\n"
+        compiled += f"Kết quả {i+1}:\n"
+        compiled += f"Tiêu đề: {result.get('title', 'Không có tiêu đề')}\n"
+        compiled += f"Liên kết: {result.get('link', 'Không có liên kết')}\n"
+        compiled += f"Đoạn trích: {result.get('snippet', 'Không có đoạn trích')}\n\n"
     
     return compiled
 
 def analyze_results(llm, system_prompt, question, search_results, expert_name):
-    """Generate an expert analysis based on the search results."""
+    """Tạo phân tích chuyên gia dựa trên kết quả tìm kiếm."""
     analysis_prompt = f"""
     {system_prompt}
     
-    USER QUESTION:
+    CÂU HỎI NGƯỜI DÙNG:
     {question}
     
     {search_results}
     
-    INSTRUCTIONS:
-    As a {expert_name}, provide a detailed analysis to answer the question based on:
-    1. Your expert knowledge of the Vietnamese market
-    2. The information from the search results
+    HƯỚNG DẪN:
+    Với tư cách là {expert_name}, hãy cung cấp phân tích chi tiết để trả lời câu hỏi dựa trên:
+    1. Kiến thức chuyên môn của bạn về thị trường Việt Nam
+    2. Thông tin từ kết quả tìm kiếm
     
-    Your analysis should:
-    - Be thorough and insightful
-    - Include specific recommendations where appropriate
-    - Cite sources from the search results where possible
-    - End with a "References" section listing your sources
+    Phân tích của bạn cần:
+    - Toàn diện và sâu sắc
+    - Bao gồm các khuyến nghị cụ thể khi thích hợp
+    - Trích dẫn nguồn từ kết quả tìm kiếm khi có thể
+    - Kết thúc bằng phần "Tài liệu tham khảo" liệt kê các nguồn của bạn
     
-    Format your response as a professional analysis report.
+    Định dạng phản hồi của bạn như một báo cáo phân tích chuyên nghiệp.
     """
     
     messages = [
-        SystemMessage(content="You are a financial expert specialized in the Vietnamese market."),
+        SystemMessage(content="Bạn là chuyên gia tài chính chuyên về thị trường Việt Nam."),
         HumanMessage(content=analysis_prompt)
     ]
     
     response = llm.invoke(messages)
     return response.content
 
-def save_expert_analysis(expert_name, analysis, question):
-    """Save the expert's analysis to a file."""
-    output_dir = Path(__file__).parent / "investment_strategies" / "expert_responses"
+def save_expert_analysis(expert_name, analysis, question, output_folder):
+    """Lưu phân tích của chuyên gia vào tệp."""
+    output_dir = Path(__file__).parent / output_folder / "expert_responses"
     output_dir.mkdir(exist_ok=True, parents=True)
     
     with open(output_dir / f"{expert_name}.txt", 'w', encoding='utf-8') as f:
-        f.write(f"=== ANALYSIS FROM {expert_name.upper()} ===\n\n")
-        f.write(f"Question: {question}\n\n")
+        f.write(f"=== PHÂN TÍCH TỪ {expert_name.upper()} ===\n\n")
+        f.write(f"Câu hỏi: {question}\n\n")
         f.write(analysis)
     
-    print(f"[{expert_name}] Analysis saved to {output_dir / f'{expert_name}.txt'}")
+    print(f"[{expert_name}] Phân tích đã được lưu vào {output_dir / f'{expert_name}.txt'}")
 
 def create_expert_agent(system_prompt: str, agent_name: str, group_key: str):
-    """Create an expert agent function to be used as a node in the graph."""
-    # Get the corresponding question key for this group
-    question_key = f"question_{group_key[-1]}"  # e.g., "question_1" for "group_1"
-    
+    """Tạo hàm agent chuyên gia để sử dụng như một node trong đồ thị."""
     def expert_analysis(state: AgentState) -> Dict:
-        """Run expert analysis and store in state."""
+        """Chạy phân tích chuyên gia và lưu trong state."""
         try:
-            # Get values from state using the group-specific question key
-            question = state.get(question_key, "")
+            # Get values from state
+            question = state.get("question", "")
+            output_folder = state.get("output_folder", "investment_strategies")
             
-            print(f"\n[DEBUG] Running {agent_name} for question: {question}")
+            print(f"\n[DEBUG] Đang chạy {agent_name} cho câu hỏi: {question}")
             
             # Get LLM
             llm = get_model()
@@ -228,9 +220,9 @@ def create_expert_agent(system_prompt: str, agent_name: str, group_key: str):
             analysis = analyze_results(llm, system_prompt, question, compiled_results, agent_name)
             
             # Step 5: Save analysis
-            save_expert_analysis(agent_name, analysis, question)
+            save_expert_analysis(agent_name, analysis, question, output_folder)
             
-            # Return only the group-specific data
+            # Return the group-specific data
             return {
                 group_key: {agent_name: analysis},
                 "search_results": {
@@ -242,9 +234,9 @@ def create_expert_agent(system_prompt: str, agent_name: str, group_key: str):
             }
             
         except Exception as e:
-            print(f"[ERROR] Error in {agent_name}: {str(e)}")
+            print(f"[LỖI] Lỗi trong {agent_name}: {str(e)}")
             return {
-                group_key: {agent_name: f"Error in analysis: {str(e)}"},
+                group_key: {agent_name: f"Lỗi trong phân tích: {str(e)}"},
                 "search_results": {f"{agent_name}_search": {"error": str(e)}}
             }
     
@@ -287,12 +279,9 @@ asset_allocation_node = create_expert_agent(ASSET_ALLOCATION_STRATEGIST, "asset_
 investment_psychology_node = create_expert_agent(INVESTMENT_PSYCHOLOGY_EXPERT, "investment_psychology_expert", "group_5")
 
 def create_group_summarizer(group_name: str, expert_names: List[str], group_key: str):
-    """Create a group summarizer function to be used as a node in the graph."""
-    # Get the corresponding question key for this group
-    question_key = f"question_{group_key[-1]}"  # e.g., "question_1" for "group_1"
-    
+    """Tạo một hàm tổng hợp nhóm để sử dụng như một node trong đồ thị."""
     def summarize_group(state: AgentState) -> Dict:
-        """Summarize analyses from experts in the group."""
+        """Tổng hợp phân tích từ các chuyên gia trong nhóm."""
         try:
             # Extract analyses from experts in this group
             expert_analyses = ""
@@ -300,7 +289,7 @@ def create_group_summarizer(group_name: str, expert_names: List[str], group_key:
             # Get analyses from the group-specific state
             if group_key in state:
                 for expert, analysis in state[group_key].items():
-                    expert_analyses += f"### Analysis from {expert}:\n{analysis}\n\n"
+                    expert_analyses += f"### Phân tích từ {expert}:\n{analysis}\n\n"
             
             # Get search information
             search_info = ""
@@ -309,43 +298,44 @@ def create_group_summarizer(group_name: str, expert_names: List[str], group_key:
                 if search_key in state.get("search_results", {}):
                     search_data = state["search_results"][search_key]
                     if "queries" in search_data:
-                        search_info += f"\n### Search queries from {expert}:\n"
+                        search_info += f"\n### Truy vấn tìm kiếm từ {expert}:\n"
                         for query in search_data["queries"]:
                             search_info += f"- {query}\n"
             
-            # Use group-specific question key
-            question = state.get(question_key, "No question provided")
+            # Use original question and output folder
+            question = state.get("question", "Không có câu hỏi nào được cung cấp")
+            output_folder = state.get("output_folder", "investment_strategies")
             
-            print(f"\n[DEBUG] Running summarizer for {group_name} for question: {question}")
+            print(f"\n[DEBUG] Đang chạy người tổng hợp cho {group_name} cho câu hỏi: {question}")
             
             llm = get_model()
             
             summary_prompt = f"""
-            You are a group coordinator for the {group_name} expert team.
+            Bạn là điều phối viên nhóm cho đội chuyên gia {group_name}.
             
-            Your task is to create a comprehensive summary of the following expert analyses to answer this user question:
+            Nhiệm vụ của bạn là tạo một bản tóm tắt toàn diện về các phân tích chuyên gia sau đây để trả lời câu hỏi của người dùng:
             
-            USER QUESTION:
+            CÂU HỎI NGƯỜI DÙNG:
             {question}
             
-            EXPERT ANALYSES:
+            PHÂN TÍCH CHUYÊN GIA:
             {expert_analyses}
             
-            SEARCH INFORMATION:
+            THÔNG TIN TÌM KIẾM:
             {search_info}
             
-            Create a thorough summary that:
-            1. Highlights the key insights from all experts
-            2. Identifies areas of consensus and important differences
-            3. Directly answers the user's question
-            4. Provides actionable investment recommendations
-            5. Includes citations to sources where appropriate
+            Tạo một bản tóm tắt kỹ lưỡng:
+            1. Nêu bật những hiểu biết chính từ tất cả các chuyên gia
+            2. Xác định các lĩnh vực đồng thuận và sự khác biệt quan trọng
+            3. Trực tiếp trả lời câu hỏi của người dùng
+            4. Cung cấp khuyến nghị đầu tư có thể thực hiện được
+            5. Bao gồm trích dẫn nguồn khi thích hợp
             
-            Format your response as a professional group analysis report.
+            Định dạng phản hồi của bạn như một báo cáo phân tích nhóm chuyên nghiệp.
             """
             
             messages = [
-                SystemMessage(content="You are a financial analysis coordinator."),
+                SystemMessage(content="Bạn là điều phối viên phân tích tài chính."),
                 HumanMessage(content=summary_prompt)
             ]
             
@@ -353,14 +343,14 @@ def create_group_summarizer(group_name: str, expert_names: List[str], group_key:
             summary = response.content
             
             # Save the summary
-            output_dir = Path(__file__).parent / "investment_strategies" / "group_responses"
+            output_dir = Path(__file__).parent / output_folder / "group_responses"
             output_dir.mkdir(exist_ok=True, parents=True)
             
             clean_group_name = group_name.split("(")[0].strip() if "(" in group_name else group_name
             
             with open(output_dir / f"{clean_group_name}.txt", 'w', encoding='utf-8') as f:
-                f.write(f"=== GROUP SUMMARY: {clean_group_name.upper()} ===\n\n")
-                f.write(f"Question: {question}\n\n")
+                f.write(f"=== TÓM TẮT NHÓM: {clean_group_name.upper()} ===\n\n")
+                f.write(f"Câu hỏi: {question}\n\n")
                 f.write(summary)
             
             # Return only the group summaries
@@ -369,9 +359,9 @@ def create_group_summarizer(group_name: str, expert_names: List[str], group_key:
             }
             
         except Exception as e:
-            print(f"[ERROR] Error in {group_name} summarizer: {str(e)}")
+            print(f"[LỖI] Lỗi trong người tổng hợp {group_name}: {str(e)}")
             return {
-                "group_summaries": {group_name: f"Error in summary: {str(e)}"}
+                "group_summaries": {group_name: f"Lỗi trong tóm tắt: {str(e)}"}
             }
     
     return summarize_group
@@ -413,55 +403,46 @@ strategy_group_summarizer = create_group_summarizer(
 )
 
 def final_synthesizer(state: AgentState) -> Dict:
-    """Create the final investment strategy report."""
+    """Tạo báo cáo chiến lược đầu tư cuối cùng."""
     try:
         # Format all group summaries
         group_summaries_text = ""
         for group_name, summary in state.get("group_summaries", {}).items():
-            group_summaries_text += f"### Summary from {group_name}:\n{summary}\n\n"
+            group_summaries_text += f"### Tóm tắt từ {group_name}:\n{summary}\n\n"
         
-        # Use the original question, or any of the question copies if available
-        question = state.get("question", "")
-        if not question:
-            # Try any of the question copies
-            for i in range(1, 6):
-                question_key = f"question_{i}"
-                if question_key in state and state[question_key]:
-                    question = state[question_key]
-                    break
+        # Use the original question and output folder
+        question = state.get("question", "Không có câu hỏi nào được cung cấp")
+        output_folder = state.get("output_folder", "investment_strategies")
         
-        if not question:
-            question = "No question provided"
-        
-        print(f"\n[DEBUG] Running final synthesizer for question: {question}")
+        print(f"\n[DEBUG] Đang chạy người tổng hợp cuối cùng cho câu hỏi: {question}")
         
         llm = get_model()
         
         synthesis_prompt = f"""
-        You are a chief investment strategist specialized in the Vietnamese market.
+        Bạn là trưởng chiến lược đầu tư chuyên về thị trường Việt Nam.
         
-        Your task is to create a comprehensive investment strategy based on the following group summaries:
+        Nhiệm vụ của bạn là tạo một chiến lược đầu tư toàn diện dựa trên các bản tóm tắt nhóm sau:
         
-        USER QUESTION:
+        CÂU HỎI NGƯỜI DÙNG:
         {question}
         
-        GROUP SUMMARIES:
+        TÓM TẮT NHÓM:
         {group_summaries_text}
         
-        Create a detailed investment strategy that:
-        1. Directly answers the user's question
-        2. Provides a market analysis and current trends
-        3. Includes a strategic asset allocation recommendation
-        4. Recommends specific sectors and stocks
-        5. Advises on market entry timing
-        6. Includes a risk management plan
-        7. Provides specific actionable steps for investors
+        Tạo một chiến lược đầu tư chi tiết:
+        1. Trực tiếp trả lời câu hỏi của người dùng
+        2. Cung cấp phân tích thị trường và xu hướng hiện tại
+        3. Bao gồm khuyến nghị phân bổ tài sản chiến lược
+        4. Khuyến nghị các ngành và cổ phiếu cụ thể
+        5. Tư vấn về thời điểm tham gia thị trường
+        6. Bao gồm kế hoạch quản lý rủi ro
+        7. Cung cấp các bước cụ thể có thể thực hiện cho nhà đầu tư
         
-        Format your response as a professional investment strategy report with clear sections.
+        Định dạng phản hồi của bạn như một báo cáo chiến lược đầu tư chuyên nghiệp với các phần rõ ràng.
         """
         
         messages = [
-            SystemMessage(content="You are a chief investment strategist for the Vietnamese market."),
+            SystemMessage(content="Bạn là trưởng chiến lược đầu tư cho thị trường Việt Nam."),
             HumanMessage(content=synthesis_prompt)
         ]
         
@@ -469,15 +450,15 @@ def final_synthesizer(state: AgentState) -> Dict:
         final_report = response.content
         
         # Save the final report
-        output_dir = Path(__file__).parent / "investment_strategies"
+        output_dir = Path(__file__).parent / output_folder
         output_dir.mkdir(exist_ok=True)
         
         with open(output_dir / "final_investment_strategy.txt", 'w', encoding='utf-8') as f:
-            f.write("=== OPTIMAL INVESTMENT STRATEGY ===\n\n")
-            f.write(f"Question: {question}\n\n")
+            f.write("=== CHIẾN LƯỢC ĐẦU TƯ TỐI ƯU ===\n\n")
+            f.write(f"Câu hỏi: {question}\n\n")
             f.write(final_report)
         
-        print(f"Final investment strategy saved to {output_dir / 'final_investment_strategy.txt'}")
+        print(f"Chiến lược đầu tư cuối cùng đã được lưu vào {output_dir / 'final_investment_strategy.txt'}")
         
         # Return only the final_report key
         return {
@@ -485,7 +466,7 @@ def final_synthesizer(state: AgentState) -> Dict:
         }
         
     except Exception as e:
-        print(f"[ERROR] Error in final synthesizer: {str(e)}")
+        print(f"[LỖI] Lỗi trong người tổng hợp cuối cùng: {str(e)}")
         return {
-            "final_report": f"Error in final synthesis: {str(e)}"
+            "final_report": f"Lỗi trong tổng hợp cuối cùng: {str(e)}"
         }
