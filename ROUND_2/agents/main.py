@@ -51,19 +51,9 @@ def main():
     logger.info(f"\nAnalyzing question: {user_question}")
     print("=" * 50)
     
-    # Initialize state
+    # Initialize state (with just the question key)
     initial_state = {
-        "input_data": user_question,
-        "question": user_question,
-        "analyses": {},
-        "group_1": {},
-        "group_2": {},
-        "group_3": {},
-        "group_4": {},
-        "group_5": {},
-        "group_summaries": {},
-        "final_report": "",
-        "search_results": {}
+        "question": user_question
     }
     
     # Run analysis with LangGraph

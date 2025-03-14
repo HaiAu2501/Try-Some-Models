@@ -4,6 +4,7 @@ from typing import Dict, List, Any, Annotated, Callable, cast
 from langchain_core.messages import HumanMessage
 from langgraph.graph import StateGraph, END, START
 from langgraph.graph.graph import CompiledGraph
+from langgraph.pregel import Pregel
 
 # Add parent directory to path
 sys.path.append(str(Path(__file__).parent))
@@ -139,8 +140,23 @@ def create_main_graph() -> CompiledGraph:
     Returns:
         Compiled main graph
     """
-    # Create main workflow
+    # Create main workflow with specified input and output
     main_workflow = StateGraph(AgentState, input=InputState, output=OutputState)
+    
+    # Create initializer node to copy question into separate keys for each group
+    def initializer(state):
+        # Copy the original question to separate keys for each group
+        original_question = state.get("question", "")
+        return {
+            "question_1": original_question,  # For market analysis group
+            "question_2": original_question,  # For financial analysis group
+            "question_3": original_question,  # For sectoral analysis group
+            "question_4": original_question,  # For external factors group
+            "question_5": original_question,  # For strategy group
+        }
+    
+    # Add the initializer node
+    main_workflow.add_node("initializer", initializer)
     
     # Add each group graph as a node
     main_workflow.add_node("market_analysis_group", market_analysis_group_graph)
@@ -152,12 +168,33 @@ def create_main_graph() -> CompiledGraph:
     # Add final synthesizer node
     main_workflow.add_node("final_synthesis", final_synthesizer)
     
-    # Connect the nodes sequentially
-    main_workflow.add_edge(START, "market_analysis_group")
-    main_workflow.add_edge("market_analysis_group", "financial_analysis_group")
-    main_workflow.add_edge("financial_analysis_group", "sectoral_analysis_group")
-    main_workflow.add_edge("sectoral_analysis_group", "external_factors_group")
-    main_workflow.add_edge("external_factors_group", "strategy_group")
+    # Connect the nodes sequentially but with multiple parallel paths
+    # First, connect START to the initializer
+    main_workflow.add_edge(START, "initializer")
+
+    # Connect cleaner to all analysis groups
+    main_workflow.add_edge("initializer", "market_analysis_group")
+    main_workflow.add_edge("initializer", "financial_analysis_group")
+    main_workflow.add_edge("initializer", "sectoral_analysis_group")
+    main_workflow.add_edge("initializer", "external_factors_group")
+    
+    # Create a join node to wait for all analysis groups to complete
+    def join_node(state):
+        # Return an empty dictionary as we don't need to modify state
+        return {}
+    
+    main_workflow.add_node("join", join_node)
+    
+    # Connect all analysis groups to the join node
+    main_workflow.add_edge("market_analysis_group", "join")
+    main_workflow.add_edge("financial_analysis_group", "join")
+    main_workflow.add_edge("sectoral_analysis_group", "join")
+    main_workflow.add_edge("external_factors_group", "join")
+    
+    # Connect join to strategy group (which runs after all analysis is done)
+    main_workflow.add_edge("join", "strategy_group")
+    
+    # Connect strategy group to final synthesis
     main_workflow.add_edge("strategy_group", "final_synthesis")
     main_workflow.add_edge("final_synthesis", END)
     
