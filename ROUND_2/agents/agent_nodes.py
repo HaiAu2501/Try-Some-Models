@@ -49,13 +49,18 @@ search_tools = get_search_tools()
 # Định nghĩa cấu trúc trạng thái
 class InputState(TypedDict):
     input_data: str                  # Dữ liệu cần phân tích dưới dạng chuỗi
-    file_name: str                   # Tên tập tin đang được phân tích
+    question: str                    # Câu hỏi/mục tiêu người dùng
 
 class OutputState(TypedDict):
-    analyses: Annotated[Dict[str, str], "merge"]  # Phân tích từ các tác tử khác nhau - gộp phân tích của từng tác tử
-    group_summaries: Annotated[Dict[str, str], "merge"]  # Tổng hợp từ mỗi nhóm - gộp tổng hợp của từng nhóm
+    analyses: Annotated[Dict[str, str], "merge"]  # Phân tích từ các tác tử khác nhau (giữ cho tương thích)
+    group_1: Annotated[Dict[str, str], "merge"]   # Phân tích từ nhóm 1 - Phân tích Thị trường
+    group_2: Annotated[Dict[str, str], "merge"]   # Phân tích từ nhóm 2 - Phân tích Tài chính
+    group_3: Annotated[Dict[str, str], "merge"]   # Phân tích từ nhóm 3 - Phân tích Ngành
+    group_4: Annotated[Dict[str, str], "merge"]   # Phân tích từ nhóm 4 - Yếu tố Bên ngoài
+    group_5: Annotated[Dict[str, str], "merge"]   # Phân tích từ nhóm 5 - Chiến lược
+    group_summaries: Annotated[Dict[str, str], "merge"]  # Tổng hợp từ mỗi nhóm
     final_report: str                # Báo cáo tổng hợp cuối cùng
-    search_results: Annotated[Dict[str, Dict[str, Any]], "merge"]  # Kết quả tìm kiếm từ các truy vấn khác nhau - gộp kết quả
+    search_results: Annotated[Dict[str, Dict[str, Any]], "merge"]  # Kết quả tìm kiếm
 
 class AgentState(InputState, OutputState):
     """Trạng thái kết hợp cho hệ thống tác tử, kế thừa cả trạng thái đầu vào và đầu ra."""
@@ -68,7 +73,7 @@ def get_model():
     Trả về mô hình OpenAI theo mặc định.
     """
     if os.getenv("OPENAI_API_KEY"):
-        return ChatOpenAI(temperature=0, api_key=os.getenv("OPENAI_API_KEY"))
+        return ChatOpenAI(model="gpt-4o-mini", temperature=0, api_key=os.getenv("OPENAI_API_KEY"))
     else:
         raise ValueError("Không tìm thấy API key cho OpenAI")
 
@@ -169,9 +174,9 @@ Question: {input}
         try:
             # Trích xuất giá trị từ trạng thái
             input_data = state.get("input_data", "")
-            file_name = state.get("file_name", "Tệp không xác định")
+            question = state.get("question", "")
             
-            print(f"\n[DEBUG] Đang chạy {agent_name} trên tệp: {file_name}")
+            print(f"\n[DEBUG] Đang chạy {agent_name} cho câu hỏi: {question}")
             
             # Trích xuất các thuật ngữ liên quan để hướng dẫn tìm kiếm
             relevant_terms = extract_relevant_terms(input_data, agent_name)
@@ -179,17 +184,15 @@ Question: {input}
             
             # Tạo đầu vào cho tác tử
             agent_input = f"""
-            Phân tích dữ liệu sau đây với tư cách là {agent_name} cho chiến lược đầu tư thị trường chứng khoán Việt Nam:
+            Với tư cách là {agent_name}, hãy phân tích và trả lời câu hỏi sau về thị trường chứng khoán Việt Nam:
             
-            DỮ LIỆU:
-            {input_data}
-            
-            Tệp: {file_name}
+            CÂU HỎI NGƯỜI DÙNG:
+            {question}
             
             Tập trung vào các lĩnh vực chính này: {relevant_terms_text}
             
-            Cung cấp phân tích chi tiết từ góc nhìn chuyên gia của bạn, với các khuyến nghị đầu tư cụ thể 
-            dựa trên cả dữ liệu được cung cấp và thông tin mới nhất bạn có thể tìm thấy.
+            Hãy cung cấp phân tích chi tiết từ góc nhìn chuyên gia của bạn và đưa ra các khuyến nghị đầu tư cụ thể 
+            dựa trên câu hỏi của người dùng và thông tin mới nhất bạn có thể tìm thấy.
             Trích dẫn nguồn cho mọi thông tin bên ngoài.
             """
             
@@ -202,6 +205,15 @@ Question: {input}
             
             # Trích xuất phân tích cuối cùng từ tác tử
             analysis = agent_result.get("output", "Không có phân tích được cung cấp")
+            
+            # Lưu phân tích ra file txt
+            output_dir = Path(__file__).parent / "investment_strategies" / "expert_responses"
+            output_dir.mkdir(exist_ok=True, parents=True)
+            
+            with open(output_dir / f"{agent_name}.txt", 'w', encoding='utf-8') as f:
+                f.write(f"=== PHÂN TÍCH TỪ CHUYÊN GIA {agent_name.upper()} ===\n\n")
+                f.write(f"Câu hỏi: {question}\n\n")
+                f.write(analysis)
             
             # Lưu trữ kết quả tìm kiếm trong trạng thái
             intermediate_steps = agent_result.get("intermediate_steps", [])
@@ -217,6 +229,19 @@ Question: {input}
                 }
             }
             
+            # Xác định nhóm của chuyên gia
+            group_key = None
+            if agent_name in ["market_analyst", "technical_analyst", "fundamental_analyst", "sentiment_analyst", "economic_indicators_expert"]:
+                group_key = "group_1"
+            elif agent_name in ["financial_statement_analyst", "financial_ratio_expert", "valuation_expert", "cash_flow_analyst", "capital_structure_expert"]:
+                group_key = "group_2"
+            elif agent_name in ["banking_finance_expert", "real_estate_expert", "consumer_goods_expert", "industrial_expert", "technology_expert"]:
+                group_key = "group_3"
+            elif agent_name in ["global_markets_expert", "geopolitical_risk_analyst", "regulatory_framework_expert", "monetary_policy_expert", "demographic_trends_expert"]:
+                group_key = "group_4"
+            elif agent_name in ["game_theory_strategist", "risk_management_expert", "portfolio_optimization_expert", "asset_allocation_strategist", "investment_psychology_expert"]:
+                group_key = "group_5"
+            
         except Exception as e:
             print(f"[LỖI] Lỗi trong {agent_name}: {str(e)}")
             analysis = f"Lỗi phân tích với {agent_name}: {str(e)}"
@@ -225,11 +250,16 @@ Question: {input}
                     "error": str(e)
                 }
             }
+            group_key = None
         
         # Tạo trạng thái mới với phân tích và kết quả tìm kiếm
         new_state = cast(AgentState, {})
         new_state["analyses"] = {agent_name: analysis}
         new_state["search_results"] = search_results_for_state
+        
+        # Thêm phân tích vào nhóm tương ứng nếu có
+        if group_key:
+            new_state[group_key] = {agent_name: analysis}
         
         return new_state
     
@@ -283,7 +313,8 @@ def create_group_summarizer(group_name: str, expert_names: List[str]):
     Nhiệm vụ của bạn là tổng hợp các phân tích từ nhiều chuyên gia trong nhóm này và tạo ra
     một bản tổng hợp toàn diện nêu bật những hiểu biết chính, các lĩnh vực đồng thuận và những khác biệt quan trọng.
     
-    Tập trung vào việc cung cấp các khuyến nghị đầu tư khả thi dựa trên chuyên môn tập thể của nhóm.
+    Tập trung vào việc trả lời câu hỏi của người dùng một cách trực tiếp và cung cấp các khuyến nghị đầu tư 
+    khả thi dựa trên chuyên môn tập thể của nhóm.
     Kết hợp thông tin từ cả phân tích của chuyên gia và dữ liệu thị trường mới nhất bạn có thể tìm thấy.
     
     Trích dẫn rõ ràng nguồn thông tin bên ngoài.
@@ -336,9 +367,30 @@ Question: {input}
         try:
             # Trích xuất phân tích từ các chuyên gia của nhóm này
             expert_analyses = ""
-            for expert in expert_names:
-                if expert in state.get("analyses", {}):
-                    expert_analyses += f"### Phân tích từ {expert}:\n{state['analyses'][expert]}\n\n"
+            
+            # Map group name to group key
+            group_mapping = {
+                "Phân tích Thị trường (Market Analysis)": "group_1",
+                "Phân tích Tài chính (Financial Analysis)": "group_2",
+                "Phân tích Ngành (Sectoral Analysis)": "group_3",
+                "Yếu tố Bên ngoài (External Factors)": "group_4",
+                "Lập chiến lược (Strategy)": "group_5"
+            }
+            
+            group_key = None
+            for name, key in group_mapping.items():
+                if group_name in name or name in group_name:
+                    group_key = key
+                    break
+            
+            # Get analyses from either the group-specific state or the general analyses
+            if group_key and group_key in state:
+                for expert, analysis in state[group_key].items():
+                    expert_analyses += f"### Phân tích từ {expert}:\n{analysis}\n\n"
+            else:
+                for expert in expert_names:
+                    if expert in state.get("analyses", {}):
+                        expert_analyses += f"### Phân tích từ {expert}:\n{state['analyses'][expert]}\n\n"
             
             # Trích xuất kết quả tìm kiếm từ các chuyên gia trong nhóm này
             search_insights = ""
@@ -354,27 +406,28 @@ Question: {input}
                             if "tool" in step and "input" in step:
                                 search_insights += f"- Đã sử dụng {step['tool']} để tìm kiếm: {step['input']}\n"
             
-            file_name = state.get("file_name", "Tệp không xác định")
+            question = state.get("question", "Không có câu hỏi")
             
-            print(f"\n[DEBUG] Đang chạy trình tổng hợp cho {group_name} trên tệp: {file_name}")
+            print(f"\n[DEBUG] Đang chạy trình tổng hợp cho {group_name} cho câu hỏi: {question}")
             
             # Tạo đầu vào cho tác tử
             summarizer_input = f"""
-            Tạo một bản tổng hợp toàn diện của các phân tích chuyên gia sau đây từ nhóm {group_name}:
+            Tạo một bản tổng hợp toàn diện từ các phân tích chuyên gia sau đây từ nhóm {group_name}
+            để trả lời câu hỏi của người dùng:
             
+            CÂU HỎI NGƯỜI DÙNG:
+            {question}
+            
+            PHÂN TÍCH CỦA CÁC CHUYÊN GIA:
             {expert_analyses}
-            
-            Tệp đang được phân tích: {file_name}
             
             Các chuyên gia đã tìm kiếm những thông tin sau:
             {search_insights}
             
             Cung cấp một tổng hợp kỹ lưỡng về các phân tích này, nêu bật những hiểu biết chính, 
-            các lĩnh vực đồng thuận và những khác biệt quan trọng. Sử dụng công cụ tìm kiếm để xác minh 
-            các tuyên bố quan trọng hoặc tìm thêm thông tin khi cần thiết.
-            
-            Bản tổng hợp của bạn nên tập trung vào các khuyến nghị đầu tư khả thi cho thị trường chứng khoán Việt Nam,
-            dựa trên cả phân tích chuyên gia và dữ liệu thị trường mới nhất.
+            các lĩnh vực đồng thuận và những khác biệt quan trọng. Tập trung vào việc trả lời câu hỏi
+            của người dùng một cách rõ ràng và cung cấp các khuyến nghị đầu tư khả thi cho thị trường
+            chứng khoán Việt Nam dựa trên cả phân tích chuyên gia và dữ liệu thị trường mới nhất.
             """
             
             # Thực thi tác tử với công cụ
@@ -386,6 +439,17 @@ Question: {input}
             
             # Trích xuất bản tổng hợp cuối cùng từ tác tử
             summary = summarizer_result.get("output", "Không có tổng hợp được cung cấp")
+            
+            # Lưu bản tổng hợp ra file txt
+            output_dir = Path(__file__).parent / "investment_strategies" / "group_responses"
+            output_dir.mkdir(exist_ok=True, parents=True)
+            
+            clean_group_name = group_name.split("(")[0].strip() if "(" in group_name else group_name
+            
+            with open(output_dir / f"{clean_group_name}.txt", 'w', encoding='utf-8') as f:
+                f.write(f"=== TỔNG HỢP TỪ NHÓM {clean_group_name.upper()} ===\n\n")
+                f.write(f"Câu hỏi: {question}\n\n")
+                f.write(summary)
             
             # Lưu trữ kết quả tìm kiếm trong trạng thái
             intermediate_steps = summarizer_result.get("intermediate_steps", [])
@@ -428,13 +492,14 @@ def create_final_synthesizer():
     synthesizer_system_prompt = """
     Bạn là một chuyên gia chiến lược đầu tư chuyên về thị trường chứng khoán Việt Nam.
     Nhiệm vụ của bạn là tổng hợp phân tích từ nhiều nhóm chuyên gia và tạo ra một báo cáo
-    chiến lược đầu tư toàn diện.
+    chiến lược đầu tư toàn diện để trả lời trực tiếp câu hỏi của người dùng.
     
     Báo cáo của bạn nên cung cấp các khuyến nghị đầu tư rõ ràng, khả thi bao gồm:
-    1. Phân bổ tài sản chiến lược
-    2. Khuyến nghị về ngành và cổ phiếu
-    3. Tư vấn về thời điểm tham gia thị trường
-    4. Chiến lược quản lý rủi ro
+    1. Câu trả lời trực tiếp cho câu hỏi của người dùng
+    2. Phân bổ tài sản chiến lược
+    3. Khuyến nghị về ngành và cổ phiếu
+    4. Tư vấn về thời điểm tham gia thị trường
+    5. Chiến lược quản lý rủi ro
     
     Sử dụng các công cụ có sẵn để xác minh thông tin quan trọng và đảm bảo khuyến nghị của bạn
     dựa trên dữ liệu thị trường và chỉ số kinh tế mới nhất.
@@ -504,24 +569,27 @@ Question: {input}
                 
                 search_usage = f"Lưu ý: Phân tích này dựa trên {total_searches} lần tìm kiếm thông tin thị trường mới nhất."
             
-            file_name = state.get("file_name", "Tệp không xác định")
+            question = state.get("question", "Không có câu hỏi")
             
-            print(f"\n[DEBUG] Đang chạy trình tổng hợp cuối cùng trên tệp: {file_name}")
+            print(f"\n[DEBUG] Đang chạy trình tổng hợp cuối cùng cho câu hỏi: {question}")
             
             # Tạo đầu vào cho tác tử
             synthesizer_input = f"""
-            Tạo một báo cáo chiến lược đầu tư toàn diện cho thị trường chứng khoán Việt Nam dựa trên 
-            các bản tổng hợp nhóm sau đây:
+            Tạo một báo cáo chiến lược đầu tư toàn diện cho thị trường chứng khoán Việt Nam
+            để trả lời câu hỏi sau của người dùng:
+            
+            CÂU HỎI NGƯỜI DÙNG:
+            {question}
+            
+            Dựa trên các bản tổng hợp nhóm sau đây:
             
             {group_summaries_text}
-            
-            Tệp đang được phân tích: {file_name}
             
             {search_usage}
             
             Báo cáo của bạn nên bao gồm:
             
-            1. Tóm tắt Điều hành - Phát hiện và khuyến nghị chính
+            1. Tóm tắt Điều hành - Câu trả lời trực tiếp cho câu hỏi của người dùng
             2. Phân tích Thị trường - Tình trạng và xu hướng hiện tại
             3. Chiến lược Đầu tư:
                a. Phân bổ Tài sản Chiến lược
@@ -544,6 +612,15 @@ Question: {input}
             
             # Trích xuất báo cáo cuối cùng từ tác tử
             final_report = synthesizer_result.get("output", "Không có báo cáo được cung cấp")
+            
+            # Lưu báo cáo ra file txt
+            output_dir = Path(__file__).parent / "investment_strategies"
+            output_dir.mkdir(exist_ok=True, parents=True)
+            
+            with open(output_dir / "final_investment_strategy.txt", 'w', encoding='utf-8') as f:
+                f.write("=== CHIẾN LƯỢC ĐẦU TƯ TỐI ƯU ===\n\n")
+                f.write(f"Câu hỏi: {question}\n\n")
+                f.write(final_report)
             
             # Lưu trữ kết quả tìm kiếm trong trạng thái
             intermediate_steps = synthesizer_result.get("intermediate_steps", [])
