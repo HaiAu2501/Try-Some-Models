@@ -1,0 +1,152 @@
+﻿Order,Industry,Number of new projects,Newly registered capital (million USD),Adjusted project number,Adjusted capital (million USD),Number of times of capital contribution to buy shares,"Value of capital contribution, share purchase
+(million USD)",Year
+1,Manufacturing and processing industry,955,8927.8,517,6305.4,,,2015
+2,"Producing and distributing electricity, gas, water, air conditioning",9,2795.3,8,14.0,,,2015
+3,Real estate business,34,2146.4,12,248.3,,,2015
+4,Construction,112,573.6,26,162.9,,,2015
+5,"Wholesale and retail; repair cars, motorbikes, motorbikes",306,375.2,89,166.8,,,2015
+6,"Agriculture, forestry and fisheries",18,160.0,14,107.5,,,2015
+7,"Professional activities, science and technology",209,228.8,54,21.3,,,2015
+8,Warehousing transportation,51,67.2,18,73.6,,,2015
+9,Accommodation and food services,59,97.2,9,25.0,,,2015
+10,Information and communication,164,65.5,40,30.8,,,2015
+11,Administrative activities and support services,25,57.3,6,-5.5,,,2015
+12,Other service activities,15,27.7,5,10.4,,,2015
+13,Education and training,39,28.8,9,0.4,,,2015
+14,Water supply and waste treatment,3,2.2,3,15.4,,,2015
+15,Health and social assistance activities,10,11.3,2,2.0,,,2015
+16,Extractive,2,10.4,,,,,2015
+17,"Art, play and entertainment",1,2.5,1,0.4,,,2015
+18,"Financial, banking and insurance activities",,0.0,1,1.1,,,2015
+19,Employment activities in households,1,0.3,,,,,2015
+20,Manufacturing and processing industry,1020,9812.57,861,5132.55,290.00,593.51,2016
+21,"Wholesale and retail; repair cars, motorbikes, motorbikes",505,367.04,99,320.72,1269.00,1211.45,2016
+22,Real estate business,59,1522.67,12,-559.05,80.00,722.55,2016
+23,"Professional activities, science and technology",282,436.45,65,316.95,212.00,179.68,2016
+24,Warehousing transportation,88,703.94,22,-29.00,119.00,207.19,2016
+25,Construction,124,388.51,47,56.21,131.00,165.68,2016
+26,"Financial, banking and insurance activities",12,511.02,1,0.01,32.00,71.38,2016
+27,Water supply and waste treatment,13,485.09,5,2.31,4.00,0.86,2016
+28,Accommodation and food services,97,278.14,11,58.02,135.00,70.53,2016
+29,Information and communication,195,103.12,46,233.22,120.00,32.94,2016
+30,"Art, play and entertainment",2,210.59,6,118.13,4.00,1.08,2016
+31,Administrative activities and support services,58,45.51,12,23.83,68.00,91.02,2016
+32,"Producing and distributing electricity, gas, water, air conditioning",2,127.23,3,3.02,1.00,2.18,2016
+33,"Agriculture, forestry and fisheries",12,44.40,14,34.91,9.00,20.17,2016
+34,Extractive,1,31.50,1,37.15,2.00,1.37,2016
+35,Other service activities,5,55.76,7,9.77,6.00,2.23,2016
+36,Education and training,70,47.32,9,-0.22,56.00,13.35,2016
+37,Health and social assistance activities,10,11.24,3,2.67,9.00,38.17,2016
+38,Employment activities in households,1,0.15,1,3.90,,,2016
+39,Manufacturing and processing industry,932," 6,860.36 ",761," 7,271.27 "," 1,365 "," 1,744.36 ",2017
+40,"Producing and distributing electricity, gas, water, air conditioning",13," 8,369.30 ",5, 4.77 ,,,2017
+41,Real estate business,65," 2,238.93 ",23, 281.34 , 107 , 533.36 ,2017
+42,"Wholesale and retail; repair cars, motorbikes, motorbikes",585, 493.00 ,111, 114.85 ," 1,945 "," 1,555.86 ",2017
+43,Extractive,2," 1,279.02 ",,, 4 , 9.88 ,2017
+44,Construction,122, 171.75 ,48, 102.51 , 224 , 858.79 ,2017
+45,"Professional activities, science and technology",324, 390.26 ,71, 138.47 , 428 , 499.34 ,2017
+46,Water supply and waste treatment,12, 566.70 ,2, 1.30 ,,,2017
+47,Accommodation and food services,106, 122.50 ,29, 110.48 , 222 , 280.22 ,2017
+48,Health and social assistance activities,14, 162.31 ,10, 106.59 , 21 , 118.63 ,2017
+49,Warehousing transportation,74, 173.17 ,29, 143.29 , 137 , 70.12 ,2017
+50,Information and communication,182, 140.78 ,52, 45.40 , 246 , 50.51 ,2017
+51,"Agriculture, forestry and fisheries",17, 179.31 ,14, 2.59 , 29 , 9.65 ,2017
+52,Education and training,59, 60.40 ,11, (3.22), 77 , 59.57 ,2017
+53,Administrative activities and support services,66, 24.11 ,11, 10.89 , 139 , 74.03 ,2017
+54,Other service activities,8, 24.83 ,5, 1.07 , 20 , 22.84 ,2017
+55,"Financial, banking and insurance activities",3, 0.18 ,2, 69.87 , 32 , 18.17 ,2017
+56,"Art, play and entertainment",6, 18.50 ,4, 15.41 , 6 , 3.81 ,2017
+57,Employment activities in households,1, 0.50 ,,,,,2017
+58,Manufacturing and processing industry,1065," 9,067.46 ",743," 5,093.78 "," 1,528 "," 2,426.80 ",2018
+59,Real estate business,92," 5,216.78 ",31, 727.44 , 147 , 671.11 ,2018
+60,"Wholesale and retail; repair cars, motorbikes, motorbikes",757, 704.53 ,119, 105.26 ," 2,829 "," 2,863.11 ",2018
+61,"Professional activities, science and technology",386, 183.37 ,88, 144.05 , 584 ," 1,820.00 ",2018
+62,"Producing and distributing electricity, gas, water, air conditioning",19," 1,631.33 ",2, (3.65),,,2018
+63,Construction,114, 217.67 ,38, 26.74 , 255 , 938.66 ,2018
+64,"Art, play and entertainment",7, 6.20 ,1," 1,125.00 ", 9 , 2.44 ,2018
+65,Accommodation and food services,102, 27.36 ,21, 59.82 , 311 , 491.34 ,2018
+66,Information and communication,243, 273.72 ,47, 90.80 , 321 , 196.36 ,2018
+67,Warehousing transportation,73, 206.47 ,24, 52.90 , 131 , 146.16 ,2018
+68,Water supply and waste treatment,7, 232.39 ,3, 10.19 , 9 , 16.62 ,2018
+69,Administrative activities and support services,77, 52.96 ,13, 64.57 , 170 , 96.44 ,2018
+70,"Agriculture, forestry and fisheries",11, 71.15 ,14, 61.16 , 28 , 8.53 ,2018
+71,Health and social assistance activities,7, 14.17 ,4, 3.41 , 33 , 115.23 ,2018
+72,Education and training,70, 30.97 ,14, 30.88 , 92 , 28.87 ,2018
+73,"Financial, banking and insurance activities",5, 10.30 ,4, 3.92 , 31 , 67.62 ,2018
+74,Extractive,2, 25.40 ,,,,,2018
+75,Other service activities,9, 3.95 ,3, 0.38 , 18 , 3.43 ,2018
+76,Manufacturing and processing industry,1314," 12,093.14   ",861," 5,381.98   "," 2,261 "," 7,086.66   ",2019
+77,Real estate business,123," 1,817.97   ",28,-693.73   , 397 ," 2,751.79   ",2019
+78,"Wholesale and retail; repair cars, motorbikes, motorbikes",1105, 880.80   ,182, 279.33   ," 3,292 "," 1,427.98   ",2019
+79,"Professional activities, science and technology",493, 330.26   ,104, 144.79   ," 1,129 "," 1,091.52   ",2019
+80,"Financial, banking and insurance activities",12, 11.55   ,2, 191.97   , 39 , 968.34   ,2019
+81,"Producing and distributing electricity, gas, water, air conditioning",15, 722.60   ,2,-14.91   , 62 , 302.42   ,2019
+82,Construction,134, 322.43   ,45, 81.72   , 521 , 574.88   ,2019
+83,Information and communication,302, 85.37   ,61, 195.37   , 557 , 255.86   ,2019
+84,Accommodation and food services,103, 39.05   ,23, 37.99   , 710 , 411.85   ,2019
+85,Warehousing transportation,100, 122.38   ,24, 56.73   , 285 , 166.95   ,2019
+86,Water supply and waste treatment,6, 125.03   ,6, 78.22   , 19 , 46.02   ,2019
+87,Health and social assistance activities,6, 17.30   ,3, 2.93   , 41 , 191.22   ,2019
+88,Administrative activities and support services,63, 32.45   ,13, 9.96   , 238 , 81.20   ,2019
+89,"Agriculture, forestry and fisheries",16, 72.96   ,10, 7.43   , 54 , 18.93   ,2019
+90,Education and training,71, 24.96   ,12, 9.36   , 172 , 30.30   ,2019
+91,"Art, play and entertainment",6, 8.27   ,1, 2.65   , 26 , 51.81   ,2019
+92,Other service activities,11, 36.75   ,2, 2.20   , 31 , 8.12   ,2019
+93,Extractive,2, 1.90   ,2, 28.03   , 8 , 5.66   ,2019
+94,Employment activities in households,1, 0.43   ,,,,,2019
+95,Manufacturing and processing industry, 800 ," 7,190.77 ", 680 ," 4,593.86 "," 1,268 "," 1,816.46 ",2020
+96,"Producing and distributing electricity, gas, water, air conditioning", 20 ," 5,080.81 ", 8 , (137.47), 45 , 199.22 ,2020
+97,Real estate business, 70 , 987.41 , 32 ," 1,256.08 ", 229 ," 1,941.46 ",2020
+98,"Wholesale and retail; repair cars, motorbikes, motorbikes", 704 , 431.18 , 164 , 234.24 ," 2,264 ", 980.21 ,2020
+99,"Professional activities, science and technology", 376 , 169.30 , 87 , 114.30 , 825 ," 1,062.96 ",2020
+100,Warehousing transportation, 59 , 169.23 , 19 , 43.17 , 155 , 399.53 ,2020
+101,Construction, 79 , 237.24 , 29 , 78.89 , 233 , 243.72 ,2020
+102,Accommodation and food services, 57 , 106.13 , 15 , 27.72 , 399 , 207.62 ,2020
+103,"Financial, banking and insurance activities", 6 , 0.29 , 3 , 14.77 , 24 , 271.78 ,2020
+104,Information and communication, 206 , 53.46 , 49 , 41.56 , 352 , 176.26 ,2020
+105,"Agriculture, forestry and fisheries", 12 , 103.09 , 16 , 79.65 , 29 , 27.90 ,2020
+106,Education and training, 54 , 19.37 , 16 , 13.92 , 115 , 75.05 ,2020
+107,Water supply and waste treatment, 4 , 64.42 , -   , -   , 12 , 23.59 ,2020
+108,Other service activities, 4 , 3.42 , 7 , 36.74 , 18 , 3.61 ,2020
+109,Administrative activities and support services, 56 , 20.01 , 9 , 2.14 , 130 , 18.23 ,2020
+110,Health and social assistance activities, 9 , 4.49 , 4 , 12.66 , 27 , 15.42 ,2020
+111,Extractive, 1 , 0.41 , 1 , 0.68 , 12 , 5.28 ,2020
+112,"Art, play and entertainment", 5 , 2.68 , 1 , 1.60 , 4 , 0.88 ,2020
+113,Employment activities in households, 1 , 2.70 , -   , -   , -   , -   ,2020
+114,Manufacturing and processing industry, 533 ," 7,251.98 ", 612 ," 7,346.30 ", 650 ," 3,522.60 ",2021
+115,"Producing and distributing electricity, gas, water, air conditioning", 23 ," 5,316.16 ", 12 , 261.00 , 29 , 134.60 ,2021
+116,Real estate business, 57 ," 1,390.03 ", 29 , 246.66 , 120 ," 1,000.73 ",2021
+117,"Wholesale and retail; repair cars, motorbikes, motorbikes", 488 , 293.79 , 130 , 416.58 ," 1,338 ", 693.64 ,2021
+118,"Professional activities, science and technology", 291 , 143.31 , 87 , 276.55 , 620 , 604.12 ,2021
+119,Warehousing transportation, 53 , 426.37 , 14 , 40.47 , 118 , 316.96 ,2021
+120,Construction, 28 , 58.60 , 12 , 226.60 , 119 , 172.08 ,2021
+121,Information and communication, 156 , 226.05 , 25 , 52.44 , 268 , 125.90 ,2021
+122,Accommodation and food services, 23 , 41.59 , 15 , 21.44 , 322 , 104.57 ,2021
+123,"Agriculture, forestry and fisheries", 15 , 59.97 , 13 , 61.38 , 30 , 35.43 ,2021
+124,Water supply and waste treatment, 2 , 7.20 , 1 , 4.71 , 10 , 105.02 ,2021
+125,"Financial, banking and insurance activities", 1 , 4.50 , 1 , 30.47 , 21 , 24.66 ,2021
+126,Education and training, 27 , 12.64 , 14 , 17.30 , 55 , 21.14 ,2021
+127,Administrative activities and support services, 38 , 11.83 , 14 , 11.72 , 66 , 22.98 ,2021
+128,Health and social assistance activities, 1 , 1.10 , 3 , 0.62 , 11 , 2.80 ,2021
+129,Other service activities, 1 , 0.15 , 2 , 0.40 , 9 , 3.05 ,2021
+130,"Art, play and entertainment", 1 , 0.13 , -   , -   , 7 , 1.55 ,2021
+131,Extractive, -   , -   , 1 , 0.14 , 4 , 1.34 ,2021
+132,Manufacturing and processing industry, 511 ," 7,213 ", 644 ," 7,977.90 ", 471 ," 1,611.06 ",2022
+133,Real estate business, 75 ," 1,816 ", 37 ," 1,059.28 ", 103 ," 1,576.55 ",2022
+134,"Producing and distributing electricity, gas, water, air conditioning", 11 ," 2,101 ", 6 , 70.74 , 17 , 89.97 ,2022
+135,"Professional activities, science and technology", 331 , 249 , 106 , 172.43 , 603 , 867.90 ,2022
+136,"Wholesale and retail; repair cars, motorbikes, motorbikes", 611 , 318 , 151 , 297.36 ," 1,417 ", 394.85 ,2022
+137,Information and communication, 241 , 183 , 52 , 310.73 , 305 , 161.64 ,2022
+138,Warehousing transportation, 72 , 356 , 16 , 46.78 , 133 , 35.81 ,2022
+139,Education and training, 36 , 12 , 16 , 136.78 , 51 , 104.70 ,2022
+140,Construction, 32 , 94 , 23 , 35.54 , 77 , 117.90 ,2022
+141,"Agriculture, forestry and fisheries", 12 , 30 , 5 , 11.67 , 16 , 26.70 ,2022
+142,Administrative activities and support services, 54 , 24 , 22 , 12.50 , 70 , 27.65 ,2022
+143,"Financial, banking and insurance activities", 8 , 29 , 1 , 24.69 , 13 , 3.81 ,2022
+144,Water supply and waste treatment, 3 , 2 , 1 , 16.00 , 7 , 39.44 ,2022
+145,Health and social assistance activities, 2 , 10 , 4 , 1.71 , 11 , 9.02 ,2022
+146,Extractive, 1 , 2 , -   , -   , 3 , 17.09 ,2022
+147,Accommodation and food services, 33 , 8 , 18 , (59.82), 240 , 63.71 ,2022
+148,Other service activities, 2 , 0 , 4 , 3.37 , 17 , 2.24 ,2022
+149,"Art, play and entertainment", 1 , 0 , 1 , 0.15 , 11 , 3.50 ,2022
+150,Employment activities in households, -   , -   , -   , -   , 1 , 0.55 ,2022
