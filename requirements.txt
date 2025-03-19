@@ -13,3 +13,4 @@ seaborn==0.13.2
 antropy==0.1.9
 hurst==0.0.5
 pyts==0.13.0
+statsmodels==0.14.4
