@@ -1,0 +1,156 @@
+Year,Geographic area,"Net AI talent migration (per 10,000 LinkedIn members)"
+1/1/19,Australia,0.25
+1/1/20,Australia,0.21
+1/1/21,Australia,0.07
+1/1/22,Australia,0.51
+1/1/23,Australia,0.67
+1/1/19,Belgium,0.26
+1/1/20,Belgium,0.29
+1/1/21,Belgium,0.30
+1/1/22,Belgium,0.25
+1/1/23,Belgium,0.28
+1/1/19,Brazil,-0.06
+1/1/20,Brazil,-0.03
+1/1/21,Brazil,-0.05
+1/1/22,Brazil,-0.09
+1/1/23,Brazil,-0.05
+1/1/19,Canada,0.15
+1/1/20,Canada,0.32
+1/1/21,Canada,0.86
+1/1/22,Canada,0.96
+1/1/23,Canada,0.96
+1/1/19,Chile,-0.03
+1/1/20,Chile,-0.02
+1/1/21,Chile,-0.09
+1/1/22,Chile,-0.11
+1/1/23,Chile,-0.07
+1/1/19,Costa Rica,-0.04
+1/1/20,Costa Rica,-0.05
+1/1/21,Costa Rica,0.02
+1/1/22,Costa Rica,-0.06
+1/1/23,Costa Rica,0.01
+1/1/19,Cyprus*,0.14
+1/1/20,Cyprus*,1.22
+1/1/21,Cyprus*,1.39
+1/1/22,Cyprus*,3.78
+1/1/23,Cyprus*,1.24
+1/1/19,Denmark,0.00
+1/1/20,Denmark,0.10
+1/1/21,Denmark,0.48
+1/1/22,Denmark,0.39
+1/1/23,Denmark,0.44
+1/1/19,Finland,0.56
+1/1/20,Finland,0.68
+1/1/21,Finland,0.80
+1/1/22,Finland,0.62
+1/1/23,Finland,0.90
+1/1/19,France,0.13
+1/1/20,France,0.17
+1/1/21,France,0.01
+1/1/22,France,0.01
+1/1/23,France,0.06
+1/1/19,Germany,0.79
+1/1/20,Germany,0.85
+1/1/21,Germany,1.10
+1/1/22,Germany,1.35
+1/1/23,Germany,1.04
+1/1/19,Hong Kong,-0.24
+1/1/20,Hong Kong,-0.23
+1/1/21,Hong Kong,-0.10
+1/1/22,Hong Kong,-0.42
+1/1/23,Hong Kong,0.12
+1/1/19,India,-0.39
+1/1/20,India,-0.21
+1/1/21,India,-0.79
+1/1/22,India,-0.93
+1/1/23,India,-0.76
+1/1/19,Ireland,-0.16
+1/1/20,Ireland,0.29
+1/1/21,Ireland,0.28
+1/1/22,Ireland,0.96
+1/1/23,Ireland,0.60
+1/1/19,Israel,-0.28
+1/1/20,Israel,0.16
+1/1/21,Israel,0.26
+1/1/22,Israel,0.44
+1/1/23,Israel,-0.57
+1/1/19,Italy,-0.08
+1/1/20,Italy,-0.12
+1/1/21,Italy,-0.05
+1/1/22,Italy,-0.16
+1/1/23,Italy,-0.18
+1/1/19,Luxembourg*,0.94
+1/1/20,Luxembourg*,4.16
+1/1/21,Luxembourg*,3.54
+1/1/22,Luxembourg*,5.30
+1/1/23,Luxembourg*,3.67
+1/1/19,Netherlands,0.04
+1/1/20,Netherlands,0.39
+1/1/21,Netherlands,0.70
+1/1/22,Netherlands,0.89
+1/1/23,Netherlands,0.76
+1/1/19,New Zealand,0.14
+1/1/20,New Zealand,0.12
+1/1/21,New Zealand,-0.02
+1/1/22,New Zealand,0.02
+1/1/23,New Zealand,0.19
+1/1/19,Norway,0.32
+1/1/20,Norway,0.53
+1/1/21,Norway,0.68
+1/1/22,Norway,0.77
+1/1/23,Norway,0.41
+1/1/19,Portugal,0.02
+1/1/20,Portugal,0.00
+1/1/21,Portugal,0.12
+1/1/22,Portugal,0.40
+1/1/23,Portugal,0.23
+1/1/19,Singapore,-0.14
+1/1/20,Singapore,0.47
+1/1/21,Singapore,0.02
+1/1/22,Singapore,0.71
+1/1/23,Singapore,0.50
+1/1/19,South Africa,-0.05
+1/1/20,South Africa,-0.09
+1/1/21,South Africa,-0.09
+1/1/22,South Africa,-0.14
+1/1/23,South Africa,-0.12
+1/1/19,South Korea,-0.30
+1/1/20,South Korea,0.23
+1/1/21,South Korea,0.04
+1/1/22,South Korea,-0.04
+1/1/23,South Korea,-0.30
+1/1/19,Spain,0.09
+1/1/20,Spain,0.01
+1/1/21,Spain,0.16
+1/1/22,Spain,0.16
+1/1/23,Spain,0.25
+1/1/19,Sweden,-0.19
+1/1/20,Sweden,0.39
+1/1/21,Sweden,0.41
+1/1/22,Sweden,0.50
+1/1/23,Sweden,0.17
+1/1/19,Switzerland*,0.82
+1/1/20,Switzerland*,1.98
+1/1/21,Switzerland*,1.91
+1/1/22,Switzerland*,2.25
+1/1/23,Switzerland*,1.60
+1/1/19,United Arab Emirates,-0.09
+1/1/20,United Arab Emirates,0.24
+1/1/21,United Arab Emirates,0.60
+1/1/22,United Arab Emirates,1.05
+1/1/23,United Arab Emirates,1.48
+1/1/19,United Kingdom,0.01
+1/1/20,United Kingdom,0.08
+1/1/21,United Kingdom,0.38
+1/1/22,United Kingdom,0.69
+1/1/23,United Kingdom,0.41
+1/1/19,United States,0.20
+1/1/20,United States,0.04
+1/1/21,United States,0.33
+1/1/22,United States,0.39
+1/1/23,United States,0.40
+1/1/19,Uruguay,-0.05
+1/1/20,Uruguay,-0.02
+1/1/21,Uruguay,-0.09
+1/1/22,Uruguay,0.12
+1/1/23,Uruguay,-0.13

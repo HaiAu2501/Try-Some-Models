@@ -1,0 +1,481 @@
+Year,Geographic area,Gender,AI talent concentration
+2016,Australia,Female,0.07%
+2016,Australia,Male,0.19%
+2017,Australia,Female,0.08%
+2017,Australia,Male,0.21%
+2018,Australia,Female,0.09%
+2018,Australia,Male,0.24%
+2019,Australia,Female,0.11%
+2019,Australia,Male,0.28%
+2020,Australia,Female,0.13%
+2020,Australia,Male,0.32%
+2021,Australia,Female,0.15%
+2021,Australia,Male,0.35%
+2022,Australia,Female,0.16%
+2022,Australia,Male,0.38%
+2023,Australia,Female,0.19%
+2023,Australia,Male,0.43%
+2016,Belgium,Female,0.12%
+2016,Belgium,Male,0.31%
+2017,Belgium,Female,0.12%
+2017,Belgium,Male,0.33%
+2018,Belgium,Female,0.13%
+2018,Belgium,Male,0.36%
+2019,Belgium,Female,0.15%
+2019,Belgium,Male,0.40%
+2020,Belgium,Female,0.16%
+2020,Belgium,Male,0.45%
+2021,Belgium,Female,0.18%
+2021,Belgium,Male,0.48%
+2022,Belgium,Female,0.18%
+2022,Belgium,Male,0.51%
+2023,Belgium,Female,0.20%
+2023,Belgium,Male,0.55%
+2016,Brazil,Female,0.01%
+2016,Brazil,Male,0.04%
+2017,Brazil,Female,0.01%
+2017,Brazil,Male,0.05%
+2018,Brazil,Female,0.01%
+2018,Brazil,Male,0.06%
+2019,Brazil,Female,0.02%
+2019,Brazil,Male,0.08%
+2020,Brazil,Female,0.02%
+2020,Brazil,Male,0.09%
+2021,Brazil,Female,0.02%
+2021,Brazil,Male,0.11%
+2022,Brazil,Female,0.03%
+2022,Brazil,Male,0.12%
+2023,Brazil,Female,0.03%
+2023,Brazil,Male,0.14%
+2016,Canada,Female,0.09%
+2016,Canada,Male,0.21%
+2017,Canada,Female,0.10%
+2017,Canada,Male,0.24%
+2018,Canada,Female,0.12%
+2018,Canada,Male,0.29%
+2019,Canada,Female,0.14%
+2019,Canada,Male,0.35%
+2020,Canada,Female,0.17%
+2020,Canada,Male,0.41%
+2021,Canada,Female,0.19%
+2021,Canada,Male,0.46%
+2022,Canada,Female,0.22%
+2022,Canada,Male,0.51%
+2023,Canada,Female,0.26%
+2023,Canada,Male,0.59%
+2016,Chile,Female,0.04%
+2016,Chile,Male,0.12%
+2017,Chile,Female,0.04%
+2017,Chile,Male,0.13%
+2018,Chile,Female,0.04%
+2018,Chile,Male,0.14%
+2019,Chile,Female,0.05%
+2019,Chile,Male,0.16%
+2020,Chile,Female,0.05%
+2020,Chile,Male,0.17%
+2021,Chile,Female,0.05%
+2021,Chile,Male,0.19%
+2022,Chile,Female,0.05%
+2022,Chile,Male,0.20%
+2023,Chile,Female,0.06%
+2023,Chile,Male,0.22%
+2016,Costa Rica,Female,0.04%
+2016,Costa Rica,Male,0.09%
+2017,Costa Rica,Female,0.04%
+2017,Costa Rica,Male,0.10%
+2018,Costa Rica,Female,0.04%
+2018,Costa Rica,Male,0.12%
+2019,Costa Rica,Female,0.05%
+2019,Costa Rica,Male,0.14%
+2020,Costa Rica,Female,0.06%
+2020,Costa Rica,Male,0.16%
+2021,Costa Rica,Female,0.06%
+2021,Costa Rica,Male,0.19%
+2022,Costa Rica,Female,0.08%
+2022,Costa Rica,Male,0.20%
+2023,Costa Rica,Female,0.09%
+2023,Costa Rica,Male,0.25%
+2016,Cyprus,Female,0.07%
+2016,Cyprus,Male,0.18%
+2017,Cyprus,Female,0.07%
+2017,Cyprus,Male,0.21%
+2018,Cyprus,Female,0.08%
+2018,Cyprus,Male,0.24%
+2019,Cyprus,Female,0.09%
+2019,Cyprus,Male,0.31%
+2020,Cyprus,Female,0.10%
+2020,Cyprus,Male,0.37%
+2021,Cyprus,Female,0.12%
+2021,Cyprus,Male,0.43%
+2022,Cyprus,Female,0.18%
+2022,Cyprus,Male,0.53%
+2023,Cyprus,Female,0.22%
+2023,Cyprus,Male,0.59%
+2016,Denmark,Female,0.06%
+2016,Denmark,Male,0.20%
+2017,Denmark,Female,0.07%
+2017,Denmark,Male,0.24%
+2018,Denmark,Female,0.09%
+2018,Denmark,Male,0.29%
+2019,Denmark,Female,0.11%
+2019,Denmark,Male,0.35%
+2020,Denmark,Female,0.13%
+2020,Denmark,Male,0.41%
+2021,Denmark,Female,0.16%
+2021,Denmark,Male,0.47%
+2022,Denmark,Female,0.18%
+2022,Denmark,Male,0.51%
+2023,Denmark,Female,0.21%
+2023,Denmark,Male,0.59%
+2016,Finland,Female,0.28%
+2016,Finland,Male,0.59%
+2017,Finland,Female,0.29%
+2017,Finland,Male,0.66%
+2018,Finland,Female,0.31%
+2018,Finland,Male,0.74%
+2019,Finland,Female,0.34%
+2019,Finland,Male,0.83%
+2020,Finland,Female,0.38%
+2020,Finland,Male,0.91%
+2021,Finland,Female,0.40%
+2021,Finland,Male,0.99%
+2022,Finland,Female,0.42%
+2022,Finland,Male,1.03%
+2023,Finland,Female,0.45%
+2023,Finland,Male,1.09%
+2016,France,Female,0.27%
+2016,France,Male,0.45%
+2017,France,Female,0.27%
+2017,France,Male,0.46%
+2018,France,Female,0.29%
+2018,France,Male,0.50%
+2019,France,Female,0.30%
+2019,France,Male,0.54%
+2020,France,Female,0.31%
+2020,France,Male,0.58%
+2021,France,Female,0.33%
+2021,France,Male,0.61%
+2022,France,Female,0.33%
+2022,France,Male,0.63%
+2023,France,Female,0.34%
+2023,France,Male,0.65%
+2016,Germany,Female,0.12%
+2016,Germany,Male,0.33%
+2017,Germany,Female,0.14%
+2017,Germany,Male,0.39%
+2018,Germany,Female,0.17%
+2018,Germany,Male,0.46%
+2019,Germany,Female,0.22%
+2019,Germany,Male,0.57%
+2020,Germany,Female,0.26%
+2020,Germany,Male,0.66%
+2021,Germany,Female,0.30%
+2021,Germany,Male,0.74%
+2022,Germany,Female,0.33%
+2022,Germany,Male,0.82%
+2023,Germany,Female,0.37%
+2023,Germany,Male,0.89%
+2016,Hong Kong,Female,0.05%
+2016,Hong Kong,Male,0.12%
+2017,Hong Kong,Female,0.06%
+2017,Hong Kong,Male,0.15%
+2018,Hong Kong,Female,0.08%
+2018,Hong Kong,Male,0.22%
+2019,Hong Kong,Female,0.10%
+2019,Hong Kong,Male,0.27%
+2020,Hong Kong,Female,0.12%
+2020,Hong Kong,Male,0.33%
+2021,Hong Kong,Female,0.14%
+2021,Hong Kong,Male,0.38%
+2022,Hong Kong,Female,0.15%
+2022,Hong Kong,Male,0.41%
+2023,Hong Kong,Female,0.19%
+2023,Hong Kong,Male,0.49%
+2016,India,Female,0.09%
+2016,India,Male,0.13%
+2017,India,Female,0.11%
+2017,India,Male,0.15%
+2018,India,Female,0.14%
+2018,India,Male,0.19%
+2019,India,Female,0.19%
+2019,India,Male,0.25%
+2020,India,Female,0.25%
+2020,India,Male,0.32%
+2021,India,Female,0.30%
+2021,India,Male,0.36%
+2022,India,Female,0.31%
+2022,India,Male,0.37%
+2023,India,Female,0.38%
+2023,India,Male,0.45%
+2016,Ireland,Female,0.13%
+2016,Ireland,Male,0.28%
+2017,Ireland,Female,0.14%
+2017,Ireland,Male,0.31%
+2018,Ireland,Female,0.17%
+2018,Ireland,Male,0.37%
+2019,Ireland,Female,0.19%
+2019,Ireland,Male,0.45%
+2020,Ireland,Female,0.23%
+2020,Ireland,Male,0.52%
+2021,Ireland,Female,0.25%
+2021,Ireland,Male,0.58%
+2022,Ireland,Female,0.28%
+2022,Ireland,Male,0.63%
+2023,Ireland,Female,0.33%
+2023,Ireland,Male,0.72%
+2016,Israel,Female,0.32%
+2016,Israel,Male,0.82%
+2017,Israel,Female,0.37%
+2017,Israel,Male,0.95%
+2018,Israel,Female,0.43%
+2018,Israel,Male,1.10%
+2019,Israel,Female,0.50%
+2019,Israel,Male,1.25%
+2020,Israel,Female,0.59%
+2020,Israel,Male,1.41%
+2021,Israel,Female,0.66%
+2021,Israel,Male,1.54%
+2022,Israel,Female,0.70%
+2022,Israel,Male,1.64%
+2023,Israel,Female,0.75%
+2023,Israel,Male,1.73%
+2016,Italy,Female,0.06%
+2016,Italy,Male,0.11%
+2017,Italy,Female,0.07%
+2017,Italy,Male,0.13%
+2018,Italy,Female,0.08%
+2018,Italy,Male,0.15%
+2019,Italy,Female,0.09%
+2019,Italy,Male,0.19%
+2020,Italy,Female,0.11%
+2020,Italy,Male,0.22%
+2021,Italy,Female,0.12%
+2021,Italy,Male,0.25%
+2022,Italy,Female,0.13%
+2022,Italy,Male,0.27%
+2023,Italy,Female,0.14%
+2023,Italy,Male,0.30%
+2016,Luxembourg,Female,0.24%
+2016,Luxembourg,Male,0.48%
+2017,Luxembourg,Female,0.25%
+2017,Luxembourg,Male,0.52%
+2018,Luxembourg,Female,0.27%
+2018,Luxembourg,Male,0.57%
+2019,Luxembourg,Female,0.31%
+2019,Luxembourg,Male,0.64%
+2020,Luxembourg,Female,0.32%
+2020,Luxembourg,Male,0.74%
+2021,Luxembourg,Female,0.36%
+2021,Luxembourg,Male,0.79%
+2022,Luxembourg,Female,0.42%
+2022,Luxembourg,Male,0.88%
+2023,Luxembourg,Female,0.46%
+2023,Luxembourg,Male,0.99%
+2016,Netherlands,Female,0.24%
+2016,Netherlands,Male,0.45%
+2017,Netherlands,Female,0.26%
+2017,Netherlands,Male,0.49%
+2018,Netherlands,Female,0.29%
+2018,Netherlands,Male,0.54%
+2019,Netherlands,Female,0.32%
+2019,Netherlands,Male,0.60%
+2020,Netherlands,Female,0.34%
+2020,Netherlands,Male,0.66%
+2021,Netherlands,Female,0.37%
+2021,Netherlands,Male,0.71%
+2022,Netherlands,Female,0.39%
+2022,Netherlands,Male,0.75%
+2023,Netherlands,Female,0.41%
+2023,Netherlands,Male,0.79%
+2016,New Zealand,Female,0.10%
+2016,New Zealand,Male,0.18%
+2017,New Zealand,Female,0.11%
+2017,New Zealand,Male,0.21%
+2018,New Zealand,Female,0.12%
+2018,New Zealand,Male,0.24%
+2019,New Zealand,Female,0.14%
+2019,New Zealand,Male,0.28%
+2020,New Zealand,Female,0.15%
+2020,New Zealand,Male,0.30%
+2021,New Zealand,Female,0.17%
+2021,New Zealand,Male,0.33%
+2022,New Zealand,Female,0.18%
+2022,New Zealand,Male,0.35%
+2023,New Zealand,Female,0.20%
+2023,New Zealand,Male,0.37%
+2016,Norway,Female,0.10%
+2016,Norway,Male,0.20%
+2017,Norway,Female,0.10%
+2017,Norway,Male,0.23%
+2018,Norway,Female,0.12%
+2018,Norway,Male,0.27%
+2019,Norway,Female,0.14%
+2019,Norway,Male,0.33%
+2020,Norway,Female,0.16%
+2020,Norway,Male,0.38%
+2021,Norway,Female,0.18%
+2021,Norway,Male,0.43%
+2022,Norway,Female,0.21%
+2022,Norway,Male,0.48%
+2023,Norway,Female,0.24%
+2023,Norway,Male,0.53%
+2016,Portugal,Female,0.05%
+2016,Portugal,Male,0.16%
+2017,Portugal,Female,0.06%
+2017,Portugal,Male,0.18%
+2018,Portugal,Female,0.07%
+2018,Portugal,Male,0.21%
+2019,Portugal,Female,0.08%
+2019,Portugal,Male,0.26%
+2020,Portugal,Female,0.09%
+2020,Portugal,Male,0.29%
+2021,Portugal,Female,0.11%
+2021,Portugal,Male,0.33%
+2022,Portugal,Female,0.13%
+2022,Portugal,Male,0.37%
+2023,Portugal,Female,0.15%
+2023,Portugal,Male,0.44%
+2016,Singapore,Female,0.23%
+2016,Singapore,Male,0.38%
+2017,Singapore,Female,0.26%
+2017,Singapore,Male,0.44%
+2018,Singapore,Female,0.31%
+2018,Singapore,Male,0.53%
+2019,Singapore,Female,0.37%
+2019,Singapore,Male,0.63%
+2020,Singapore,Female,0.44%
+2020,Singapore,Male,0.74%
+2021,Singapore,Female,0.51%
+2021,Singapore,Male,0.83%
+2022,Singapore,Female,0.57%
+2022,Singapore,Male,0.89%
+2023,Singapore,Female,0.67%
+2023,Singapore,Male,1.03%
+2016,South Africa,Female,0.04%
+2016,South Africa,Male,0.08%
+2017,South Africa,Female,0.05%
+2017,South Africa,Male,0.09%
+2018,South Africa,Female,0.05%
+2018,South Africa,Male,0.10%
+2019,South Africa,Female,0.06%
+2019,South Africa,Male,0.12%
+2020,South Africa,Female,0.07%
+2020,South Africa,Male,0.14%
+2021,South Africa,Female,0.08%
+2021,South Africa,Male,0.15%
+2022,South Africa,Female,0.08%
+2022,South Africa,Male,0.16%
+2023,South Africa,Female,0.09%
+2023,South Africa,Male,0.17%
+2016,Spain,Female,0.08%
+2016,Spain,Male,0.28%
+2017,Spain,Female,0.08%
+2017,Spain,Male,0.30%
+2018,Spain,Female,0.10%
+2018,Spain,Male,0.33%
+2019,Spain,Female,0.11%
+2019,Spain,Male,0.37%
+2020,Spain,Female,0.12%
+2020,Spain,Male,0.40%
+2021,Spain,Female,0.13%
+2021,Spain,Male,0.43%
+2022,Spain,Female,0.14%
+2022,Spain,Male,0.46%
+2023,Spain,Female,0.16%
+2023,Spain,Male,0.51%
+2016,Sweden,Female,0.25%
+2016,Sweden,Male,0.49%
+2017,Sweden,Female,0.26%
+2017,Sweden,Male,0.52%
+2018,Sweden,Female,0.27%
+2018,Sweden,Male,0.57%
+2019,Sweden,Female,0.29%
+2019,Sweden,Male,0.62%
+2020,Sweden,Female,0.30%
+2020,Sweden,Male,0.67%
+2021,Sweden,Female,0.32%
+2021,Sweden,Male,0.71%
+2022,Sweden,Female,0.34%
+2022,Sweden,Male,0.74%
+2023,Sweden,Female,0.35%
+2023,Sweden,Male,0.77%
+2016,Switzerland,Female,0.17%
+2016,Switzerland,Male,0.37%
+2017,Switzerland,Female,0.18%
+2017,Switzerland,Male,0.42%
+2018,Switzerland,Female,0.21%
+2018,Switzerland,Male,0.49%
+2019,Switzerland,Female,0.24%
+2019,Switzerland,Male,0.58%
+2020,Switzerland,Female,0.28%
+2020,Switzerland,Male,0.67%
+2021,Switzerland,Female,0.31%
+2021,Switzerland,Male,0.75%
+2022,Switzerland,Female,0.34%
+2022,Switzerland,Male,0.82%
+2023,Switzerland,Female,0.38%
+2023,Switzerland,Male,0.92%
+2016,United Arab Emirates,Female,0.07%
+2016,United Arab Emirates,Male,0.09%
+2017,United Arab Emirates,Female,0.08%
+2017,United Arab Emirates,Male,0.09%
+2018,United Arab Emirates,Female,0.09%
+2018,United Arab Emirates,Male,0.11%
+2019,United Arab Emirates,Female,0.10%
+2019,United Arab Emirates,Male,0.13%
+2020,United Arab Emirates,Female,0.13%
+2020,United Arab Emirates,Male,0.16%
+2021,United Arab Emirates,Female,0.15%
+2021,United Arab Emirates,Male,0.18%
+2022,United Arab Emirates,Female,0.16%
+2022,United Arab Emirates,Male,0.20%
+2023,United Arab Emirates,Female,0.21%
+2023,United Arab Emirates,Male,0.26%
+2016,United Kingdom,Female,0.09%
+2016,United Kingdom,Male,0.19%
+2017,United Kingdom,Female,0.10%
+2017,United Kingdom,Male,0.22%
+2018,United Kingdom,Female,0.12%
+2018,United Kingdom,Male,0.25%
+2019,United Kingdom,Female,0.13%
+2019,United Kingdom,Male,0.30%
+2020,United Kingdom,Female,0.15%
+2020,United Kingdom,Male,0.33%
+2021,United Kingdom,Female,0.17%
+2021,United Kingdom,Male,0.37%
+2022,United Kingdom,Female,0.20%
+2022,United Kingdom,Male,0.41%
+2023,United Kingdom,Female,0.23%
+2023,United Kingdom,Male,0.47%
+2016,United States,Female,0.09%
+2016,United States,Male,0.21%
+2017,United States,Female,0.10%
+2017,United States,Male,0.23%
+2018,United States,Female,0.11%
+2018,United States,Male,0.27%
+2019,United States,Female,0.13%
+2019,United States,Male,0.31%
+2020,United States,Female,0.15%
+2020,United States,Male,0.35%
+2021,United States,Female,0.16%
+2021,United States,Male,0.38%
+2022,United States,Female,0.18%
+2022,United States,Male,0.42%
+2023,United States,Female,0.21%
+2023,United States,Male,0.48%
+2016,Uruguay,Female,0.03%
+2016,Uruguay,Male,0.11%
+2017,Uruguay,Female,0.04%
+2017,Uruguay,Male,0.12%
+2018,Uruguay,Female,0.04%
+2018,Uruguay,Male,0.13%
+2019,Uruguay,Female,0.04%
+2019,Uruguay,Male,0.14%
+2020,Uruguay,Female,0.05%
+2020,Uruguay,Male,0.16%
+2021,Uruguay,Female,0.05%
+2021,Uruguay,Male,0.18%
+2022,Uruguay,Female,0.06%
+2022,Uruguay,Male,0.19%
+2023,Uruguay,Female,0.07%
+2023,Uruguay,Male,0.22%

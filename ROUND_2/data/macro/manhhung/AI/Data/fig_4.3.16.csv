@@ -1,0 +1,169 @@
+Focus area,Year,Total investment (in billions of U.S. dollars)
+AI infrastructure/research/governance,2018,0.03
+AI infrastructure/research/governance,2019,0.22
+AI infrastructure/research/governance,2020,0.06
+AI infrastructure/research/governance,2021,0.49
+AI infrastructure/research/governance,2022,0.82
+AI infrastructure/research/governance,2023,18.27
+AR/VR,2017,0.07
+AR/VR,2018,0.04
+AR/VR,2019,0.18
+AR/VR,2020,0.75
+AR/VR,2021,0.89
+AR/VR,2022,0.33
+AR/VR,2023,0.67
+AV,2017,0.45
+AV,2018,0.57
+AV,2019,0.70
+AV,2020,2.48
+AV,2021,2.85
+AV,2022,2.19
+AV,2023,2.66
+Agritech,2017,0.10
+Agritech,2018,0.23
+Agritech,2019,0.20
+Agritech,2020,0.36
+Agritech,2021,1.04
+Agritech,2022,0.45
+Agritech,2023,0.50
+"Creative, music, video content",2017,0.45
+"Creative, music, video content",2018,0.64
+"Creative, music, video content",2019,0.67
+"Creative, music, video content",2020,0.99
+"Creative, music, video content",2021,3.42
+"Creative, music, video content",2022,1.85
+"Creative, music, video content",2023,1.34
+"Cybersecurity, data protection",2017,0.26
+"Cybersecurity, data protection",2018,0.18
+"Cybersecurity, data protection",2019,0.45
+"Cybersecurity, data protection",2020,0.90
+"Cybersecurity, data protection",2021,0.85
+"Cybersecurity, data protection",2022,1.17
+"Cybersecurity, data protection",2023,0.89
+"Data management, processing",2017,0.42
+"Data management, processing",2018,1.11
+"Data management, processing",2019,2.10
+"Data management, processing",2020,2.23
+"Data management, processing",2021,6.52
+"Data management, processing",2022,5.01
+"Data management, processing",2023,5.50
+Drones,2017,0.07
+Drones,2018,0.13
+Drones,2019,0.18
+Drones,2020,0.24
+Drones,2021,2.20
+Drones,2022,4.22
+Drones,2023,0.96
+Ed tech,2017,1.30
+Ed tech,2018,2.58
+Ed tech,2019,0.96
+Ed tech,2020,2.37
+Ed tech,2021,2.24
+Ed tech,2022,1.53
+Ed tech,2023,1.24
+"Energy, oil, and gas",2017,1.12
+"Energy, oil, and gas",2018,0.72
+"Energy, oil, and gas",2019,0.76
+"Energy, oil, and gas",2020,1.02
+"Energy, oil, and gas",2021,3.68
+"Energy, oil, and gas",2022,3.65
+"Energy, oil, and gas",2023,1.47
+Entertainment,2017,0.23
+Entertainment,2018,0.24
+Entertainment,2019,0.15
+Entertainment,2020,0.16
+Entertainment,2021,0.71
+Entertainment,2022,0.35
+Entertainment,2023,0.52
+Facial recognition,2017,0.37
+Facial recognition,2018,1.70
+Facial recognition,2019,0.95
+Facial recognition,2020,1.03
+Facial recognition,2021,3.58
+Facial recognition,2022,0.96
+Facial recognition,2023,0.28
+Fintech,2017,0.49
+Fintech,2018,0.39
+Fintech,2019,0.81
+Fintech,2020,1.15
+Fintech,2021,2.75
+Fintech,2022,2.18
+Fintech,2023,2.13
+Fitness and wellness,2017,0.03
+Fitness and wellness,2018,0.20
+Fitness and wellness,2019,0.25
+Fitness and wellness,2020,0.33
+Fitness and wellness,2021,1.59
+Fitness and wellness,2022,0.56
+Fitness and wellness,2023,0.22
+Hardware,2023,0.31
+Insurtech,2017,0.16
+Insurtech,2018,0.14
+Insurtech,2019,0.73
+Insurtech,2020,0.60
+Insurtech,2021,1.57
+Insurtech,2022,1.36
+Insurtech,2023,0.60
+Legal tech,2017,0.10
+Legal tech,2018,0.38
+Legal tech,2019,1.05
+Legal tech,2020,0.49
+Legal tech,2021,1.27
+Legal tech,2022,0.64
+Legal tech,2023,0.42
+Manufacturing,2017,0.11
+Manufacturing,2018,0.24
+Manufacturing,2019,0.08
+Manufacturing,2020,0.46
+Manufacturing,2021,0.78
+Manufacturing,2022,0.67
+Manufacturing,2023,0.89
+"Marketing, digital ads",2017,0.13
+"Marketing, digital ads",2018,0.18
+"Marketing, digital ads",2019,0.26
+"Marketing, digital ads",2020,1.52
+"Marketing, digital ads",2021,0.77
+"Marketing, digital ads",2022,0.76
+"Marketing, digital ads",2023,1.06
+Medical and healthcare,2017,0.58
+Medical and healthcare,2018,1.04
+Medical and healthcare,2019,2.21
+Medical and healthcare,2020,5.17
+Medical and healthcare,2021,11.46
+Medical and healthcare,2022,9.18
+Medical and healthcare,2023,4.20
+"NLP, customer support",2017,1.13
+"NLP, customer support",2018,2.87
+"NLP, customer support",2019,4.90
+"NLP, customer support",2020,4.51
+"NLP, customer support",2021,17.76
+"NLP, customer support",2022,9.58
+"NLP, customer support",2023,8.06
+Quantum computing,2017,0.12
+Quantum computing,2018,0.07
+Quantum computing,2019,0.16
+Quantum computing,2020,0.33
+Quantum computing,2021,0.57
+Quantum computing,2022,0.75
+Quantum computing,2023,1.97
+Retail,2017,0.17
+Retail,2018,0.16
+Retail,2019,0.13
+Retail,2020,0.61
+Retail,2021,0.78
+Retail,2022,0.94
+Retail,2023,0.67
+Semiconductor,2017,0.33
+Semiconductor,2018,0.29
+Semiconductor,2019,0.61
+Semiconductor,2020,1.62
+Semiconductor,2021,2.23
+Semiconductor,2022,2.65
+Semiconductor,2023,1.66
+VC,2017,0.12
+VC,2018,0.17
+VC,2019,0.16
+VC,2020,0.91
+VC,2021,1.66
+VC,2022,1.26
+VC,2023,0.51
