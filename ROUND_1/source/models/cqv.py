@@ -107,3 +107,100 @@ class ConditionalQuantileVAE(nn.Module):
         z = self.reparameterize(mu_z, logvar_z)
         out = self.decode(z, x_cal, skip_flat)
         return out, mu_z, logvar_z
+
+##########################################
+# Quantile Loss (Pinball Loss)
+##########################################
+def quantile_loss(y_pred, y_true, quantiles):
+    """
+    y_pred: (batch, output_dim*num_quantiles) → reshape thành (batch, num_quantiles, output_dim)
+    y_true: (batch, output_dim)
+    quantiles: list hoặc array các quantile (ví dụ [0.05, 0.50, 0.95])
+    """
+    batch_size, out_dim_times_q = y_pred.shape
+    num_quantiles = len(quantiles)
+    output_dim = out_dim_times_q // num_quantiles
+    y_pred = y_pred.view(batch_size, num_quantiles, output_dim)
+    loss = 0
+    for i, q in enumerate(quantiles):
+        errors = y_true - y_pred[:, i, :]
+        loss += torch.max((q - 1) * errors, q * errors).unsqueeze(1)
+    loss = torch.mean(loss)
+    return loss
+
+def conditional_quantile_vae_loss(out, y_true, mu_z, logvar_z, quantiles, kl_weight=0.001):
+    q_loss = quantile_loss(out, y_true, quantiles)
+    kl_loss = -0.5 * torch.mean(1 + logvar_z - mu_z.pow(2) - logvar_z.exp())
+    return q_loss + kl_weight * kl_loss
+
+# window_size = 30
+# static_dim = 18
+# num_series = 2
+
+# quantiles = [0.05, 0.50, 0.95]  # Dự báo 3 quantiles
+
+# latent_dim = 32
+# hidden_dim = 128
+# output_dim = 2
+
+# model = ConditionalQuantileVAE(window_size, num_series, static_dim,
+#                                 latent_dim=latent_dim, hidden_dim=hidden_dim,
+#                                 dropout=0.1, output_dim=output_dim, num_quantiles=len(quantiles))
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# model = model.to(device)
+
+# optimizer = optim.Adam(model.parameters(), lr=0.001)
+# scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5)
+# kl_weight = 0.001  # cố định
+
+# epochs = 150
+# train_losses = []
+# val_losses = []
+# best_val_loss = float('inf')
+
+# for epoch in range(epochs):
+#     model.train()
+#     running_loss = 0.0
+#     kl_weight = min(0.001, 0.001 * (epoch / 50))
+#     for x_seq, x_cal, y in train_loader:
+#         x_seq = x_seq.to(device)
+#         x_cal = x_cal.to(device)
+#         y = y.to(device)
+        
+#         optimizer.zero_grad()
+#         out, mu_z, logvar_z = model(x_seq, x_cal)
+#         loss = conditional_quantile_vae_loss(out, y, mu_z, logvar_z, quantiles, kl_weight=kl_weight)
+#         loss.backward()
+#         nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+#         optimizer.step()
+#         running_loss += loss.item() * x_seq.size(0)
+#     epoch_train_loss = running_loss / len(train_loader.dataset)
+#     train_losses.append(epoch_train_loss)
+    
+#     model.eval()
+#     running_val_loss = 0.0
+#     with torch.no_grad():
+#         for x_seq, x_cal, y in val_loader:
+#             x_seq = x_seq.to(device)
+#             x_cal = x_cal.to(device)
+#             y = y.to(device)
+#             out, mu_z, logvar_z = model(x_seq, x_cal)
+#             loss = conditional_quantile_vae_loss(out, y, mu_z, logvar_z, quantiles, kl_weight=kl_weight)
+#             running_val_loss += loss.item() * x_seq.size(0)
+#     epoch_val_loss = running_val_loss / len(val_loader.dataset)
+#     val_losses.append(epoch_val_loss)
+    
+#     scheduler.step(epoch_val_loss)
+#     if (epoch + 1) % 10 == 0:
+#         print(f"Epoch [{epoch+1}/{epochs}], Train Loss: {epoch_train_loss:.4f}, Val Loss: {epoch_val_loss:.4f}, KL Weight: {kl_weight:.6f}")
+    
+#     if epoch_val_loss < best_val_loss:
+#         best_val_loss = epoch_val_loss
+#         checkpoint = {
+#             'epoch': epoch+1,
+#             'model_state_dict': model.state_dict(),
+#             'optimizer_state_dict': optimizer.state_dict(),
+#             'val_loss': epoch_val_loss,
+#         }
+#         torch.save(checkpoint, 'checkpoints/CQV.pth')
+#         print(f"Best model updated at epoch {epoch+1} with validation loss {epoch_val_loss:.4f}")
