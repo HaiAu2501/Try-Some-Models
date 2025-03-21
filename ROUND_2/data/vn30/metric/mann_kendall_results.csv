@@ -1,0 +1,121 @@
+company,criteria,trend,p_value
+HDB,price_to_earning,decreasing,8.279607036421055e-05
+HDB,price_to_book,decreasing,0.011683051661326216
+HDB,roe,increasing,1.0701373120980406e-10
+HDB,earning_per_share,increasing,5.995204332975845e-14
+ACB,price_to_earning,decreasing,7.797287207012005e-07
+ACB,price_to_book,no trend,0.5257137053419043
+ACB,roe,increasing,8.540263529766001e-05
+ACB,earning_per_share,increasing,0.0
+BID,price_to_earning,no trend,0.6080287872756691
+BID,price_to_book,no trend,0.16027681536589178
+BID,roe,no trend,0.4013799122056825
+BID,earning_per_share,increasing,2.73597835498407e-08
+BVH,price_to_earning,decreasing,0.00019255861758527004
+BVH,price_to_book,decreasing,2.5723368213270703e-06
+BVH,roe,no trend,0.11451581736566596
+BVH,earning_per_share,increasing,0.00030376735977521996
+CTG,price_to_earning,decreasing,0.04362892533435758
+CTG,price_to_book,increasing,0.019148113050835303
+CTG,roe,increasing,4.5884833044240736e-08
+CTG,earning_per_share,increasing,2.518429909059705e-12
+FPT,price_to_earning,increasing,4.818863086342162e-10
+FPT,price_to_book,increasing,2.2505997065991323e-11
+FPT,roe,increasing,2.831519818613515e-08
+FPT,earning_per_share,increasing,1.1904699448450629e-11
+GAS,price_to_earning,increasing,0.004961042806142846
+GAS,price_to_book,no trend,0.22910345141859279
+GAS,roe,decreasing,0.04498987117551212
+GAS,earning_per_share,no trend,0.49182374314403665
+HPG,price_to_earning,increasing,0.007329337876603725
+HPG,price_to_book,no trend,0.1596276077752703
+HPG,roe,decreasing,0.0028556176578717896
+HPG,earning_per_share,increasing,0.01002752644631788
+MBB,price_to_earning,decreasing,0.0008507120846554805
+MBB,price_to_book,no trend,0.8878743268648739
+MBB,roe,increasing,2.7807289804115953e-09
+MBB,earning_per_share,increasing,2.220446049250313e-16
+MSN,price_to_earning,no trend,0.07089404538389243
+MSN,price_to_book,no trend,0.8702215059143619
+MSN,roe,no trend,0.06068047266543353
+MSN,earning_per_share,no trend,0.5680669608513922
+SAB,price_to_earning,decreasing,0.00010023116763147044
+SAB,price_to_book,decreasing,3.7025438492932494e-08
+SAB,roe,decreasing,1.0769754532624631e-07
+SAB,earning_per_share,decreasing,0.0032013542484932156
+SHB,price_to_earning,decreasing,0.00019127266688001576
+SHB,price_to_book,no trend,0.3852694739561544
+SHB,roe,increasing,4.46975789714088e-11
+SHB,earning_per_share,increasing,6.661338147750939e-16
+SSI,price_to_earning,increasing,0.00037634206977288365
+SSI,price_to_book,increasing,0.02609822185338939
+SSI,roe,no trend,0.41353788395028523
+SSI,earning_per_share,increasing,0.0024497949181156997
+STB,price_to_earning,decreasing,0.00047140950528512526
+STB,price_to_book,no trend,0.054154907376809946
+STB,roe,increasing,1.0858542953684491e-09
+STB,earning_per_share,increasing,1.6431300764452317e-13
+TCB,price_to_earning,decreasing,0.017426603675875896
+TCB,price_to_book,decreasing,0.01261810236922778
+TCB,roe,no trend,0.5138104181802983
+TCB,earning_per_share,increasing,1.8286210323736896e-09
+VCB,price_to_earning,decreasing,0.0004136439432429473
+VCB,price_to_book,no trend,0.15038806419145057
+VCB,roe,increasing,0.00010884312547454478
+VCB,earning_per_share,increasing,1.29449784225244e-11
+VIB,price_to_earning,no trend,0.06673957979148981
+VIB,price_to_book,no trend,0.4118159998390034
+VIB,roe,increasing,1.674263618411942e-06
+VIB,earning_per_share,increasing,9.703349235223868e-14
+VIC,price_to_earning,decreasing,0.031127310111324746
+VIC,price_to_book,decreasing,1.5482657309551229e-06
+VIC,roe,decreasing,0.03009707430842945
+VIC,earning_per_share,increasing,0.0006977771260721077
+VNM,price_to_earning,no trend,0.10767037151477221
+VNM,price_to_book,decreasing,0.00013063278813407742
+VNM,roe,decreasing,2.2899620555349998e-07
+VNM,earning_per_share,no trend,0.2211942719822526
+VPB,price_to_earning,no trend,0.0659593988107241
+VPB,price_to_book,decreasing,0.002077841749813736
+VPB,roe,decreasing,0.0028468098897109773
+VPB,earning_per_share,increasing,5.279211531616923e-05
+MWG,price_to_earning,increasing,3.1472343487770615e-05
+MWG,price_to_book,decreasing,5.886594308668336e-06
+MWG,roe,decreasing,1.9984014443252818e-15
+MWG,earning_per_share,no trend,0.7348263750767032
+LPB,price_to_earning,no trend,0.8072767833964323
+LPB,price_to_book,increasing,0.006626602250694891
+LPB,roe,increasing,4.3892721457439166e-08
+LPB,earning_per_share,increasing,2.4777915275109308e-08
+PLX,price_to_earning,no trend,0.6048265271417468
+PLX,price_to_book,decreasing,2.8239359273207754e-07
+PLX,roe,decreasing,0.008258527164449525
+PLX,earning_per_share,decreasing,0.04970274086760851
+TPB,price_to_earning,decreasing,0.04760395472787149
+TPB,price_to_book,decreasing,0.0022292587938930186
+TPB,roe,no trend,0.10256874492124246
+TPB,earning_per_share,increasing,0.0004519006683851856
+VJC,price_to_earning,no trend,0.25175302229984053
+VJC,price_to_book,decreasing,2.3632672534468213e-06
+VJC,roe,decreasing,0.00023744914861523192
+VJC,earning_per_share,decreasing,0.0005454330211382974
+VRE,price_to_earning,decreasing,0.0011827914609872092
+VRE,price_to_book,decreasing,1.70273093158535e-06
+VRE,roe,no trend,0.060513878124172304
+VRE,earning_per_share,increasing,0.0054823458538613146
+VHM,price_to_earning,decreasing,1.5606116448907414e-05
+VHM,price_to_book,decreasing,7.1339389950964005e-09
+VHM,roe,decreasing,3.399824163397014e-05
+VHM,earning_per_share,increasing,0.004337594636827813
+BCM,price_to_earning,increasing,0.0008756060724179893
+BCM,price_to_book,increasing,0.0014898712589805907
+BCM,roe,decreasing,0.01201775460786525
+BCM,earning_per_share,no trend,0.3692092650321579
+GVR,price_to_earning,increasing,0.0002737201086902008
+GVR,price_to_book,increasing,0.0357742221215307
+GVR,roe,no trend,0.05498614836525406
+GVR,earning_per_share,no trend,0.20429429750933803
+SSB,price_to_earning,decreasing,0.007487886815149114
+SSB,price_to_book,decreasing,3.4177165469051474e-05
+SSB,roe,no trend,0.06410357671243583
+SSB,earning_per_share,increasing,0.011174811327380407
