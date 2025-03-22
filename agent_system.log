@@ -754,3 +754,208 @@ Analyzing question: Giao dịch khối ngoại gần đây có xu hướng như 
 2025-03-22 14:05:06,038 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
 2025-03-22 14:05:06,061 - investment_analysis - INFO - Analysis completed in 1042.97 seconds
 2025-03-22 14:05:06,067 - investment_analysis - INFO - Analysis complete.
+2025-03-22 23:45:53,057 - investment_analysis - INFO - === INVESTMENT STRATEGY ANALYSIS AND OPTIMIZATION SYSTEM ===
+2025-03-22 23:48:32,185 - investment_analysis - INFO - Received question: Xu hướng dòng tiền trong những phiên giao dịch gần đây cho thấy tín hiệu gì?
+2025-03-22 23:48:32,185 - investment_analysis - INFO - Output folder: EXAMPLE_4
+2025-03-22 23:48:32,185 - investment_analysis - INFO - 
+Analyzing question: Xu hướng dòng tiền trong những phiên giao dịch gần đây cho thấy tín hiệu gì?
+2025-03-22 23:48:32,185 - investment_analysis - INFO - Calling analysis graph for question
+2025-03-22 23:48:32,220 - investment_analysis - INFO - Analysis completed in 0.03 seconds
+2025-03-22 23:48:32,220 - investment_analysis - INFO - Analysis complete.
+2025-03-22 23:55:52,016 - investment_analysis - INFO - === INVESTMENT STRATEGY ANALYSIS AND OPTIMIZATION SYSTEM ===
+2025-03-22 23:56:01,384 - investment_analysis - INFO - Received question: Xu hướng dòng tiền trong những phiên giao dịch gần đây cho thấy tín hiệu gì?
+2025-03-22 23:56:01,392 - investment_analysis - INFO - Output folder: EXAMPLE_4
+2025-03-22 23:56:01,393 - investment_analysis - INFO - 
+Analyzing question: Xu hướng dòng tiền trong những phiên giao dịch gần đây cho thấy tín hiệu gì?
+2025-03-22 23:56:01,393 - investment_analysis - INFO - Calling analysis graph for question
+2025-03-22 23:56:04,714 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:56:05,974 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:56:07,184 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:56:08,244 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:56:09,754 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:56:10,754 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:56:30,074 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:56:33,521 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:56:34,581 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:56:35,865 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:56:36,860 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:56:37,962 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:56:39,100 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:56:59,062 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:57:04,118 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:57:05,244 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:57:06,380 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:57:07,521 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:57:08,627 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:57:10,463 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:57:24,851 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:57:27,806 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:57:29,024 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:57:29,937 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:57:31,144 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:57:32,218 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:57:33,241 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:57:57,802 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:58:01,911 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:58:02,901 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:58:04,848 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:58:05,891 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:58:06,948 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:58:08,388 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:58:30,904 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:58:52,777 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:58:56,097 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:58:57,172 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:58:58,573 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:58:59,578 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:59:00,635 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:59:01,783 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:59:26,032 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:59:29,064 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:59:30,069 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:59:31,124 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:59:32,088 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:59:33,197 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:59:34,300 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-22 23:59:52,632 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:59:55,547 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 23:59:57,322 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:59:58,407 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-22 23:59:59,770 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:00:00,870 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:00:01,914 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:00:17,790 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:00:20,444 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:00:21,488 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:00:22,534 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:00:23,674 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:00:24,663 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:00:25,673 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:00:47,225 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:00:51,419 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:00:52,497 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:00:53,532 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:00:54,691 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:00:55,801 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:00:56,927 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:01:16,075 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:01:34,086 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:01:37,991 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:01:39,489 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:01:40,505 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:01:41,696 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:01:42,766 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:01:43,918 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:02:09,106 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:02:12,156 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:02:13,228 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:02:14,202 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:02:15,277 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:02:16,396 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:02:17,747 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:02:41,835 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:02:44,950 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:02:46,120 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:02:47,205 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:02:48,150 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:02:49,199 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:02:50,279 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:03:15,118 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:03:18,135 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:03:19,243 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:03:20,216 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:03:21,230 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:03:22,240 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:03:22,710 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 202
+2025-03-23 00:03:22,710 - duckduckgo_search.DDGS - INFO - Error to search using lite backend: https://lite.duckduckgo.com/lite/ 202 Ratelimit
+2025-03-23 00:03:23,901 - primp - INFO - response: https://html.duckduckgo.com/html 202
+2025-03-23 00:03:23,902 - duckduckgo_search.DDGS - INFO - Error to search using html backend: https://html.duckduckgo.com/html 202 Ratelimit
+2025-03-23 00:03:26,224 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:03:45,921 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:03:48,416 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:03:50,053 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:03:51,635 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:03:52,991 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:03:54,238 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:03:56,028 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:04:12,224 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:04:32,832 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:04:36,363 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:04:37,401 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:04:38,590 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:04:39,950 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:04:41,089 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:04:42,264 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:05:13,720 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:05:16,845 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:05:18,165 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:05:19,172 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:05:20,272 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:05:21,532 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:05:23,395 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:05:45,829 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:05:49,907 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:05:51,004 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:05:52,301 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:05:53,830 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:05:54,828 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:05:56,003 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:06:19,164 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:06:24,606 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:06:25,579 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:06:26,642 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:06:27,702 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:06:28,683 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:06:29,822 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:06:52,500 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:06:55,463 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:06:56,994 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:06:58,054 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:06:59,162 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:07:00,220 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:07:01,272 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:07:21,800 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:07:39,696 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:07:42,820 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:07:45,510 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:07:46,546 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:07:47,763 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:07:48,765 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:07:49,825 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:08:20,507 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:08:24,236 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:08:25,328 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:08:26,370 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:08:27,501 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:08:28,528 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:08:29,439 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:08:51,360 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:08:54,611 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:08:56,404 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:08:58,540 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:08:59,585 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:09:00,793 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:09:01,848 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:09:22,627 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:09:25,892 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:09:26,899 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:09:28,011 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:09:29,032 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:09:30,169 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:09:30,529 - primp - INFO - response: https://html.duckduckgo.com/html 202
+2025-03-23 00:09:30,530 - duckduckgo_search.DDGS - INFO - Error to search using html backend: https://html.duckduckgo.com/html 202 Ratelimit
+2025-03-23 00:09:31,616 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 202
+2025-03-23 00:09:31,616 - duckduckgo_search.DDGS - INFO - Error to search using lite backend: https://lite.duckduckgo.com/lite/ 202 Ratelimit
+2025-03-23 00:09:33,920 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:09:57,710 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:10:01,258 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:10:02,454 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:10:03,626 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:10:04,642 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:10:05,807 - primp - INFO - response: https://lite.duckduckgo.com/lite/ 200
+2025-03-23 00:10:06,853 - primp - INFO - response: https://html.duckduckgo.com/html 200
+2025-03-23 00:10:29,465 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:10:49,205 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:11:06,103 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-23 00:11:06,115 - investment_analysis - INFO - Analysis completed in 904.72 seconds
+2025-03-23 00:11:06,116 - investment_analysis - INFO - Analysis complete.
