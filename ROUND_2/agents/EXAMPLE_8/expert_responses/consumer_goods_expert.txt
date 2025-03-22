@@ -1,0 +1,35 @@
+=== PHÂN TÍCH TỪ CONSUMER_GOODS_EXPERT ===
+
+Câu hỏi: Cổ phiếu ngân hàng có còn là lựa chọn hấp dẫn trong ngắn hạn hay không?
+
+# Phân Tích Thị Trường Hàng Tiêu Dùng Việt Nam và Triển Vọng Đầu Tư
+
+## 1. Tổng Quan Thị Trường Hàng Tiêu Dùng Việt Nam
+
+Thị trường hàng tiêu dùng Việt Nam đang trải qua giai đoạn phục hồi mạnh mẽ sau đại dịch Covid-19. Theo dữ liệu từ Tổng cục Thống kê, doanh số bán lẻ hàng hóa và dịch vụ tiêu dùng đã tăng trưởng tích cực trong năm 2023, cho thấy nhu cầu tiêu dùng đang dần trở lại bình thường (Kết quả 6). Bên cạnh đó, Việt Nam được dự đoán sẽ trở thành một trong những thị trường tiêu dùng phát triển nhanh nhất khu vực Đông Nam Á, với quy mô thị trường bán lẻ dự kiến tăng từ 276,37 tỷ USD vào năm 2024 lên 488,08 tỷ USD vào năm 2029 (Kết quả 19).
+
+## 2. Hành Vi Tiêu Dùng và Xu Hướng Mới
+
+Người tiêu dùng Việt Nam hiện nay đang có xu hướng ưu tiên các sản phẩm an toàn, đảm bảo sức khỏe và thân thiện với môi trường. Xu hướng này không chỉ phản ánh sự thay đổi trong nhận thức của người tiêu dùng mà còn tạo ra cơ hội cho các doanh nghiệp sản xuất hàng tiêu dùng (Kết quả 3). Đặc biệt, 76% người tiêu dùng Việt Nam cho biết họ ưa thích thương hiệu nội địa, cho thấy sự gia tăng niềm tin vào sản phẩm trong nước (Kết quả 5).
+
+Ngoài ra, thị trường F&B (thực phẩm và đồ uống) cũng đang chứng kiến sự chuyển mình, với người tiêu dùng có xu hướng chọn lựa các sản phẩm bình dân hơn, điều này phản ánh tâm lý thận trọng trong chi tiêu (Kết quả 4).
+
+## 3. Đánh Giá Khả Năng Cạnh Tranh và Thị Phần
+
+Trong ngành hàng tiêu dùng, Tập đoàn Masan hiện đang dẫn đầu với doanh thu 3,2 tỷ USD trong năm 2023, cho thấy vị thế mạnh mẽ của họ trong thị trường (Kết quả 7). Tuy nhiên, sự cạnh tranh trong ngành này ngày càng gia tăng với sự tham gia của nhiều công ty mới và các thương hiệu quốc tế. Các công ty cần phải cải thiện chất lượng sản phẩm và dịch vụ để duy trì thị phần.
+
+## 4. Triển Vọng Đầu Tư
+
+Dựa trên các xu hướng tiêu dùng và tình hình thị trường hiện tại, các cổ phiếu trong ngành hàng tiêu dùng thiết yếu (consumer staples) được đánh giá cao hơn so với các cổ phiếu trong ngành hàng tiêu dùng không thiết yếu (consumer discretionary) trong năm 2025 (Kết quả 16). Các nhà đầu tư nên chú ý đến các công ty có khả năng đáp ứng nhu cầu tiêu dùng hiện tại và tiên phong trong việc phát triển các xu hướng mới.
+
+### Khuyến nghị:
+- **Đầu tư vào các công ty hàng tiêu dùng nội địa**: Với xu hướng ưa chuộng hàng Việt, các công ty như Masan có thể là lựa chọn tốt.
+- **Theo dõi các xu hướng tiêu dùng mới**: Các doanh nghiệp cần nhanh chóng thích ứng với nhu cầu của người tiêu dùng để không bị tụt lại phía sau.
+- **Đánh giá các công ty có sản phẩm thân thiện với môi trường**: Đây là một yếu tố ngày càng quan trọng trong quyết định mua sắm của người tiêu dùng.
+
+## Tài liệu tham khảo
+1. Bức tranh tiêu dùng Việt Nam năm 2023-2024 và những kiến nghị cho năm 2025. [kinhtevadubao.vn](https://kinhtevadubao.vn/buc-tranh-tieu-dung-viet-nam-nam-2023-2024-va-nhung-kien-nghi-cho-nam-2025-30903.html)
+2. Báo cáo người tiêu dùng Việt Nam 2025: Xu hướng & cơ hội. [medialabs.asia](https://medialabs.asia/our-update/marketing-insights/bao-cao-nguoi-tieu-dung-viet-nam-336)
+3. Chuyên gia dự báo 7 xu hướng tiêu dùng tại thị trường Việt Nam. [tiepthigiadinh.vn](https://tiepthigiadinh.vn/chuyen-gia-du-bao-7-xu-huong-tieu-dung-tai-thi-truong-viet-nam-d23456.html)
+4. Người Việt ưu tiên dùng hàng Việt. [mpi.gov.vn](https://www.mpi.gov.vn/portal/Pages/2023-11-21/Nguoi-Viet-uu-tien-dung-hang-Vietxmg6uv.aspx)
+5. Ngành hàng tiêu dùng hứa hẹn bùng nổ trong năm 2025: Xu hướng nào dẫn đầu? [dnse.com.vn](https://www.dnse.com.vn/senses/tin-tuc/nganh-hang-tieu-dung-hua-hen-bung-no-trong-nam-2025-xu-huong-nao-dan-dau-34024841)

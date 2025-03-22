@@ -1,0 +1,37 @@
+=== TÓM TẮT NHÓM: PHÂN TÍCH NGÀNH ===
+
+Câu hỏi: Những cổ phiếu nào đang có dấu hiệu phân phối mạnh và nhà đầu tư nên thận trọng?
+
+# Báo cáo Phân Tích Ngành: Dấu Hiệu Phân Phối Cổ Phiếu Công Nghệ Việt Nam
+
+## 1. Tóm tắt thông tin chính
+
+### 1.1. Cổ phiếu FPT
+- **Tình hình**: Cổ phiếu FPT đã ghi nhận sự giảm giá đáng kể do áp lực bán ra từ nhà đầu tư nước ngoài. Điều này cho thấy có dấu hiệu chốt lời sau một thời gian dài tăng trưởng.
+- **Khuyến nghị**: Nhà đầu tư nên cẩn trọng với cổ phiếu này trong ngắn hạn và theo dõi các mức hỗ trợ để đưa ra quyết định hợp lý.
+
+### 1.2. Cổ phiếu CMG
+- **Tình hình**: Cổ phiếu CMG của CMC Corp đã có sự tăng trưởng mạnh mẽ, nhưng cũng cần theo dõi chặt chẽ để tránh rủi ro từ việc chốt lời.
+- **Khuyến nghị**: Nhà đầu tư nên chuẩn bị cho khả năng chốt lời từ các nhà đầu tư lớn và theo dõi các chỉ số kỹ thuật để xác định thời điểm tham gia hoặc thoát khỏi cổ phiếu này.
+
+## 2. Các lĩnh vực đồng thuận và sự khác biệt
+- **Đồng thuận**: Cả hai cổ phiếu FPT và CMG đều đang có dấu hiệu phân phối mạnh, với áp lực bán ra từ nhà đầu tư nước ngoài và khả năng chốt lời từ các quỹ đầu tư lớn.
+- **Khác biệt**: FPT đang đối mặt với áp lực bán ròng rõ rệt hơn, trong khi CMG mặc dù có tiềm năng tăng trưởng nhưng cũng cần theo dõi chặt chẽ để tránh rủi ro.
+
+## 3. Trả lời câu hỏi của người dùng
+Những cổ phiếu đang có dấu hiệu phân phối mạnh mà nhà đầu tư nên thận trọng bao gồm:
+- **Cổ phiếu FPT**: Đang giảm giá do áp lực bán từ nhà đầu tư nước ngoài.
+- **Cổ phiếu CMG**: Mặc dù có sự quan tâm từ các quỹ đầu tư lớn, nhưng cũng có khả năng chốt lời trong thời gian tới.
+
+## 4. Khuyến nghị đầu tư
+- **Cổ phiếu FPT**: Theo dõi chặt chẽ và cẩn trọng trong ngắn hạn. Xác định các mức hỗ trợ để có thể đưa ra quyết định hợp lý.
+- **Cổ phiếu CMG**: Theo dõi các chỉ số kỹ thuật để xác định thời điểm tham gia hoặc thoát khỏi cổ phiếu này. Chuẩn bị cho khả năng chốt lời từ các nhà đầu tư lớn.
+
+## 5. Tài liệu tham khảo
+1. VnEconomy. (2025). Cổ phiếu FPT lao dốc, công ty chứng khoán nhận định "hớ"? [Link](https://vneconomy.vn/co-phieu-fpt-lao-doc-cong-ty-chung-khoan-nhan-dinh-ho.htm)
+2. CafeF. (2025). Cổ phiếu công nghệ của Việt Nam vừa vượt đỉnh. [Link](https://cafef.vn/co-phieu-cong-nghe-cua-viet-nam-vua-vuot-dinh-samsung-lai-lon-sau-5-nam-dau-tu-quy-ngoai-pyn-elite-fund-miet-mai-gom-hang-18824040723511541.chn)
+3. VietnamBiz. (2025). Cổ phiếu công nghệ sau cú sốc DeepSeek: FPT bốc hơi gần 36.000 tỷ đồng. [Link](https://vietnambiz.vn/co-phieu-cong-nghe-sau-cu-soc-deepseek-fpt-boc-hoi-gan-36000-ty-dong-von-hoa-khoi-ngoai-chua-ngung-ban-rong-202531994117529.htm)
+
+---
+
+Báo cáo này cung cấp cái nhìn tổng quan về tình hình cổ phiếu công nghệ tại Việt Nam, giúp nhà đầu tư có những quyết định sáng suốt trong bối cảnh thị trường hiện tại.
