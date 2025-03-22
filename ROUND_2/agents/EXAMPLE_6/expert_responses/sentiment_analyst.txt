@@ -1,0 +1,48 @@
+=== PHÂN TÍCH TỪ SENTIMENT_ANALYST ===
+
+Câu hỏi: Kịch bản điều chỉnh của VN-Index trong tuần tới là gì và nhà đầu tư nên phản ứng thế nào?
+
+# Phân Tích Tâm Lý Thị Trường VN-Index Tuần Tới
+
+## 1. Tình Hình Hiện Tại Của VN-Index
+
+VN-Index đã trải qua một tuần giao dịch đầy biến động, với sự điều chỉnh nhẹ sau chuỗi 8 tuần tăng điểm liên tiếp. Cụ thể, chỉ số này đã giảm 4,27 điểm, tương đương 0,32%, đóng cửa ở mức 1.321,88 điểm. Sự điều chỉnh này diễn ra trong bối cảnh áp lực chốt lời gia tăng và lo ngại về các yếu tố vĩ mô, khiến nhà đầu tư trở nên thận trọng hơn (Nguồn: [Vietstock Weekly](https://vietstock.vn/2025/03/vietstock-weekly-17-21032025-tam-ly-phan-van-xuat-hien-1636-1281880.htm)).
+
+## 2. Tâm Lý Nhà Đầu Tư
+
+### 2.1. Mức Độ Tham Lam và Sợ Hãi
+
+Tâm lý nhà đầu tư hiện tại có dấu hiệu phân vân, với sự xuất hiện của mẫu hình nến High Wave Candle cho thấy sự không chắc chắn trong xu hướng tiếp theo (Nguồn: [Vietstock Weekly](https://vietstock.vn/2025/03/vietstock-weekly-17-21032025-tam-ly-phan-van-xuat-hien-1636-1281880.htm)). Áp lực bán ròng từ khối ngoại cũng là một yếu tố đáng chú ý, cho thấy sự lo ngại về tình hình kinh tế vĩ mô và khả năng sinh lời của các cổ phiếu (Nguồn: [Chứng khoán Tuần 17-21/03/2025](https://vietstock.vn/2025/03/chung-khoan-tuan-17-21032025-ap-luc-dieu-chinh-ngan-han-1636-1284327.htm)).
+
+### 2.2. Các Yếu Tố Tác Động
+
+- **Áp lực chốt lời**: Sau một chuỗi tăng điểm dài, nhà đầu tư có xu hướng chốt lời để bảo vệ lợi nhuận.
+- **Lo ngại về vĩ mô**: Các yếu tố như lạm phát, chính sách tiền tệ và tình hình kinh tế toàn cầu đang tạo ra tâm lý dè dặt trong giới đầu tư.
+- **Khối lượng giao dịch**: Khối lượng giao dịch giảm dưới mức trung bình 20 ngày, cho thấy sự thận trọng của nhà đầu tư (Nguồn: [Chứng khoán Tuần 17-21/03/2025](https://vietstock.vn/2025/03/chung-khoan-tuan-17-21032025-ap-luc-dieu-chinh-ngan-han-1636-1284327.htm)).
+
+## 3. Dự Đoán Kịch Bản Tuần Tới
+
+Dựa trên các yếu tố hiện tại, kịch bản điều chỉnh của VN-Index trong tuần tới có thể sẽ tiếp tục diễn ra. Dự báo rằng VN-Index sẽ giao dịch trong biên độ 1.308 - 1.320 điểm, với khả năng kiểm định lại ngưỡng 1.300 điểm (Nguồn: [VN-Index sẽ kiểm định trở lại ngưỡng 1.300 điểm](https://vneconomy.vn/vn-index-se-kiem-dinh-tro-lai-nguong-1-300-diem-trong-thoi-gian-toi.htm)).
+
+## 4. Khuyến Nghị Đầu Tư
+
+### 4.1. Đối với Nhà Đầu Tư Ngắn Hạn
+
+- **Thận trọng**: Nhà đầu tư nên duy trì tỉ trọng hợp lý và không nên vội vàng giải ngân trong giai đoạn này. Chờ đợi các tín hiệu rõ ràng hơn từ thị trường trước khi đưa ra quyết định.
+- **Theo dõi khối ngoại**: Theo dõi động thái bán ròng của khối ngoại để có cái nhìn rõ hơn về tâm lý thị trường.
+
+### 4.2. Đối với Nhà Đầu Tư Dài Hạn
+
+- **Tìm kiếm cơ hội**: Các cổ phiếu có nền tảng cơ bản tốt, đặc biệt trong các ngành chiến lược như ngân hàng, chứng khoán, bất động sản có thể là lựa chọn tốt để xem xét giải ngân khi thị trường điều chỉnh (Nguồn: [MBS: VN-Index đang có cơ hội vượt đỉnh 1.300 điểm](https://vneconomy.vn/mbs-vn-index-dang-co-co-hoi-vuot-dinh-1-300-diem-trong-tuan-nay.htm)).
+
+## Kết Luận
+
+Tâm lý thị trường hiện tại đang có dấu hiệu thận trọng và phân vân, với áp lực chốt lời và lo ngại về các yếu tố vĩ mô. Nhà đầu tư nên cẩn trọng trong việc ra quyết định và theo dõi sát sao diễn biến của thị trường trong tuần tới.
+
+## Tài liệu tham khảo
+
+1. [VN-Index chững lại trước áp lực chốt lời và lo ngại vĩ mô](https://baomoi.com/vn-index-chung-lai-truoc-ap-luc-chot-loi-va-lo-ngai-vi-mo-c51777347.epi)
+2. [Vietstock Weekly 17-21/03/2025: Tâm lý phân vân xuất hiện](https://vietstock.vn/2025/03/vietstock-weekly-17-21032025-tam-ly-phan-van-xuat-hien-1636-1281880.htm)
+3. [Chứng khoán Tuần 17-21/03/2025: Áp lực điều chỉnh ngắn hạn](https://vietstock.vn/2025/03/chung-khoan-tuan-17-21032025-ap-luc-dieu-chinh-ngan-han-1636-1284327.htm)
+4. [VN-Index sẽ kiểm định trở lại ngưỡng 1.300 điểm trong thời gian tới](https://vneconomy.vn/vn-index-se-kiem-dinh-tro-lai-nguong-1-300-diem-trong-thoi-gian-toi.htm)
+5. [MBS: VN-Index đang có cơ hội vượt đỉnh 1.300 điểm trong tuần này](https://vneconomy.vn/mbs-vn-index-dang-co-co-hoi-vuot-dinh-1-300-diem-trong-tuan-nay.htm)
