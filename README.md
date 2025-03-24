@@ -6,9 +6,6 @@
   - [1.1. Thành viên nhóm](#11-thành-viên-nhóm)
   - [1.2. Tổng quan dự án](#12-tổng-quan-dự-án)
 - [2. Cài đặt](#2-cài-đặt)
-- [3. Chi tiết triển khai](#3-chi-tiết-triển-khai)
-  - [3.1. Cấu trúc hệ thống](#31-cấu-trúc-hệ-thống)
-  - [3.2. Quy trình làm việc](#32-quy-trình-làm-việc)
 
 ## 1. 🚀 Giới thiệu
 
@@ -27,31 +24,42 @@
 
 ### 1.2. 🌟 Tổng quan dự án
 
-Dự án này là bài dự thi Vòng Chung kết cuộc thi Data Flow 2025. Với đề bài **Tối ưu hóa chiến lược đầu tư trên thị trường chứng khoán Việt Nam**, nhóm chúng tôi đề xuất các giải pháp sau:
+Dự án này là bài dự thi Vòng Chung kết cuộc thi Data Flow 2025. Với đề bài **Tối ưu hóa chiến lược đầu tư trên thị trường chứng khoán Việt Nam**, nhóm chúng tôi đề xuất 3 giải pháp sau:
 
-1. **🧠 Pretrained Feature Extraction Models**: Hệ thống mô hình học sâu hiện đại nhằm trích xuất thông tin tiềm ẩn trong dữ liệu chuỗi thời gian với các kiến trúc độc đáo khác nhau. Các mô hình này sẽ được huấn luyện trước trên dữ liệu lịch sử nhằm tối đa hóa tương quan với dữ liệu cần dự báo. Cách tiếp cận này làm giảm thời gian trong giai đoạn suy luận vì chỉ cần một lần lan truyền tiến của dữ liệu sau đó thực hiện dự báo bằng mô hình đơn giản hơn.
+1. **Hệ đa chuyên gia** (multi-expert system) gồm các tác tử cộng tác dưới một quy trình làm việc thống nhất. Mỗi tác tử có thể khảo sát thông tin về thị trường theo thời gian thực, đồng thời đóng vai trò chuyên gia của lĩnh vực đặc trưng để phân tích và giải quyết vấn đề dưới góc độ định tính.
 
-2. **🤝 Multi-expert System**: Hệ đa chuyên gia là một giao diện cộng tác của nhiều Mô hình Ngôn ngữ lớn (Large Language Model - LLM) nhằm phân tích thị trường chứng khoán Việt Nam từ nhiều góc độ khác nhau. Mỗi chuyên gia sẽ tập trung vào một khía cạnh cụ thể của thị trường như phân tích kỹ thuật, phân tích tài chính, phân tích ngành, phân tích yếu tố bên ngoài và lập chiến lược. Mỗi tác tử được thiết kế theo kiến trúc ReAct (reasoning and action), tích hợp công cụ tìm kiếm dữ liệu trên internet theo thời gian thực cùng quy trình làm việc áp dụng kỹ thuật tự phản tư (self-reflection) để cải thiện chất lượng phân tích.
+2. **Một mô hình cho tất cả** (one-model for-all) là khung làm việc với sự giúp đỡ của 2 mô hình tiên tiến: (B-1) Mô hình dự đoán khoảng tin cậy của giá cổ phiếu của một công ty bất kỳ trong tương lai ngắn hạn. (B-2) Mô hình phân loại các điểm chuyển tiếp trên biến đổi của giá cổ phiếu. Hai khía cạnh này bổ sung cho nhau để hỗ trợ nhà đầu tư phân tích định lượng về thị trường.
+
+3. **Mô phỏng Monte-Carlo** (Monte-Carlo simulation) nhằm mô hình hóa hành vi của thị trường. Đây cũng là phương án giải quyết cuối cùng của bài toán, dựa trên hàng nghìn kịch bản khác nhau mà thống nhất được trọng số phân bổ tài sản cho các danh mục đầu tư theo cách hiệu quả nhất.
 
 ## 2. ⚙️ Cài đặt
 
-_Hướng dẫn cài đặt sẽ được cập nhật sau._
+1. Tạo bản sao dự án:
 
-## 3. 🛠 Chi tiết triển khai
+```bash
+git clone https://github.com/HaiAu2501/DataFlow-2025.git
+```
 
-### 3.1. 🏗️ Cấu trúc hệ thống
+2. Cài đặt các thư viện cần thiết:
 
-Hệ thống mới sẽ được cấu trúc thành 5 nhóm chuyên gia chính:
+```bash
+pip install -r requirements.txt
+```
 
-- **📈 Nhóm Phân tích Thị trường**: Tập trung vào xu hướng thị trường và phân tích kỹ thuật.
-- **💰 Nhóm Phân tích Tài chính**: Tập trung vào báo cáo tài chính và định giá.
-- **🏭 Nhóm Phân tích Ngành**: Phân tích chuyên sâu về các ngành trên TTCK Việt Nam.
-- **🌍 Nhóm Yếu tố Bên ngoài**: Phân tích các yếu tố vĩ mô và quốc tế.
-- **🧩 Nhóm Lập chiến lược**: Tổng hợp thông tin và đưa ra chiến lược đầu tư.
+3. Chạy dự án:
 
-### 3.2. 🔄 Quy trình làm việc
+- Bạn có thể chạy các file Jupyter Notebook trong thư mục `ROUND_2/models/` và `ROUND_2/tasks/` để xem kết quả của mô hình.
 
-1. **Phân tích chuyên môn**: Mỗi nhóm chuyên gia sẽ phân tích dữ liệu đầu vào từ góc nhìn chuyên môn của họ.
-2. **Đánh giá và phản hồi**: Sau khi mỗi nhóm hoàn thành, một tác tử phê bình (critic) sẽ đánh giá và đề xuất cải thiện.
-3. **Tinh chỉnh phân tích**: Phản hồi từ tác tử phê bình sẽ được sử dụng để tinh chỉnh phân tích.
-4. **Tổng hợp chiến lược**: Cuối cùng, nhóm Lập chiến lược sẽ tổng hợp tất cả phân tích và đề xuất chiến lược đầu tư tối ưu.
+- Để sủ dụng được hệ đa tác tử, bạn cần tạo một file `.env` trong thư mục `agents` với nội dung như sau:
+
+```bash
+LANGSMITH_TRACING=true
+LANGSMITH_ENDPOINT="https://api.smith.langchain.com"
+LANGSMITH_API_KEY="<your_langsmith_api_key>"
+LANGSMITH_PROJECT="<your_project_name>"
+OPENAI_API_KEY="<your_openai_api_key>"
+GEMINI_API_KEY="<your_gemini_api_key>"
+GEMINI_BASE_URL="https://generativelanguage.googleapis.com/v1beta/openai/"
+```
+
+- Sau đó, dùng lệnh `langgraph dev` để khởi động UI của hệ đa chuyên gia. Hoặc chạy file `ROUND_2/agents/main.py` để chạy trực tiếp trên terminal.
