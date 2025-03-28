@@ -1,1 +1,7 @@
-# Xin đợi phiên bản mới nhất của repo
+# MultiFinX: An AI-driven Multi-Agent System of Financial Experts for Analyzing Vietnam's Market Trends
+
+MultiFinX is a multi-agent expert system designed for financial analysis and market reporting in Vietnam. Each agent simulates an economic expert, collaborating to generate insights, detect trends, and produce intelligent reports. Built to support data-driven decisions in a dynamic emerging market environment.
+
+---
+
+_Xin vui lòng đợi phiên bản mới nhất!_
